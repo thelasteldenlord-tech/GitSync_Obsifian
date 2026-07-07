@@ -1,0 +1,585 @@
+
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWVA Cleaning Services - Walkthrough Checklist 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .contact-info {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            border-color: white;
+        }
+
+        .nav-tabs {
+            background: #f8fafc;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .tab:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+
+        .tab.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+
+        .content-section {
+            display: none;
+            padding: 3rem 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        h2 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .note-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .note-box h4 {
+            color: #1e40af;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .note-box p {
+            color: #1e40af;
+            line-height: 1.8;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .topic-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .topic-card h4 {
+            color: #2563eb;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .script-quote {
+            background: #fef3c7;
+            border-left: 3px solid #f59e0b;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            font-style: italic;
+            color: #92400e;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+
+        .form-field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .data-sheet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-sheet-table th {
+            background: #f1f5f9;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .data-sheet-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .data-sheet-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .data-sheet-table input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .add-row-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .add-row-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .tabs {
+                gap: 0.25rem;
+            }
+            
+            .tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .print-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .print-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+        }
+
+        @media print {
+            .nav-tabs, .print-btn {
+                display: none;
+            }
+            
+            .content-section {
+                display: block !important;
+                page-break-after: always;
+            }
+            
+            .section-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>SWVA Cleaning Services Walkthrough Checklist</h1>
+            <div class="contact-info">
+                <p>Post Office Box 131, Pounding Mill, Virginia 24637-0131</p>
+                <p><a href="https://www.swvaclean.com">www.swvaclean.com</a> | Phone: <a href="tel:423-845-5377">(423) 845-5377</a></p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab active" onclick="showSection('guidance')">Guidance</button>
+                <button class="tab" onclick="showSection('client-info')">Client Info</button>
+                <button class="tab" onclick="showSection('questionnaire')">Questionnaire</button>
+                <button class="tab" onclick="showSection('additional')">Additional Topics</button>
+                <button class="tab" onclick="showSection('data-sheets')">Data Sheets</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Guidance Section -->
+        <section id="guidance" class="content-section active">
+            <div class="section-card">
+                <h2>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Guidance Notes
+                </h2>
+                
+                <div class="note-box">
+                    <h4>Important Notes</h4>
+                    <p><strong>NOTE 1:</strong> Feel free to print/not print any of the pages. There are multiple data entry sheets to make printing for bigger quotes easier, however, you may not need all the data sheets for smaller facilities.</p>
+                    <p><strong>NOTE 2:</strong> In addition to using the content on the following pages, here are some additional thoughts and prompts about some of the topics.</p>
+                </div>
+
+                <button class="print-btn" onclick="window.print()">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                    </svg>
+                    Print Checklist
+                </button>
+
+                <h3>Additional Guidance</h3>
+                
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4>About Client Company</h4>
+                        <ul>
+                            <li>Their company mission, objectives, purpose, etc.</li>
+                            <li>What do we have in common? (Values, community goals, etc.)</li>
+                            <li>How can we express that we help them achieve their mission?</li>
+                        </ul>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Pain/Hot Points</h4>
+                        <p class="script-quote">"What's not working for you right now? OR What triggered you to reach out to us?"</p>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Decision Timeline</h4>
+                        <p class="script-quote">"How soon do you want this problem fixed?"</p>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Holidays & Closings</h4>
+                        <ul>
+                            <li>How many days per year does the facility close?</li>
+                            <li>Weekends do not count if they are always closed on weekends.</li>
+                        </ul>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Budget</h4>
+                        <p class="script-quote">"What's your budget to solve this problem?"</p>
+                        <p class="script-quote">"How flexible is your budget to get this fixed?"</p>
+                        <p class="script-quote">"I want to be sure we create a solution that's fitting to your budget"</p>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Scope</h4>
+                        <ul>
+                            <li>Do they have a current scope of services that's in place?</li>
+                            <li>Are they open to any changes to this scope?</li>
+                        </ul>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Supplies</h4>
+                        <ul>
+                            <li>Where are the storage areas for supplies & equipment?</li>
+                            <li>What do we provide vs what does the customer pay for on their own?</li>
+                            <li>Which consumable dispensers do we refill?
+                                <ul style="margin-top: 0.5rem; font-size: 0.9rem; color: #64748b;">
+                                    <li>Consumables are supplies like toilet paper, paper towels, hand soap, trash bags, etc.</li>
+                                </ul>
+                            </li>
+                            <li>What is the consumable ordering process?</li>
+                        </ul>
+                    </div>
+
+                    <div class="topic-card">
+                        <h4>Trash Removal</h4>
+                        <ul>
+                            <li>Are there any trash cans we shouldn't empty? (recycling, compost, shred, etc.)</li>
+                            <li>Where are the approved dumpsters?</li>
+                            <li>What is the procedure if the dumpsters are too full?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Info Section -->
+        <section id="client-info" class="content-section">
+            <div class="section-card">
+                <h2>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    Client Information
+                </h2>
+                
+                <form>
+                    <div class="form-field">
+                        <label for="client-name">Client Name</label>
+                        <input type="text" id="client-name" name="client-name">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="facility-address">Facility Address(es)</label>
+                        <textarea id="facility-address" name="facility-address" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="client-contacts">Client Contacts</label>
+                        <textarea id="client-contacts" name="client-contacts" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="about-company">About Client Company</label>
+                        <textarea id="about-company" name="about-company" rows="4"></textarea>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Essential Questionnaire Section -->
+        <section id="questionnaire" class="content-section">
+            <div class="section-card">
+                <h2>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                    </svg>
+                    Essential Questionnaire
+                </h2>
+                
+                <form>
+                    <div class="form-field">
+                        <label for="pain-points">Pain/Hot Points</label>
+                        <textarea id="pain-points" name="pain-points" rows="4" placeholder="What's not working for them right now? What triggered them to reach out?"></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="timeline">Decision Timeline</label>
+                        <textarea id="timeline" name="timeline" rows="2" placeholder="How soon do they want this problem fixed?"></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="holidays">Holidays & Closings</label>
+                        <textarea id="holidays" name="holidays" rows="3" placeholder="How many days per year does the facility close? (Excluding regular weekends)"></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="budget">Budget</label>
+                        <textarea id="budget" name="budget" rows="3" placeholder="What's their budget to solve this problem? How flexible is it?"></textarea>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Additional Topics Section -->
+		<!---2025-Daniel Moore-SWVA Cleaning Services-LLC------!>
+		<!----------- ---------!>
+        <section id="additional" class="content-section">
+            <div class="section-card">
+                <h2>
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a
+
+```

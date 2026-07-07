@@ -1,0 +1,18 @@
+{
+	"nodes":[
+		{"id":"6f2d4dfad895522a","type":"text","text":"# Nier Universe\n- - -\n#nier #replicant #drakengard #PS2 #PS3 #PSP #Sony #Playstation #Steam #PC_Gaming #Models #Cheats #stablediffusion \n#gamelore #images\n- - -\n### The Plan So Far:\nIn order from the oldest games listed first on this list, and thru the current most recent and possibly last ever games, Automata. Will include most common among duplicates if any exist and I will also be listing the platform upon which they were released.\n\n","x":-266,"y":-880,"width":426,"height":560,"color":"6"},
+		{"id":"595f2e3c17765c6b","type":"text","text":"## Drakengard I\n#firstgame\nSee also: [[Drakengard I]]\n","x":241,"y":-876,"width":319,"height":476,"color":"5"},
+		{"id":"393b13799b61d12b","type":"text","text":"## Drakengard II\nNon Cannonical, Decannonized\ndue to having a different director.\n\nDecried as worst game in entire series.","x":640,"y":-876,"width":330,"height":476,"color":"5"},
+		{"id":"1c7351d180567100","type":"text","text":"## Nier Replicant\nJapanese Only, Initial Release","x":1160,"y":-880,"width":330,"height":480,"color":"2"},
+		{"id":"8d1e2d72bb4a446d","type":"text","text":"## Nier Automata\nIncluding YoRha Edition(Final)","x":1560,"y":-876,"width":340,"height":476,"color":"2"},
+		{"id":"eb0e2c6a0c948f9a","type":"text","text":"# Drakengard Games\n\n**Originals** - Where it all began, on Playstation 2\n#beginnings #newgame #retrogaming #Prompts ","x":241,"y":-1140,"width":729,"height":179},
+		{"id":"764f4477e81d78da","type":"text","text":"# Games Available","x":-266,"y":-240,"width":426,"height":60,"color":"6"}
+	],
+	"edges":[
+		{"id":"ed9451fc7719ce7c","fromNode":"6f2d4dfad895522a","fromSide":"bottom","toNode":"764f4477e81d78da","toSide":"top"},
+		{"id":"deae379b3f4581fc","fromNode":"764f4477e81d78da","fromSide":"right","toNode":"595f2e3c17765c6b","toSide":"left"},
+		{"id":"e5f777b5c98e564b","fromNode":"764f4477e81d78da","fromSide":"right","toNode":"393b13799b61d12b","toSide":"left"},
+		{"id":"e4fe34866f102c27","fromNode":"764f4477e81d78da","fromSide":"right","toNode":"1c7351d180567100","toSide":"left"},
+		{"id":"021c9df094e71f9d","fromNode":"764f4477e81d78da","fromSide":"right","toNode":"8d1e2d72bb4a446d","toSide":"left"}
+	]
+}

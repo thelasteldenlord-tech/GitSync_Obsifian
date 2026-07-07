@@ -1,0 +1,9 @@
+{
+  "snapToObjects": true,
+  "snapToGrid": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Charts Data",
+  "defaultWheelBehavior": "zoom",
+  "defaultModDragBehavior": "card",
+  "cardLabelVisibility": "hover"
+}

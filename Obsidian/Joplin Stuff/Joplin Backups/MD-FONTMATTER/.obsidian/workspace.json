@@ -1,0 +1,266 @@
+{
+  "main": {
+    "id": "eb5bef429878e955",
+    "type": "split",
+    "children": [
+      {
+        "id": "cd683ee3d2b646db",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "695ae679c0ff72f7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/PowerShell Profile.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "PowerShell Profile"
+            }
+          },
+          {
+            "id": "34adeb0221f05828",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Prompts/Civet AI Image Generation Detail Cards.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Civet AI Image Generation Detail Cards"
+            }
+          }
+        ],
+        "currentTab": 1
+      },
+      {
+        "id": "f1b21dfc4253277b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8585242c479d14f2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3011d6174a7308c6",
+    "type": "split",
+    "children": [
+      {
+        "id": "c50083e5cfcb4246",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fcf54624fc12f16b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "629ffd8602fa7ede",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "e023b5d66246243c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "71e73ced818cafaa",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/📝ChatGPT/Cleaning Estimate HTML.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Cleaning Estimate HTML"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "267158278b11d892",
+    "type": "split",
+    "children": [
+      {
+        "id": "c3ac45fcd79f97c2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0959a164a30b1ba0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Untitled.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Untitled"
+            }
+          },
+          {
+            "id": "9c221bf0842c4f3d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Untitled.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Untitled"
+            }
+          },
+          {
+            "id": "5f1a4595ae708cd1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "b6099518a28a0247",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "2ddb1843d57d518d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Untitled"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "8585242c479d14f2",
+  "lastOpenFiles": [
+    "Prompts/Civet AI Image Generation Detail Cards.md",
+    "Untitled.md",
+    "Awesome Lists from Github/Awesome Sysadmin Software.md",
+    "Awesome Lists from Github",
+    "Code/📝ChatGPT/SWVAClean.com/Executive Only/README.md",
+    "Code/Anthropics Claude/Setup LAN Fileserver, Linux Bash Shell.md",
+    "Code/📝ChatGPT/SWVAClean.com/Executive Only/Manager/IT and Support",
+    "Code/📝ChatGPT/SWVAClean.com/Executives and Employee Only",
+    "Code/📝ChatGPT/SWVAClean.com/Executives and Managers Only",
+    "Code/📝ChatGPT/SWVAClean.com/Executive Only/Manager/IT and Support/SWVA Cleaning Services Walkthrough Guide(incomplete).md",
+    "Code/📝ChatGPT/SWVAClean.com/Executive Only",
+    "Code/📝ChatGPT/SWVAClean.com/Employee",
+    "Code/📝ChatGPT/SWVAClean.com/Executive Only/Manager",
+    "Code/📝ChatGPT/SWVAClean.com/Checklists HTML",
+    "Code/📝ChatGPT/SWVAClean.com",
+    "PowerShell/Deferred PowerShell Profile Loading.md",
+    "PowerShell",
+    "Code/PowerShell Profile.md",
+    "Senseless Fun With AI/Proto-Script Seed Table.md",
+    "Code/📝ChatGPT/Cleaning Estimate HTML.md",
+    "Heathers Bullshittery/October 27, 2025 Cheating With Big J.md",
+    "Audio Files/Snazzy Cat.md",
+    "Audio Files/I figured out I can record audio with Joplin.md",
+    "_resources/65c0b387053d98aae92d94f498c74d84.png",
+    "_resources/62d274cc9bdc97627dea96e0f4c7f0ed.png",
+    "_resources/8b38136c0c88f8e891c4f27987d562bf.png",
+    "_resources/2f662a4e6613ca96c263712af2ad8fda.png",
+    "_resources/1eb98fb1a4e6922971fb7b69261d74e5.png"
+  ]
+}

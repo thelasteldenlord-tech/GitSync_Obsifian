@@ -1,0 +1,7 @@
+- **In your inbox:** Upgrade your life with [WIRED-tested gear](https://www.wired.com/newsletter/gear?sourceCode=BottomStories)
+- A wave of [unexplained bot traffic](https://www.wired.com/story/made-in-china-niche-websites-are-seeing-a-surge-of-mysterious-traffic-from-china/) is sweeping the web
+- **Big Story:** The women [training for pregnancy](https://www.wired.com/story/pregnancy-zero-trimester-influencers/) like it’s a marathon
+- [Iran’s digital surveillance machine](https://www.wired.com/story/irans-digital-surveillance-machine-is-almost-complete/) is almost complete
+- **Listen:**[Silicon Valley tech workers are trying to stop ICE](https://www.wired.com/story/the-big-interview-podcast-ice-out-tech/)
+
+[![ZOOM IN <br>  Insights at the intersection of technology, power, and culture <br> Subscribe today for only <del>$4</del> <strong>$2/month</strong> and get access to exclusive benefits including <strong>5 all-new premium newsletters.</strong> <br> CTA:SUBSCRIBE](https://assets.bonappetit.com/photos/686ea46a1d57bf34560db527/original/pass/Wired_Zoom_Footer_Desktop_940x140_v2e.gif?format=original)](https://www.wired.com/v2/offers/wira01035?source=Site_0_JNY_WIR_DESKTOP_FOOTER_0_US_ACQ_NLI_RTC_TEST_ZZ)

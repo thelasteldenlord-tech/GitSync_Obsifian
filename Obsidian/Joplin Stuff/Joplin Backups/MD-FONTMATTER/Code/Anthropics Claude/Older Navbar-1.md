@@ -1,0 +1,251 @@
+---
+title: Older Navbar
+updated: 2025-09-02 07:57:42Z
+created: 2025-09-02 07:57:14Z
+---
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Southwest Virginia Cleaning Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+  <style>
+    /* Reset default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Global styles */
+    body {
+      background-color: #6991DB;
+      color: #00ffff;
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-bottom: 2px dashed #851dfc;
+      padding: 10px 20px;
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .brand-top {
+      display: flex;
+      align-items: baseline;
+    }
+
+    .brand {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ee9be7;
+    }
+
+    .montserrat-branded {
+      font-family: "Montserrat", sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: #9bee9c;
+      margin-left: 10px;
+    }
+
+    .roboto-slab-branded {
+      font-family: "Roboto Slab", serif;
+      font-weight: 100;
+      font-size: 24px;
+      color: #eee79b;
+      margin-top: 5px;
+    }
+
+    /* Flyout menu styles */
+    .menu-icon {
+      width: 64px;
+      height: 64px;
+      cursor: pointer;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+    }
+
+    .menu-items {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      list-style-type: none;
+      z-index: 999;
+    }
+
+    .menu-items.active {
+      display: block;
+    }
+
+    .menu-items li {
+      margin-bottom: 10px;
+    }
+
+    .menu-items a {
+      color: #00ffff;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    /* Main content styles */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 10px;
+    }
+
+    /* Theme toggle button */
+    #theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Dark theme */
+    body.dark-theme {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+
+    /* Media query for mobile responsiveness */
+    @media (max-width: 768px) {
+      .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .brand-container {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="brand-container">
+        <div class="brand-top">
+          <div class="brand">Southwest</div>
+          <div class="montserrat-branded">Virginia</div>
+        </div>
+        <div class="roboto-slab-branded">Cleaning Services</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flyout menu -->
+  <img src="/api/placeholder/64/64" alt="Menu" class="menu-icon" id="menu-icon">
+  <ul class="menu-items" id="menu-items">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <!-- Main content -->
+  <main>
+    <section id="home" class="section">
+      <h1>Welcome to Southwest Virginia Cleaning Services</h1>
+      <p>We provide top-notch cleaning services for your home and business.</p>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About Us</h2>
+      <p>Learn about our commitment to excellence in cleaning services.</p>
+    </section>
+
+    <section id="services" class="section">
+      <h2>Our Services</h2>
+      <p>From residential to commercial cleaning, we've got you covered.</p>
+    </section>
+
+    <section id="pricing" class="section">
+      <h2>Pricing</h2>
+      <p>Competitive rates for all your cleaning needs.</p>
+    </section>
+
+    <section id="testimonials" class="section">
+      <h2>Testimonials</h2>
+      <p>See what our satisfied customers have to say about us.</p>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact Us</h2>
+      <p>Get in touch for a free quote and experience the difference of professional cleaning.</p>
+    </section>
+  </main>
+
+  <button id="theme-toggle">Toggle Theme</button>
+
+  <script>
+    // Flyout menu functionality
+    const menuIcon = document.getElementById('menu-icon');
+    const menuItems = document.getElementById('menu-items');
+
+    menuIcon.addEventListener('click', () => {
+      menuItems.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!menuIcon.contains(event.target) && !menuItems.contains(event.target)) {
+        menuItems.classList.remove('active');
+      }
+    });
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{crystalline spires|floating rock formations|bioluminescent trees|geometric mineral structures}
+
+**Positive Prompt:**
+```
+{majestic|ethereal|surreal|breathtaking} alien landscape, {crystalline spires|floating rock formations|bioluminescent trees|geometric mineral structures} reaching toward {twin suns|nebula-filled sky|aurora-painted heavens|starlit cosmic void}, {iridescent|prismatic|opalescent|luminous} {purple and teal|orange and cyan|magenta and gold|emerald and violet} color palette, {mist|energy waves|particle streams|light rays} drifting through the scene, {ancient ruins|alien architecture|organic pods|crystal caves} in the {foreground|middle distance|background}, {dramatic|soft|ethereal|cinematic} lighting, {ultra detailed|hyperrealistic|photorealistic|highly detailed}, {8k|4k} resolution, {concept art|matte painting|digital art} style, {shallow depth of field|tack sharp|cinematic composition}
+```
+
+**Negative Prompt:**
+```
+{blurry|out of focus|low quality|pixelated}, {ugly|boring|mundane|generic}, {earth-like|terrestrial|familiar} landscape, {humans|people|crowds|cities}, {cars|modern technology|contemporary objects|everyday items}, {noise|grain|artifacts|compression}, {oversaturated|washed out|dull colors|monochrome}, {text|watermarks|signatures|logos}, {deformed|distorted|malformed} structures, {bad anatomy|poor composition|cluttered|messy}, {low resolution|low detail|simple|basic}
+```
+
+This prompt setup will generate varied alien landscapes with different architectural elements, color schemes, atmospheric effects, and compositions while avoiding common quality issues and earth-like elements.

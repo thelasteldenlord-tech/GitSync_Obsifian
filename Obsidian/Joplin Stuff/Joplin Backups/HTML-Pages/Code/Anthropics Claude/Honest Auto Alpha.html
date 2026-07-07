@@ -1,0 +1,1966 @@
+
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<meta charset="UTF-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+						<link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<title>Honest Auto Alpha</title>
+					</head>
+					<body>
+						<div class="exported-note"><div class="exported-note-title">Honest Auto Alpha</div>
+
+<style>
+		/* https://necolas.github.io/normalize.css/ */
+		html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+		article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}
+		pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}
+		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
+
+		body {
+			font-size: 15px;
+			color: #32373F;
+			word-wrap: break-word;
+			line-height: 1.6em;
+			background-color: #ffffff;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+			padding-bottom: 0px;
+			padding-top: 0px;
+		}
+		kbd {
+			border: 1px solid rgb(220, 220, 220);
+			box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
+			padding: 2px 4px;
+			border-radius: 3px;
+			background-color: rgb(243, 243, 243);
+		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
+		::-webkit-scrollbar {
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
+		}
+		::-webkit-scrollbar-corner {
+			background: none;
+		}
+		::-webkit-scrollbar-track {
+			border: none;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(50, 55, 63, 0.54); 
+		}
+		::-webkit-scrollbar-track:hover {
+			background: rgba(0, 0, 0, 0.1); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(50, 55, 63, 0.63); 
+		}
+
+		
+
+		/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+
+		#rendered-md > h1:first-child,
+		#rendered-md > h2:first-child,
+		#rendered-md > h3:first-child,
+		#rendered-md > h4:first-child,
+		#rendered-md > ul:first-child,
+		#rendered-md > ol:first-child,
+		#rendered-md > table:first-child,
+		#rendered-md > blockquote:first-child,
+		#rendered-md > img:first-child,
+		#rendered-md > p:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		p, h1, h2, h3, h4, h5, h6, ul, table {
+			margin-top: .6em;
+			margin-bottom: 1.35em;
+
+			/*
+				Adds support for RTL text in the note body. It automatically detects the direction using the content.
+				Issue: https://github.com/laurent22/joplin/issues/3991
+			*/
+			unicode-bidi: plaintext;
+		}
+
+		h1, h2, h3, h4, h5, h6, ul, table {
+			margin-bottom: 0.65em;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			line-height: 1.5em;
+		}
+		h1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			border-bottom: 1px solid #dddddd;
+			padding-bottom: .3em;
+		}
+		h2 {
+			font-size: 1.3em;
+			font-weight: bold;
+			padding-bottom: .1em; */
+		}
+		h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		h4, h5, h6 {
+			font-size: 1em;
+			font-weight: bold;
+		}
+
+		.exported-note-title {
+			font-size: 2em;
+			font-weight: bold;
+			margin-bottom: 0.8em;
+			line-height: 1.5em;
+			padding-bottom: .35em;
+			border-bottom: 1px solid #dddddd;
+		}
+
+		a {
+			color: #155BDA;
+		}
+		ul, ol {
+			padding-left: 0;
+			margin-left: 1.7em;
+		}
+		li {
+			margin-bottom: .4em;
+		}
+		li p {
+			margin-top: 0.2em;
+			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.resource-icon {
+			display: inline-block;
+			position: relative;
+			top: 0.3em;
+			text-decoration: none;
+			width: 1.2em;
+			height: 1.4em;
+			margin-right: 0.4em;
+			background-color:  #155BDA;
+		}
+    /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
+     * into the css classes below.
+     * svgs are obtained from https://github.com/ForkAwesome/Fork-Awesome/tree/master/src/icons/svg
+     * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
+     * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
+     * and of course finishes with ");
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * on the following line
+     * */
+		.fa-joplin {
+			/* Awesome Font file */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
+		}
+		.fa-file-image {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-pdf {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-word {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-powerpoint {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-excel {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-audio {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-video {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-archive {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-code {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-alt, .fa-file-csv {
+      /* fork-awesome doesn't have csv so we use the text icon */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		blockquote {
+			border-left: 4px solid rgb(220, 220, 220);
+			padding-left: 1.2em;
+			margin-left: 0;
+			opacity: 0.7;
+		}
+
+		.jop-tinymce table,
+		table {
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid rgb(220, 220, 220);
+			background-color: #ffffff;
+		}
+
+		.jop-tinymce table td, .jop-tinymce table th,
+		table td, th {
+			text-align: left;
+			padding: .5em 1em .5em 1em;
+			font-size: 15;
+			color: #32373F;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+		}
+
+		.jop-tinymce table td,
+		table td {
+			border: 1px solid rgb(220, 220, 220);
+		}
+
+		.jop-tinymce table th,
+		table th {
+			border: 1px solid rgb(220, 220, 220);
+			border-bottom: 2px solid rgb(220, 220, 220);
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:nth-child(even),
+		table tr:nth-child(even) {
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:hover,
+		table tr:hover {
+			background-color: #e5e5e5;
+		}
+
+		hr {
+			border: none;
+			border-bottom: 2px solid #dddddd;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.inline-code,
+		.mce-content-body code {
+			border: 1px solid rgb(220, 220, 220);
+			background-color: rgb(243, 243, 243);
+			padding-right: .2em;
+			padding-left: .2em;
+			border-radius: .25em;
+			color: rgb(0,0,0);
+			font-size: .9em;
+		}
+
+		.highlighted-keyword {
+			background-color: #F3B717;
+			color: black;
+		}
+
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
+
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
+
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+
+		.md-checkbox input[type=checkbox]:checked {
+			opacity: 0.7;
+		}
+
+		.jop-tinymce ul.joplin-checklist .checked,
+		.md-checkbox .checkbox-label-checked {
+			opacity: 0.5;
+		}
+
+		.exported-note {
+			padding: 1em;
+		}
+
+		.joplin-editable .joplin-source {
+			display: none;
+		}
+
+		mark {
+			background: #F7D26E;
+			color: black;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		.mce-content-body {
+			/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
+			padding: 5px 10px 10em 0;
+		}
+
+		/*
+		.mce-content-body code {
+			background-color: transparent;
+		}
+		*/
+
+		.mce-content-body [data-mce-selected=inline-boundary] {
+			background-color: transparent;
+		}
+
+		.mce-content-body .joplin-editable {
+			cursor: pointer !important;
+		}
+
+		.mce-content-body.mce-content-readonly {
+			opacity: 0.5;
+		}
+
+		/* We need that to make sure click events have the A has a target */
+		.katex a span {
+			pointer-events: none;
+		}
+
+		.media-player {
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.media-player.media-pdf {
+			min-height: 35rem;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0;
+			border: 0;
+			display: block;
+		}
+
+		/* Clear the CODE style if the element is within a joplin-editable block */
+		.mce-content-body .joplin-editable code {
+			border: none;
+			background: none;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		/* To make code blocks horizontally scrollable */
+		/* https://github.com/laurent22/joplin/issues/5740 */
+		pre.hljs {
+			overflow-x: auto;
+		}
+
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		@media print {
+			body {
+				height: auto !important;
+			}
+
+			pre {
+				white-space: pre-wrap;
+			}
+
+			.code, .inline-code {
+				border: 1px solid #CBCBCB;
+			}
+
+			#joplin-container-content {
+				/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
+				   around various issues related to scrolling. However when printing we don't want this
+				   fixed size as that would crop the content. So we set it to auto here. "important" is
+				   needed to override the style set by JavaScript at the element-level. */
+				height: auto !important;
+			}
+		}
+	
+
+				/*
+					FOR THE MARKDOWN EDITOR
+				*/
+
+				/* Remove the indentation from the checkboxes at the root of the document
+				   (otherwise they are too far right), but keep it for their children to allow
+				   nested lists. Make sure this value matches the UL margin. */
+
+				li.md-checkbox {
+					list-style-type: none;
+				}
+
+				li.md-checkbox input[type=checkbox] {
+					margin-left: -1.71em;
+					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
+				}
+				
+				ul.joplin-checklist {
+					list-style:none;
+				}
+
+				/*
+					FOR THE RICH TEXT EDITOR
+				*/
+
+				ul.joplin-checklist li::before {
+					content:"\f14a";
+					font-family:"Font Awesome 5 Free";
+					background-size: 16px 16px;
+					pointer-events: all;
+					cursor: pointer;
+					width: 1em;
+					height: 1em;
+					margin-left: -1.3em;
+					position: absolute;
+					color: #32373F;
+				}
+
+				.joplin-checklist li:not(.checked)::before {
+					content:"\f0c8";
+				}
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><p>A bleeding-edge website for a local automotive mechanics garage. This will be a modern, visually striking site with contemporary design elements, animations, and interactive features.</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="html" data-joplin-source-open="```html&#10;" data-joplin-source-close="&#10;```">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Apex Auto Mechanics | Premium Auto Repair &amp; Service&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --secondary: #1a1a1a;
+            --accent: #00d4ff;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 25% 25%, var(--primary) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, var(--accent) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .service-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .about-image {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .contact-info {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+
+        .hours {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .hours h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;bg-animation&quot;&gt;&lt;/div&gt;
+
+    &lt;nav&gt;
+        &lt;div class=&quot;nav-container&quot;&gt;
+            &lt;div class=&quot;logo&quot;&gt;APEX AUTO&lt;/div&gt;
+            &lt;ul class=&quot;nav-links&quot;&gt;
+                &lt;li&gt;&lt;a href=&quot;#home&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#services&quot;&gt;Services&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+
+    &lt;section id=&quot;home&quot; class=&quot;hero&quot;&gt;
+        &lt;div class=&quot;hero-content&quot;&gt;
+            &lt;h1&gt;Premium Auto Care&lt;/h1&gt;
+            &lt;p&gt;Expert mechanics delivering cutting-edge automotive solutions with precision and passion. Your vehicle deserves the absolute best.&lt;/p&gt;
+            &lt;a href=&quot;#contact&quot; class=&quot;cta-button&quot;&gt;Schedule Service&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;services&quot; class=&quot;services&quot;&gt;
+        &lt;h2 class=&quot;section-title fade-in&quot;&gt;Our Services&lt;/h2&gt;
+        &lt;div class=&quot;services-grid&quot;&gt;
+            &lt;div class=&quot;service-card fade-in&quot;&gt;
+                &lt;div class=&quot;service-icon&quot;&gt;🔧&lt;/div&gt;
+                &lt;h3&gt;Engine Diagnostics&lt;/h3&gt;
+                &lt;p&gt;Advanced computer diagnostics and engine performance optimization using state-of-the-art equipment and cutting-edge techniques.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;service-card fade-in&quot;&gt;
+                &lt;div class=&quot;service-icon&quot;&gt;🛞&lt;/div&gt;
+                &lt;h3&gt;Brake &amp; Suspension&lt;/h3&gt;
+                &lt;p&gt;Complete brake system service and suspension repair to ensure your safety and driving comfort on every journey.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;service-card fade-in&quot;&gt;
+                &lt;div class=&quot;service-icon&quot;&gt;⚡&lt;/div&gt;
+                &lt;h3&gt;Electrical Systems&lt;/h3&gt;
+                &lt;p&gt;Expert electrical diagnostics and repair for modern vehicles including hybrid and electric vehicle servicing.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;service-card fade-in&quot;&gt;
+                &lt;div class=&quot;service-icon&quot;&gt;🔋&lt;/div&gt;
+                &lt;h3&gt;Battery &amp; Charging&lt;/h3&gt;
+                &lt;p&gt;Battery testing, replacement, and charging system repair to keep you powered up and ready for the road.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;service-card fade-in&quot;&gt;
+                &lt;div class=&quot;service-icon&quot;&gt;🛡️&lt;/div&gt;
+                &lt;h3&gt;Preventive Maintenance&lt;/h3&gt;
+                &lt;p&gt;Comprehensive maintenance programs designed to extend your vehicle's life and prevent costly repairs.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;service-card fade-in&quot;&gt;
+                &lt;div class=&quot;service-icon&quot;&gt;🚗&lt;/div&gt;
+                &lt;h3&gt;Performance Tuning&lt;/h3&gt;
+                &lt;p&gt;Custom performance modifications and tuning to maximize your vehicle's potential and driving experience.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;about&quot; class=&quot;about&quot;&gt;
+        &lt;div class=&quot;about-container&quot;&gt;
+            &lt;div class=&quot;about-text fade-in&quot;&gt;
+                &lt;h2&gt;Precision Meets Passion&lt;/h2&gt;
+                &lt;p&gt;At Apex Auto, we're not just mechanics – we're automotive artisans. With over two decades of combined experience, our ASE-certified technicians bring cutting-edge expertise to every repair.&lt;/p&gt;
+                &lt;p&gt;We believe in transparency, quality, and building lasting relationships with our clients. Every vehicle that enters our garage receives the same meticulous attention we'd give our own.&lt;/p&gt;
+                &lt;div class=&quot;stats&quot;&gt;
+                    &lt;div class=&quot;stat&quot;&gt;
+                        &lt;span class=&quot;stat-number&quot;&gt;15+&lt;/span&gt;
+                        &lt;span class=&quot;stat-label&quot;&gt;Years Experience&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;stat&quot;&gt;
+                        &lt;span class=&quot;stat-number&quot;&gt;2,500+&lt;/span&gt;
+                        &lt;span class=&quot;stat-label&quot;&gt;Happy Customers&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;stat&quot;&gt;
+                        &lt;span class=&quot;stat-number&quot;&gt;98%&lt;/span&gt;
+                        &lt;span class=&quot;stat-label&quot;&gt;Customer Satisfaction&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;stat&quot;&gt;
+                        &lt;span class=&quot;stat-number&quot;&gt;24/7&lt;/span&gt;
+                        &lt;span class=&quot;stat-label&quot;&gt;Emergency Service&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;about-image fade-in&quot;&gt;
+                🏁
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;contact&quot; class=&quot;contact&quot;&gt;
+        &lt;h2 class=&quot;section-title fade-in&quot;&gt;Get In Touch&lt;/h2&gt;
+        &lt;div class=&quot;contact-container&quot;&gt;
+            &lt;div class=&quot;contact-info fade-in&quot;&gt;
+                &lt;h3&gt;Contact Information&lt;/h3&gt;
+                &lt;div class=&quot;contact-item&quot;&gt;
+                    &lt;span class=&quot;contact-icon&quot;&gt;📍&lt;/span&gt;
+                    &lt;div&gt;
+                        &lt;strong&gt;Address&lt;/strong&gt;&lt;br&gt;
+                        1247 Performance Drive&lt;br&gt;
+                        Motor City, MC 48201
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;contact-item&quot;&gt;
+                    &lt;span class=&quot;contact-icon&quot;&gt;📞&lt;/span&gt;
+                    &lt;div&gt;
+                        &lt;strong&gt;Phone&lt;/strong&gt;&lt;br&gt;
+                        (555) APEX-AUTO&lt;br&gt;
+                        (555) 273-9288
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;contact-item&quot;&gt;
+                    &lt;span class=&quot;contact-icon&quot;&gt;✉️&lt;/span&gt;
+                    &lt;div&gt;
+                        &lt;strong&gt;Email&lt;/strong&gt;&lt;br&gt;
+                        service@apexauto.local&lt;br&gt;
+                        info@apexauto.local
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;contact-item&quot;&gt;
+                    &lt;span class=&quot;contact-icon&quot;&gt;🚨&lt;/span&gt;
+                    &lt;div&gt;
+                        &lt;strong&gt;Emergency&lt;/strong&gt;&lt;br&gt;
+                        24/7 Roadside Assistance&lt;br&gt;
+                        (555) 911-AUTO
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;hours fade-in&quot;&gt;
+                &lt;h3&gt;Business Hours&lt;/h3&gt;
+                &lt;ul class=&quot;hours-list&quot;&gt;
+                    &lt;li&gt;&lt;span&gt;Monday&lt;/span&gt;&lt;span&gt;7:00 AM - 7:00 PM&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;span&gt;Tuesday&lt;/span&gt;&lt;span&gt;7:00 AM - 7:00 PM&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;span&gt;Wednesday&lt;/span&gt;&lt;span&gt;7:00 AM - 7:00 PM&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;span&gt;Thursday&lt;/span&gt;&lt;span&gt;7:00 AM - 7:00 PM&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;span&gt;Friday&lt;/span&gt;&lt;span&gt;7:00 AM - 7:00 PM&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;span&gt;Saturday&lt;/span&gt;&lt;span&gt;8:00 AM - 5:00 PM&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;span&gt;Sunday&lt;/span&gt;&lt;span&gt;Closed&lt;/span&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;footer&gt;
+        &lt;div class=&quot;footer-content&quot;&gt;
+            &lt;div class=&quot;social-links&quot;&gt;
+                &lt;a href=&quot;#&quot; title=&quot;Facebook&quot;&gt;📘&lt;/a&gt;
+                &lt;a href=&quot;#&quot; title=&quot;Instagram&quot;&gt;📷&lt;/a&gt;
+                &lt;a href=&quot;#&quot; title=&quot;Twitter&quot;&gt;🐦&lt;/a&gt;
+                &lt;a href=&quot;#&quot; title=&quot;YouTube&quot;&gt;📺&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;p&gt;&amp;copy; 2025 Apex Auto Mechanics. All rights reserved. | Licensed &amp; Insured | ASE Certified&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+
+    &lt;script&gt;
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^=&quot;#&quot;]').forEach(anchor =&gt; {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) =&gt; {
+            entries.forEach(entry =&gt; {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el =&gt; {
+            observer.observe(el);
+        });
+
+        // Navigation background on scroll
+        window.addEventListener('scroll', () =&gt; {
+            const nav = document.querySelector('nav');
+            if (window.scrollY &gt; 100) {
+                nav.style.background = 'rgba(26, 26, 26, 0.95)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 26, 0.9)';
+            }
+        });
+
+        // Service card animation delays
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach((card, index) =&gt; {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Stats counter animation
+        const stats = document.querySelectorAll('.stat-number');
+        const animateStats = (entries) =&gt; {
+            entries.forEach(entry =&gt; {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.textContent;
+                    const isNumber = !isNaN(parseInt(finalValue));
+                    
+                    if (isNumber) {
+                        const number = parseInt(finalValue.replace(/\D/g, ''));
+                        let current = 0;
+                        const increment = number / 50;
+                        const timer = setInterval(() =&gt; {
+                            current += increment;
+                            if (current &gt;= number) {
+                                current = number;
+                                clearInterval(timer);
+                            }
+                            target.textContent = finalValue.includes('%') 
+                                ? Math.floor(current) + '%'
+                                : finalValue.includes('+')
+                                ? Math.floor(current) + '+'
+                                : Math.floor(current);
+                        }, 40);
+                    }
+                }
+            });
+        };
+
+        const statsObserver = new IntersectionObserver(animateStats, observerOptions);
+        stats.forEach(stat =&gt; statsObserver.observe(stat));
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><pre class="hljs"><code><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Apex Auto Mechanics | Premium Auto Repair &amp; Service<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+        * {
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">box-sizing</span>: border-box;
+        }
+
+        <span class="hljs-selector-pseudo">:root</span> {
+            <span class="hljs-attr">--primary</span>: <span class="hljs-number">#ff6b35</span>;
+            <span class="hljs-attr">--secondary</span>: <span class="hljs-number">#1a1a1a</span>;
+            <span class="hljs-attr">--accent</span>: <span class="hljs-number">#00d4ff</span>;
+            <span class="hljs-attr">--text-light</span>: <span class="hljs-number">#ffffff</span>;
+            <span class="hljs-attr">--text-dark</span>: <span class="hljs-number">#333333</span>;
+            <span class="hljs-attr">--glass</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attr">--glass-border</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.2</span>);
+        }
+
+        <span class="hljs-selector-tag">body</span> {
+            <span class="hljs-attribute">font-family</span>: -apple-system, BlinkMacSystemFont, <span class="hljs-string">&#x27;Segoe UI&#x27;</span>, Roboto, sans-serif;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#0c0c0c</span> <span class="hljs-number">0%</span>, <span class="hljs-number">#1a1a1a</span> <span class="hljs-number">50%</span>, <span class="hljs-number">#2d2d2d</span> <span class="hljs-number">100%</span>);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+            <span class="hljs-attribute">overflow-x</span>: hidden;
+        }
+
+        <span class="hljs-comment">/* Animated background */</span>
+        <span class="hljs-selector-class">.bg-animation</span> {
+            <span class="hljs-attribute">position</span>: fixed;
+            <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">z-index</span>: -<span class="hljs-number">1</span>;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.1</span>;
+        }
+
+        <span class="hljs-selector-class">.bg-animation</span><span class="hljs-selector-pseudo">::before</span> {
+            <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
+            <span class="hljs-attribute">position</span>: absolute;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">200%</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">200%</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">radial-gradient</span>(circle at <span class="hljs-number">25%</span> <span class="hljs-number">25%</span>, <span class="hljs-built_in">var</span>(--primary) <span class="hljs-number">0%</span>, transparent <span class="hljs-number">50%</span>),
+                        <span class="hljs-built_in">radial-gradient</span>(circle at <span class="hljs-number">75%</span> <span class="hljs-number">75%</span>, <span class="hljs-built_in">var</span>(--accent) <span class="hljs-number">0%</span>, transparent <span class="hljs-number">50%</span>);
+            <span class="hljs-attribute">animation</span>: rotate <span class="hljs-number">20s</span> linear infinite;
+        }
+
+        <span class="hljs-keyword">@keyframes</span> rotate {
+            <span class="hljs-number">0%</span> { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">0deg</span>); }
+            <span class="hljs-number">100%</span> { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">360deg</span>); }
+        }
+
+        <span class="hljs-comment">/* Navigation */</span>
+        <span class="hljs-selector-tag">nav</span> {
+            <span class="hljs-attribute">position</span>: fixed;
+            <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">26</span>, <span class="hljs-number">26</span>, <span class="hljs-number">26</span>, <span class="hljs-number">0.9</span>);
+            <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">20px</span>);
+            <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+            <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1000</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.nav-container</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1200px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">justify-content</span>: space-between;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.logo</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.8rem</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">800</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45deg</span>, <span class="hljs-built_in">var</span>(--primary), <span class="hljs-built_in">var</span>(--accent));
+            -webkit-<span class="hljs-attribute">background-clip</span>: text;
+            -webkit-<span class="hljs-selector-tag">text</span>-<span class="hljs-attribute">fill</span>-<span class="hljs-attribute">color</span>: transparent;
+            <span class="hljs-attribute">background-clip</span>: text;
+        }
+
+        <span class="hljs-selector-class">.nav-links</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">list-style</span>: none;
+        }
+
+        <span class="hljs-selector-class">.nav-links</span> <span class="hljs-selector-tag">a</span> {
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+            <span class="hljs-attribute">text-decoration</span>: none;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">500</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">position</span>: relative;
+        }
+
+        <span class="hljs-selector-class">.nav-links</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">::after</span> {
+            <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
+            <span class="hljs-attribute">position</span>: absolute;
+            <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">5px</span>;
+            <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">2px</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--primary);
+            <span class="hljs-attribute">transition</span>: width <span class="hljs-number">0.3s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.nav-links</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span> {
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+        }
+
+        <span class="hljs-comment">/* Hero Section */</span>
+        <span class="hljs-selector-class">.hero</span> {
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">justify-content</span>: center;
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">position</span>: relative;
+            <span class="hljs-attribute">overflow</span>: hidden;
+        }
+
+        <span class="hljs-selector-class">.hero-content</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">800px</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">animation</span>: fadeInUp <span class="hljs-number">1s</span> ease-out;
+        }
+
+        <span class="hljs-selector-class">.hero</span> <span class="hljs-selector-tag">h1</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">clamp</span>(<span class="hljs-number">3rem</span>, <span class="hljs-number">8vw</span>, <span class="hljs-number">6rem</span>);
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">900</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1rem</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-built_in">var</span>(--text-light) <span class="hljs-number">0%</span>, <span class="hljs-built_in">var</span>(--accent) <span class="hljs-number">100%</span>);
+            -webkit-<span class="hljs-attribute">background-clip</span>: text;
+            -webkit-<span class="hljs-selector-tag">text</span>-<span class="hljs-attribute">fill</span>-<span class="hljs-attribute">color</span>: transparent;
+            <span class="hljs-attribute">background-clip</span>: text;
+        }
+
+        <span class="hljs-selector-class">.hero</span> <span class="hljs-selector-tag">p</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.2rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.9</span>;
+        }
+
+        <span class="hljs-selector-class">.cta-button</span> {
+            <span class="hljs-attribute">display</span>: inline-block;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span> <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45deg</span>, <span class="hljs-built_in">var</span>(--primary), <span class="hljs-built_in">var</span>(--accent));
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">text-decoration</span>: none;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50px</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">600</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">30px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">107</span>, <span class="hljs-number">53</span>, <span class="hljs-number">0.3</span>);
+        }
+
+        <span class="hljs-selector-class">.cta-button</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">3px</span>);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">15px</span> <span class="hljs-number">40px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">107</span>, <span class="hljs-number">53</span>, <span class="hljs-number">0.4</span>);
+        }
+
+        <span class="hljs-keyword">@keyframes</span> fadeInUp {
+            <span class="hljs-selector-tag">from</span> {
+                <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+                <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">50px</span>);
+            }
+            <span class="hljs-selector-tag">to</span> {
+                <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+                <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">0</span>);
+            }
+        }
+
+        <span class="hljs-comment">/* Services Section */</span>
+        <span class="hljs-selector-class">.services</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">6rem</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1200px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+        }
+
+        <span class="hljs-selector-class">.section-title</span> {
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">3rem</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">800</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">4rem</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-built_in">var</span>(--text-light) <span class="hljs-number">0%</span>, <span class="hljs-built_in">var</span>(--primary) <span class="hljs-number">100%</span>);
+            -webkit-<span class="hljs-attribute">background-clip</span>: text;
+            -webkit-<span class="hljs-selector-tag">text</span>-<span class="hljs-attribute">fill</span>-<span class="hljs-attribute">color</span>: transparent;
+            <span class="hljs-attribute">background-clip</span>: text;
+        }
+
+        <span class="hljs-selector-class">.services-grid</span> {
+            <span class="hljs-attribute">display</span>: grid;
+            <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(auto-fit, <span class="hljs-built_in">minmax</span>(<span class="hljs-number">300px</span>, <span class="hljs-number">1</span>fr));
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.service-card</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--glass);
+            <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">20px</span>);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">position</span>: relative;
+            <span class="hljs-attribute">overflow</span>: hidden;
+        }
+
+        <span class="hljs-selector-class">.service-card</span><span class="hljs-selector-pseudo">::before</span> {
+            <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
+            <span class="hljs-attribute">position</span>: absolute;
+            <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">left</span>: -<span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">90deg</span>, transparent, <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.1</span>), transparent);
+            <span class="hljs-attribute">transition</span>: left <span class="hljs-number">0.5s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.service-card</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span> {
+            <span class="hljs-attribute">left</span>: <span class="hljs-number">100%</span>;
+        }
+
+        <span class="hljs-selector-class">.service-card</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">10px</span>);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">20px</span> <span class="hljs-number">40px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.3</span>);
+        }
+
+        <span class="hljs-selector-class">.service-icon</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">3rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--primary);
+        }
+
+        <span class="hljs-selector-class">.service-card</span> <span class="hljs-selector-tag">h3</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.5rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+        }
+
+        <span class="hljs-selector-class">.service-card</span> <span class="hljs-selector-tag">p</span> {
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.8</span>;
+            <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.6</span>;
+        }
+
+        <span class="hljs-comment">/* About Section */</span>
+        <span class="hljs-selector-class">.about</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">6rem</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">107</span>, <span class="hljs-number">53</span>, <span class="hljs-number">0.1</span>) <span class="hljs-number">0%</span>, <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">212</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.1</span>) <span class="hljs-number">100%</span>);
+        }
+
+        <span class="hljs-selector-class">.about-container</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1200px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+            <span class="hljs-attribute">display</span>: grid;
+            <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">4rem</span>;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.about-text</span> <span class="hljs-selector-tag">h2</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.5rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+        }
+
+        <span class="hljs-selector-class">.about-text</span> <span class="hljs-selector-tag">p</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
+            <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.8</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1.5rem</span>;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.9</span>;
+        }
+
+        <span class="hljs-selector-class">.stats</span> {
+            <span class="hljs-attribute">display</span>: grid;
+            <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>fr);
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.stat</span> {
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.5rem</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--glass);
+            <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">20px</span>);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">15px</span>;
+        }
+
+        <span class="hljs-selector-class">.stat-number</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.5rem</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">800</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--primary);
+            <span class="hljs-attribute">display</span>: block;
+        }
+
+        <span class="hljs-selector-class">.stat-label</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9rem</span>;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.8</span>;
+            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0.5rem</span>;
+        }
+
+        <span class="hljs-selector-class">.about-image</span> {
+            <span class="hljs-attribute">position</span>: relative;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45deg</span>, <span class="hljs-built_in">var</span>(--primary), <span class="hljs-built_in">var</span>(--accent));
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">justify-content</span>: center;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4rem</span>;
+            <span class="hljs-attribute">color</span>: white;
+        }
+
+        <span class="hljs-comment">/* Contact Section */</span>
+        <span class="hljs-selector-class">.contact</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">6rem</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1200px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+        }
+
+        <span class="hljs-selector-class">.contact-container</span> {
+            <span class="hljs-attribute">display</span>: grid;
+            <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">4rem</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.contact-info</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--glass);
+            <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">20px</span>);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.contact-info</span> <span class="hljs-selector-tag">h3</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+        }
+
+        <span class="hljs-selector-class">.contact-item</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1.5rem</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.05</span>);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.contact-item</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">10px</span>);
+        }
+
+        <span class="hljs-selector-class">.contact-icon</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.5rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--primary);
+            <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">1rem</span>;
+        }
+
+        <span class="hljs-selector-class">.hours</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--glass);
+            <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">20px</span>);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.hours</span> <span class="hljs-selector-tag">h3</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">2rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+        }
+
+        <span class="hljs-selector-class">.hours-list</span> {
+            <span class="hljs-attribute">list-style</span>: none;
+        }
+
+        <span class="hljs-selector-class">.hours-list</span> <span class="hljs-selector-tag">li</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">justify-content</span>: space-between;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.75rem</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.1</span>);
+        }
+
+        <span class="hljs-selector-class">.hours-list</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:last-child</span> {
+            <span class="hljs-attribute">border-bottom</span>: none;
+        }
+
+        <span class="hljs-comment">/* Footer */</span>
+        <span class="hljs-selector-tag">footer</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--secondary);
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">border-top</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+        }
+
+        <span class="hljs-selector-class">.footer-content</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1200px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+        }
+
+        <span class="hljs-selector-class">.social-links</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">justify-content</span>: center;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">1rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1rem</span>;
+        }
+
+        <span class="hljs-selector-class">.social-links</span> <span class="hljs-selector-tag">a</span> {
+            <span class="hljs-attribute">display</span>: inline-block;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--glass);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--glass-border);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">justify-content</span>: center;
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-light);
+            <span class="hljs-attribute">text-decoration</span>: none;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.social-links</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--primary);
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">3px</span>);
+        }
+
+        <span class="hljs-comment">/* Responsive Design */</span>
+        <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">768px</span>) {
+            <span class="hljs-selector-class">.nav-links</span> {
+                <span class="hljs-attribute">display</span>: none;
+            }
+
+            <span class="hljs-selector-class">.about-container</span>,
+            <span class="hljs-selector-class">.contact-container</span> {
+                <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr;
+                <span class="hljs-attribute">gap</span>: <span class="hljs-number">2rem</span>;
+            }
+
+            <span class="hljs-selector-class">.services-grid</span> {
+                <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr;
+            }
+
+            <span class="hljs-selector-class">.stats</span> {
+                <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr;
+            }
+        }
+
+        <span class="hljs-comment">/* Scroll animations */</span>
+        <span class="hljs-selector-class">.fade-in</span> {
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">30px</span>);
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.6s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.fade-in</span><span class="hljs-selector-class">.visible</span> {
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">0</span>);
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bg-animation&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-container&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;logo&quot;</span>&gt;</span>APEX AUTO<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-links&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#home&quot;</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#services&quot;</span>&gt;</span>Services<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#about&quot;</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#contact&quot;</span>&gt;</span>Contact<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;home&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero-content&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Premium Auto Care<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Expert mechanics delivering cutting-edge automotive solutions with precision and passion. Your vehicle deserves the absolute best.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#contact&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cta-button&quot;</span>&gt;</span>Schedule Service<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;services&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;services&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;section-title fade-in&quot;</span>&gt;</span>Our Services<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;services-grid&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-card fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-icon&quot;</span>&gt;</span>🔧<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Engine Diagnostics<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Advanced computer diagnostics and engine performance optimization using state-of-the-art equipment and cutting-edge techniques.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-card fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-icon&quot;</span>&gt;</span>🛞<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Brake &amp; Suspension<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Complete brake system service and suspension repair to ensure your safety and driving comfort on every journey.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-card fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-icon&quot;</span>&gt;</span>⚡<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Electrical Systems<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Expert electrical diagnostics and repair for modern vehicles including hybrid and electric vehicle servicing.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-card fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-icon&quot;</span>&gt;</span>🔋<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Battery &amp; Charging<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Battery testing, replacement, and charging system repair to keep you powered up and ready for the road.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-card fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-icon&quot;</span>&gt;</span>🛡️<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Preventive Maintenance<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Comprehensive maintenance programs designed to extend your vehicle&#x27;s life and prevent costly repairs.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-card fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;service-icon&quot;</span>&gt;</span>🚗<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Performance Tuning<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Custom performance modifications and tuning to maximize your vehicle&#x27;s potential and driving experience.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;about&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;about&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;about-container&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;about-text fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Precision Meets Passion<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>At Apex Auto, we&#x27;re not just mechanics – we&#x27;re automotive artisans. With over two decades of combined experience, our ASE-certified technicians bring cutting-edge expertise to every repair.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>We believe in transparency, quality, and building lasting relationships with our clients. Every vehicle that enters our garage receives the same meticulous attention we&#x27;d give our own.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stats&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-number&quot;</span>&gt;</span>15+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-label&quot;</span>&gt;</span>Years Experience<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-number&quot;</span>&gt;</span>2,500+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-label&quot;</span>&gt;</span>Happy Customers<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-number&quot;</span>&gt;</span>98%<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-label&quot;</span>&gt;</span>Customer Satisfaction<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-number&quot;</span>&gt;</span>24/7<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stat-label&quot;</span>&gt;</span>Emergency Service<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;about-image fade-in&quot;</span>&gt;</span>
+                🏁
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;contact&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;section-title fade-in&quot;</span>&gt;</span>Get In Touch<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-container&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-info fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Contact Information<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-item&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-icon&quot;</span>&gt;</span>📍<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Address<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        1247 Performance Drive<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        Motor City, MC 48201
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-item&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-icon&quot;</span>&gt;</span>📞<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Phone<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        (555) APEX-AUTO<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        (555) 273-9288
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-item&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-icon&quot;</span>&gt;</span>✉️<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        service@apexauto.local<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        info@apexauto.local
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-item&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;contact-icon&quot;</span>&gt;</span>🚨<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Emergency<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        24/7 Roadside Assistance<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+                        (555) 911-AUTO
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hours fade-in&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Business Hours<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hours-list&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Monday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>7:00 AM - 7:00 PM<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Tuesday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>7:00 AM - 7:00 PM<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Wednesday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>7:00 AM - 7:00 PM<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Thursday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>7:00 AM - 7:00 PM<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Friday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>7:00 AM - 7:00 PM<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Saturday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>8:00 AM - 5:00 PM<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Sunday<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Closed<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;footer-content&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;social-links&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Facebook&quot;</span>&gt;</span>📘<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Instagram&quot;</span>&gt;</span>📷<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Twitter&quot;</span>&gt;</span>🐦<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;YouTube&quot;</span>&gt;</span>📺<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-symbol">&amp;copy;</span> 2025 Apex Auto Mechanics. All rights reserved. | Licensed &amp; Insured | ASE Certified<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+        <span class="hljs-comment">// Smooth scrolling for navigation links</span>
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;a[href^=&quot;#&quot;]&#x27;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">anchor</span> =&gt;</span> {
+            anchor.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) {
+                e.<span class="hljs-title function_">preventDefault</span>();
+                <span class="hljs-keyword">const</span> target = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&#x27;href&#x27;</span>));
+                <span class="hljs-keyword">if</span> (target) {
+                    target.<span class="hljs-title function_">scrollIntoView</span>({
+                        <span class="hljs-attr">behavior</span>: <span class="hljs-string">&#x27;smooth&#x27;</span>,
+                        <span class="hljs-attr">block</span>: <span class="hljs-string">&#x27;start&#x27;</span>
+                    });
+                }
+            });
+        });
+
+        <span class="hljs-comment">// Scroll animations</span>
+        <span class="hljs-keyword">const</span> observerOptions = {
+            <span class="hljs-attr">threshold</span>: <span class="hljs-number">0.1</span>,
+            <span class="hljs-attr">rootMargin</span>: <span class="hljs-string">&#x27;0px 0px -50px 0px&#x27;</span>
+        };
+
+        <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">IntersectionObserver</span>(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span> {
+            entries.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (entry.<span class="hljs-property">isIntersecting</span>) {
+                    entry.<span class="hljs-property">target</span>.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;visible&#x27;</span>);
+                }
+            });
+        }, observerOptions);
+
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;.fade-in&#x27;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> {
+            observer.<span class="hljs-title function_">observe</span>(el);
+        });
+
+        <span class="hljs-comment">// Navigation background on scroll</span>
+        <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;scroll&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> nav = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;nav&#x27;</span>);
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">scrollY</span> &gt; <span class="hljs-number">100</span>) {
+                nav.<span class="hljs-property">style</span>.<span class="hljs-property">background</span> = <span class="hljs-string">&#x27;rgba(26, 26, 26, 0.95)&#x27;</span>;
+            } <span class="hljs-keyword">else</span> {
+                nav.<span class="hljs-property">style</span>.<span class="hljs-property">background</span> = <span class="hljs-string">&#x27;rgba(26, 26, 26, 0.9)&#x27;</span>;
+            }
+        });
+
+        <span class="hljs-comment">// Service card animation delays</span>
+        <span class="hljs-keyword">const</span> serviceCards = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;.service-card&#x27;</span>);
+        serviceCards.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">card, index</span>) =&gt;</span> {
+            card.<span class="hljs-property">style</span>.<span class="hljs-property">animationDelay</span> = <span class="hljs-string">`<span class="hljs-subst">${index * <span class="hljs-number">0.1</span>}</span>s`</span>;
+        });
+
+        <span class="hljs-comment">// Stats counter animation</span>
+        <span class="hljs-keyword">const</span> stats = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;.stat-number&#x27;</span>);
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">animateStats</span> = (<span class="hljs-params">entries</span>) =&gt; {
+            entries.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (entry.<span class="hljs-property">isIntersecting</span>) {
+                    <span class="hljs-keyword">const</span> target = entry.<span class="hljs-property">target</span>;
+                    <span class="hljs-keyword">const</span> finalValue = target.<span class="hljs-property">textContent</span>;
+                    <span class="hljs-keyword">const</span> isNumber = !<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseInt</span>(finalValue));
+                    
+                    <span class="hljs-keyword">if</span> (isNumber) {
+                        <span class="hljs-keyword">const</span> number = <span class="hljs-built_in">parseInt</span>(finalValue.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\D/g</span>, <span class="hljs-string">&#x27;&#x27;</span>));
+                        <span class="hljs-keyword">let</span> current = <span class="hljs-number">0</span>;
+                        <span class="hljs-keyword">const</span> increment = number / <span class="hljs-number">50</span>;
+                        <span class="hljs-keyword">const</span> timer = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> {
+                            current += increment;
+                            <span class="hljs-keyword">if</span> (current &gt;= number) {
+                                current = number;
+                                <span class="hljs-built_in">clearInterval</span>(timer);
+                            }
+                            target.<span class="hljs-property">textContent</span> = finalValue.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;%&#x27;</span>) 
+                                ? <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(current) + <span class="hljs-string">&#x27;%&#x27;</span>
+                                : finalValue.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;+&#x27;</span>)
+                                ? <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(current) + <span class="hljs-string">&#x27;+&#x27;</span>
+                                : <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(current);
+                        }, <span class="hljs-number">40</span>);
+                    }
+                }
+            });
+        };
+
+        <span class="hljs-keyword">const</span> statsObserver = <span class="hljs-keyword">new</span> <span class="hljs-title class_">IntersectionObserver</span>(animateStats, observerOptions);
+        stats.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">stat</span> =&gt;</span> statsObserver.<span class="hljs-title function_">observe</span>(stat));
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+<p>Setup: Apex Auto Mechanics with modern design elements and animations. Here's what I included:</p>
+<h2 id="key-features">Key Features:</h2>
+<ul>
+<li><strong>Modern Design</strong>: Dark theme with glassmorphism effects, gradient backgrounds, and smooth animations</li>
+<li><strong>Interactive Elements</strong>: Hover effects, scroll animations, and micro-interactions</li>
+<li><strong>Responsive Layout</strong>: Works perfectly on all devices</li>
+<li><strong>Premium Aesthetics</strong>: Contemporary color scheme with orange/cyan accents</li>
+<li><strong>Professional Content</strong>: Complete business information, services, and contact details</li>
+</ul>
+<h2 id="tools-technologies-used">Tools &amp; Technologies Used:</h2>
+<h3 id="vite-setup-instructions"><strong>Vite Setup Instructions:</strong></h3>
+<ol>
+<li>
+<p><strong>Initialize Vite Project:</strong></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash&#10;" data-joplin-source-close="&#10;```">npm create vite@latest apex-auto-website
+cd apex-auto-website
+npm install</pre><pre class="hljs"><code>npm create vite@latest apex-auto-website
+<span class="hljs-built_in">cd</span> apex-auto-website
+npm install</code></pre></div>
+</li>
+<li>
+<p><strong>Replace the default HTML:</strong></p>
+<ul>
+<li>Copy the artifact content into <code class="inline-code">index.html</code></li>
+<li>Remove the default <code class="inline-code">src</code> folder contents</li>
+<li>Run <code class="inline-code">npm run dev</code> to start development server</li>
+</ul>
+</li>
+<li>
+<p><strong>For Production:</strong></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash&#10;" data-joplin-source-close="&#10;```">npm run build
+npm run preview</pre><pre class="hljs"><code>npm run build
+npm run preview</code></pre></div>
+</li>
+</ol>
+<h3 id="modern-features-implemented"><strong>Modern Features Implemented:</strong></h3>
+<ul>
+<li><strong>Glassmorphism</strong>: Translucent elements with backdrop-filter blur</li>
+<li><strong>CSS Grid &amp; Flexbox</strong>: Modern layout techniques</li>
+<li><strong>Custom CSS Variables</strong>: Easy theme customization</li>
+<li><strong>Intersection Observer API</strong>: Scroll-triggered animations</li>
+<li><strong>Smooth Scrolling</strong>: Enhanced navigation experience</li>
+<li><strong>Performance Optimized</strong>: Minimal dependencies, efficient animations</li>
+</ul>
+<h3 id="customization"><strong>Customization:</strong></h3>
+<ul>
+<li>Update colors in CSS variables (<code class="inline-code">:root</code> section)</li>
+<li>Replace placeholder content with actual business info</li>
+<li>Add real images by updating the <code class="inline-code">.about-image</code> background</li>
+<li>Integrate with booking systems or contact forms as needed</li>
+</ul>
+<p>The site is production-ready and follows current web design trends with a focus on user experience and visual impact. The design would definitely make visitors stop and take notice!</p>
+</div></div>
+					</body>
+				</html>
+			

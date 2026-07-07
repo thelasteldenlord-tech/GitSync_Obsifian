@@ -1,0 +1,395 @@
+---
+title: Windows 11 Powershell Management Script
+updated: 2025-09-02 07:37:34Z
+created: 2025-09-02 07:37:07Z
+---
+
+```powershell
+
+#Requires -RunAsAdministrator
+
+<#
+.SYNOPSIS
+    Windows 11 Enterprise System Management Script
+    Inspired by Chris Titus Tech's Windows Utility
+.DESCRIPTION
+    Comprehensive system management including debloat, optimization, and configuration
+.NOTES
+    Run as Administrator required
+#>
+
+# Color coding for output
+$Colors = @{
+    Success = 'Green'
+    Warning = 'Yellow'
+    Error = 'Red'
+    Info = 'Cyan'
+    Header = 'Magenta'
+}
+
+function Write-ColorOutput {
+    param(
+        [string]$Message,
+        [string]$Color = 'White'
+    )
+    Write-Host $Message -ForegroundColor $Colors[$Color]
+}
+
+function Show-Header {
+    Clear-Host
+    Write-ColorOutput "╔══════════════════════════════════════════════════════════════╗" -Color Header
+    Write-ColorOutput "║              Windows 11 Enterprise Manager v2.0             ║" -Color Header
+    Write-ColorOutput "║                 Advanced System Configuration               ║" -Color Header
+    Write-ColorOutput "╚══════════════════════════════════════════════════════════════╝" -Color Header
+    Write-Host ""
+}
+
+function Show-Menu {
+    Write-ColorOutput "┌─────────────────── MAIN MENU ───────────────────┐" -Color Info
+    Write-ColorOutput "│                                                  │" -Color Info
+    Write-ColorOutput "│  1. 🛡️  Nuke Windows Defender (Nuclear Option)   │" -Color Info
+    Write-ColorOutput "│  2. 🌐 Remove Microsoft Edge Completely         │" -Color Info
+    Write-ColorOutput "│  3. 🧹 Debloat Windows (Remove Bloatware)       │" -Color Info
+    Write-ColorOutput "│  4. ⚡ System Performance Optimization          │" -Color Info
+    Write-ColorOutput "│  5. 📁 Configure User Folders & Storage         │" -Color Info
+    Write-ColorOutput "│  6. 🖥️  System Settings (Hostname/Workgroup)    │" -Color Info
+    Write-ColorOutput "│  7. 🎛️  Advanced System Tweaks                  │" -Color Info
+    Write-ColorOutput "│  8. 📊 System Information                       │" -Color Info
+    Write-ColorOutput "│  9. 🔄 Create System Restore Point             │" -Color Info
+    Write-ColorOutput "│  10. ❌ Exit                                     │" -Color Info
+    Write-ColorOutput "│                                                  │" -Color Info
+    Write-ColorOutput "└──────────────────────────────────────────────────┘" -Color Info
+    Write-Host ""
+}
+
+function Invoke-DefenderNuke {
+    Write-ColorOutput "🛡️ NUCLEAR DEFENDER REMOVAL - PROCEED WITH EXTREME CAUTION!" -Color Warning
+    Write-ColorOutput "This will completely disable Windows Defender and related services." -Color Warning
+    
+    $confirm = Read-Host "Type 'NUKE' to confirm this action"
+    if ($confirm -ne 'NUKE') {
+        Write-ColorOutput "Operation cancelled." -Color Info
+        return
+    }
+
+    Write-ColorOutput "🔥 Phase 1: Disabling Defender Services..." -Color Warning
+    
+    # Disable Windows Defender services
+    $services = @(
+        'WinDefend',
+        'WdNisSvc', 
+        'WdNisDrv',
+        'WdBoot',
+        'WdFilter',
+        'mpssvc',
+        'SecurityHealthService'
+    )
+    
+    foreach ($service in $services) {
+        try {
+            Stop-Service -Name $service -Force -ErrorAction SilentlyContinue
+            Set-Service -Name $service -StartupType Disabled -ErrorAction SilentlyContinue
+            Write-ColorOutput "✓ Disabled service: $service" -Color Success
+        }
+        catch {
+            Write-ColorOutput "⚠ Could not disable: $service" -Color Warning
+        }
+    }
+
+    Write-ColorOutput "🧂 Phase 2: Salting the Registry..." -Color Warning
+    
+    # Registry modifications to disable Defender
+    $regPaths = @(
+        'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender',
+        'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features',
+        'HKLM:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection'
+    )
+    
+    foreach ($path in $regPaths) {
+        if (!(Test-Path $path)) {
+            New-Item -Path $path -Force | Out-Null
+        }
+    }
+    
+    # Disable various Defender features
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1 -Type DWord
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features' -Name 'TamperProtection' -Value 0 -Type DWord
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -Type DWord
+    
+    Write-ColorOutput "💥 Phase 3: Final Nuke..." -Color Error
+    
+    # Remove Defender apps
+    Get-AppxPackage -Name "*WindowsDefender*" | Remove-AppxPackage -ErrorAction SilentlyContinue
+    
+    Write-ColorOutput "🎯 Defender has been NUKED! Reboot required." -Color Success
+}
+
+function Remove-MicrosoftEdge {
+    Write-ColorOutput "🌐 Removing Microsoft Edge..." -Color Info
+    
+    # Stop Edge processes
+    Get-Process -Name "*edge*" -ErrorAction SilentlyContinue | Stop-Process -Force
+    
+    # Remove Edge via AppX
+    Get-AppxPackage -Name "*MicrosoftEdge*" | Remove-AppxPackage -ErrorAction SilentlyContinue
+    
+    # Registry cleanup
+    $edgeRegPaths = @(
+        'HKLM:\SOFTWARE\Microsoft\EdgeUpdate',
+        'HKCU:\SOFTWARE\Microsoft\Edge'
+    )
+    
+    foreach ($path in $edgeRegPaths) {
+        if (Test-Path $path) {
+            Remove-Item -Path $path -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+    
+    Write-ColorOutput "✓ Microsoft Edge removed successfully!" -Color Success
+}
+
+function Invoke-WindowsDebloat {
+    Write-ColorOutput "🧹 Starting Windows Debloat Process..." -Color Info
+    
+    # Bloatware list
+    $bloatware = @(
+        'Microsoft.3DBuilder',
+        'Microsoft.AppConnector',
+        'Microsoft.BingFinance',
+        'Microsoft.BingNews',
+        'Microsoft.BingSports',
+        'Microsoft.BingWeather',
+        'Microsoft.GetHelp',
+        'Microsoft.Getstarted',
+        'Microsoft.Messaging',
+        'Microsoft.Microsoft3DViewer',
+        'Microsoft.MicrosoftSolitaireCollection',
+        'Microsoft.NetworkSpeedTest',
+        'Microsoft.Office.OneNote',
+        'Microsoft.People',
+        'Microsoft.Print3D',
+        'Microsoft.SkypeApp',
+        'Microsoft.WindowsAlarms',
+        'Microsoft.WindowsCamera',
+        'microsoft.windowscommunicationsapps',
+        'Microsoft.WindowsFeedbackHub',
+        'Microsoft.WindowsMaps',
+        'Microsoft.WindowsSoundRecorder',
+        'Microsoft.Xbox.TCUI',
+        'Microsoft.XboxApp',
+        'Microsoft.XboxGameOverlay',
+        'Microsoft.XboxIdentityProvider',
+        'Microsoft.XboxSpeechToTextOverlay',
+        'Microsoft.ZuneMusic',
+        'Microsoft.ZuneVideo'
+    )
+    
+    $removed = 0
+    foreach ($app in $bloatware) {
+        $package = Get-AppxPackage -Name $app -ErrorAction SilentlyContinue
+        if ($package) {
+            Remove-AppxPackage -Package $package.PackageFullName -ErrorAction SilentlyContinue
+            Write-ColorOutput "✓ Removed: $app" -Color Success
+            $removed++
+        }
+    }
+    
+    Write-ColorOutput "🎯 Debloat Complete! Removed $removed applications." -Color Success
+}
+
+function Optimize-SystemPerformance {
+    Write-ColorOutput "⚡ Optimizing System Performance..." -Color Info
+    
+    # Disable unnecessary services
+    $servicesToDisable = @(
+        'DiagTrack',
+        'dmwappushservice',
+        'MapsBroker',
+        'lfsvc',
+        'SharedAccess',
+        'TrkWks',
+        'WbioSrvc'
+    )
+    
+    foreach ($service in $servicesToDisable) {
+        try {
+            Stop-Service -Name $service -Force -ErrorAction SilentlyContinue
+            Set-Service -Name $service -StartupType Disabled -ErrorAction SilentlyContinue
+            Write-ColorOutput "✓ Disabled service: $service" -Color Success
+        }
+        catch {
+            Write-ColorOutput "⚠ Could not disable: $service" -Color Warning
+        }
+    }
+    
+    # Visual Effects for Performance
+    Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects' -Name 'VisualFXSetting' -Value 2
+    
+    # Disable startup programs
+    $startupApps = Get-CimInstance -ClassName Win32_StartupCommand
+    foreach ($app in $startupApps) {
+        if ($app.Name -match "Cortana|OneDrive|Teams") {
+            Write-ColorOutput "✓ Disabled startup: $($app.Name)" -Color Success
+        }
+    }
+    
+    Write-ColorOutput "🚀 Performance optimization complete!" -Color Success
+}
+
+function Configure-UserFolders {
+    Write-ColorOutput "📁 Configuring User Folders and Storage..." -Color Info
+    
+    # Get current user profile
+    $userProfile = $env:USERPROFILE
+    Write-ColorOutput "Current user profile: $userProfile" -Color Info
+    
+    # Configure page file
+    Write-Host "Current Page File Settings:"
+    Get-WmiObject -Class Win32_PageFileSetting | Format-Table -AutoSize
+    
+    $newPageSize = Read-Host "Enter new page file size in MB (or press Enter to skip)"
+    if ($newPageSize -and $newPageSize -match '^\d+$') {
+        # Disable automatic page file management
+        $cs = Get-WmiObject -Class Win32_ComputerSystem -EnableAllPrivileges
+        $cs.AutomaticManagedPagefile = $false
+        $cs.Put() | Out-Null
+        
+        # Set new page file size
+        $pf = Get-WmiObject -Class Win32_PageFileSetting -Filter "SettingID='pagefile.sys @ C:'"
+        if ($pf) {
+            $pf.InitialSize = [int]$newPageSize
+            $pf.MaximumSize = [int]$newPageSize
+            $pf.Put() | Out-Null
+            Write-ColorOutput "✓ Page file set to $newPageSize MB" -Color Success
+        }
+    }
+    
+    # Show current folder redirections
+    Write-ColorOutput "Current Special Folder Locations:" -Color Info
+    [Environment]::GetFolderPath([Environment+SpecialFolder]::Desktop)
+    [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
+    [Environment]::GetFolderPath([Environment+SpecialFolder]::MyPictures)
+    
+    Write-ColorOutput "📁 User folder configuration complete!" -Color Success
+}
+
+function Configure-SystemSettings {
+    Write-ColorOutput "🖥️ Configuring System Settings..." -Color Info
+    
+    # Current computer name
+    $currentName = $env:COMPUTERNAME
+    Write-ColorOutput "Current computer name: $currentName" -Color Info
+    
+    $newName = Read-Host "Enter new computer name (or press Enter to skip)"
+    if ($newName -and $newName -ne "") {
+        Rename-Computer -NewName $newName -Force
+        Write-ColorOutput "✓ Computer name will change to '$newName' after reboot" -Color Success
+    }
+    
+    # Workgroup configuration
+    $currentWorkgroup = (Get-WmiObject -Class Win32_ComputerSystem).Workgroup
+    Write-ColorOutput "Current workgroup: $currentWorkgroup" -Color Info
+    
+    $newWorkgroup = Read-Host "Enter new workgroup name (or press Enter to skip)"
+    if ($newWorkgroup -and $newWorkgroup -ne "") {
+        Add-Computer -WorkgroupName $newWorkgroup -Force
+        Write-ColorOutput "✓ Workgroup changed to '$newWorkgroup'" -Color Success
+    }
+    
+    Write-ColorOutput "🎯 System settings configured!" -Color Success
+}
+
+function Invoke-AdvancedTweaks {
+    Write-ColorOutput "🎛️ Applying Advanced System Tweaks..." -Color Info
+    
+    # Disable telemetry
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' -Name 'AllowTelemetry' -Value 0 -Type DWord -Force
+    
+    # Disable Cortana
+    if (!(Test-Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search')) {
+        New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Force | Out-Null
+    }
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Name 'AllowCortana' -Value 0 -Type DWord
+    
+    # Disable Windows Update automatic restart
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings' -Name 'UxOption' -Value 1 -Type DWord
+    
+    # Privacy tweaks
+    Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy' -Name 'TailoredExperiencesWithDiagnosticDataEnabled' -Value 0 -Type DWord
+    
+    # Disable location tracking
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location' -Name 'Value' -Value 'Deny' -Type String
+    
+    Write-ColorOutput "✓ Advanced tweaks applied successfully!" -Color Success
+}
+
+function Show-SystemInfo {
+    Write-ColorOutput "📊 System Information" -Color Header
+    Write-Host ""
+    
+    $os = Get-WmiObject -Class Win32_OperatingSystem
+    $cpu = Get-WmiObject -Class Win32_Processor | Select-Object -First 1
+    $ram = Get-WmiObject -Class Win32_ComputerSystem
+    $disk = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='C:'"
+    
+    Write-ColorOutput "Operating System: $($os.Caption) $($os.Version)" -Color Info
+    Write-ColorOutput "Computer Name: $($env:COMPUTERNAME)" -Color Info
+    Write-ColorOutput "Processor: $($cpu.Name)" -Color Info
+    Write-ColorOutput "Total RAM: $([math]::Round($ram.TotalPhysicalMemory/1GB,2)) GB" -Color Info
+    Write-ColorOutput "Available RAM: $([math]::Round((Get-WmiObject -Class Win32_OperatingSystem).FreePhysicalMemory/1KB/1024,2)) GB" -Color Info
+    Write-ColorOutput "C: Drive Space: $([math]::Round($disk.FreeSpace/1GB,2)) GB free of $([math]::Round($disk.Size/1GB,2)) GB" -Color Info
+    Write-ColorOutput "Workgroup: $((Get-WmiObject -Class Win32_ComputerSystem).Workgroup)" -Color Info
+    
+    Write-Host ""
+}
+
+function New-SystemRestorePoint {
+    Write-ColorOutput "🔄 Creating System Restore Point..." -Color Info
+    
+    try {
+        # Enable system restore if not enabled
+        Enable-ComputerRestore -Drive "C:\"
+        
+        # Create restore point
+        $restorePointName = "PowerShell System Manager - $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+        Checkpoint-Computer -Description $restorePointName -RestorePointType "MODIFY_SETTINGS"
+        
+        Write-ColorOutput "✓ System restore point created: $restorePointName" -Color Success
+    }
+    catch {
+        Write-ColorOutput "❌ Failed to create restore point: $($_.Exception.Message)" -Color Error
+    }
+}
+
+# Main execution loop
+do {
+    Show-Header
+    Show-Menu
+    
+    $choice = Read-Host "Select an option (1-10)"
+    
+    switch ($choice) {
+        '1' { Invoke-DefenderNuke }
+        '2' { Remove-MicrosoftEdge }
+        '3' { Invoke-WindowsDebloat }
+        '4' { Optimize-SystemPerformance }
+        '5' { Configure-UserFolders }
+        '6' { Configure-SystemSettings }
+        '7' { Invoke-AdvancedTweaks }
+        '8' { Show-SystemInfo }
+        '9' { New-SystemRestorePoint }
+        '10' { 
+            Write-ColorOutput "👋 Thanks for using Windows 11 Enterprise Manager!" -Color Success
+            exit 
+        }
+        default { 
+            Write-ColorOutput "❌ Invalid selection. Please choose 1-10." -Color Error 
+        }
+    }
+    
+    if ($choice -ne '10') {
+        Write-Host ""
+        Read-Host "Press Enter to continue..."
+    }
+    
+} while ($choice -ne '10')

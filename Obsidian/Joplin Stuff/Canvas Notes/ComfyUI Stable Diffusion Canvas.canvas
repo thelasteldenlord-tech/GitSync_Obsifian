@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"4b251edbc5aa7926","type":"file","file":"Images and Other Assets/Images Imported into Vault/xenomorph_funny_girl.png","x":-620,"y":-440,"width":299,"height":400},
+		{"id":"e07ca04ae9321bb0","type":"text","text":"Made with Nano Bananna","x":-240,"y":-305,"width":127,"height":131}
+	],
+	"edges":[
+		{"id":"a85cbf47c9d21a2e","fromNode":"4b251edbc5aa7926","fromSide":"right","toNode":"e07ca04ae9321bb0","toSide":"left"}
+	]
+}

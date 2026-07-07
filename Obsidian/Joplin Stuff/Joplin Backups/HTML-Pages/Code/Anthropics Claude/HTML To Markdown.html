@@ -1,0 +1,2048 @@
+
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<meta charset="UTF-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+						<link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<title>HTML To Markdown</title>
+					</head>
+					<body>
+						<div class="exported-note"><div class="exported-note-title">HTML To Markdown</div>
+
+<style>
+		/* https://necolas.github.io/normalize.css/ */
+		html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+		article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}
+		pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}
+		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
+
+		body {
+			font-size: 15px;
+			color: #32373F;
+			word-wrap: break-word;
+			line-height: 1.6em;
+			background-color: #ffffff;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+			padding-bottom: 0px;
+			padding-top: 0px;
+		}
+		kbd {
+			border: 1px solid rgb(220, 220, 220);
+			box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
+			padding: 2px 4px;
+			border-radius: 3px;
+			background-color: rgb(243, 243, 243);
+		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
+		::-webkit-scrollbar {
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
+		}
+		::-webkit-scrollbar-corner {
+			background: none;
+		}
+		::-webkit-scrollbar-track {
+			border: none;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(50, 55, 63, 0.54); 
+		}
+		::-webkit-scrollbar-track:hover {
+			background: rgba(0, 0, 0, 0.1); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(50, 55, 63, 0.63); 
+		}
+
+		
+
+		/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+
+		#rendered-md > h1:first-child,
+		#rendered-md > h2:first-child,
+		#rendered-md > h3:first-child,
+		#rendered-md > h4:first-child,
+		#rendered-md > ul:first-child,
+		#rendered-md > ol:first-child,
+		#rendered-md > table:first-child,
+		#rendered-md > blockquote:first-child,
+		#rendered-md > img:first-child,
+		#rendered-md > p:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		p, h1, h2, h3, h4, h5, h6, ul, table {
+			margin-top: .6em;
+			margin-bottom: 1.35em;
+
+			/*
+				Adds support for RTL text in the note body. It automatically detects the direction using the content.
+				Issue: https://github.com/laurent22/joplin/issues/3991
+			*/
+			unicode-bidi: plaintext;
+		}
+
+		h1, h2, h3, h4, h5, h6, ul, table {
+			margin-bottom: 0.65em;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			line-height: 1.5em;
+		}
+		h1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			border-bottom: 1px solid #dddddd;
+			padding-bottom: .3em;
+		}
+		h2 {
+			font-size: 1.3em;
+			font-weight: bold;
+			padding-bottom: .1em; */
+		}
+		h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		h4, h5, h6 {
+			font-size: 1em;
+			font-weight: bold;
+		}
+
+		.exported-note-title {
+			font-size: 2em;
+			font-weight: bold;
+			margin-bottom: 0.8em;
+			line-height: 1.5em;
+			padding-bottom: .35em;
+			border-bottom: 1px solid #dddddd;
+		}
+
+		a {
+			color: #155BDA;
+		}
+		ul, ol {
+			padding-left: 0;
+			margin-left: 1.7em;
+		}
+		li {
+			margin-bottom: .4em;
+		}
+		li p {
+			margin-top: 0.2em;
+			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.resource-icon {
+			display: inline-block;
+			position: relative;
+			top: 0.3em;
+			text-decoration: none;
+			width: 1.2em;
+			height: 1.4em;
+			margin-right: 0.4em;
+			background-color:  #155BDA;
+		}
+    /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
+     * into the css classes below.
+     * svgs are obtained from https://github.com/ForkAwesome/Fork-Awesome/tree/master/src/icons/svg
+     * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
+     * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
+     * and of course finishes with ");
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * on the following line
+     * */
+		.fa-joplin {
+			/* Awesome Font file */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
+		}
+		.fa-file-image {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-pdf {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-word {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-powerpoint {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-excel {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-audio {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-video {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-archive {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-code {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-alt, .fa-file-csv {
+      /* fork-awesome doesn't have csv so we use the text icon */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		blockquote {
+			border-left: 4px solid rgb(220, 220, 220);
+			padding-left: 1.2em;
+			margin-left: 0;
+			opacity: 0.7;
+		}
+
+		.jop-tinymce table,
+		table {
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid rgb(220, 220, 220);
+			background-color: #ffffff;
+		}
+
+		.jop-tinymce table td, .jop-tinymce table th,
+		table td, th {
+			text-align: left;
+			padding: .5em 1em .5em 1em;
+			font-size: 15;
+			color: #32373F;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+		}
+
+		.jop-tinymce table td,
+		table td {
+			border: 1px solid rgb(220, 220, 220);
+		}
+
+		.jop-tinymce table th,
+		table th {
+			border: 1px solid rgb(220, 220, 220);
+			border-bottom: 2px solid rgb(220, 220, 220);
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:nth-child(even),
+		table tr:nth-child(even) {
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:hover,
+		table tr:hover {
+			background-color: #e5e5e5;
+		}
+
+		hr {
+			border: none;
+			border-bottom: 2px solid #dddddd;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.inline-code,
+		.mce-content-body code {
+			border: 1px solid rgb(220, 220, 220);
+			background-color: rgb(243, 243, 243);
+			padding-right: .2em;
+			padding-left: .2em;
+			border-radius: .25em;
+			color: rgb(0,0,0);
+			font-size: .9em;
+		}
+
+		.highlighted-keyword {
+			background-color: #F3B717;
+			color: black;
+		}
+
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
+
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
+
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+
+		.md-checkbox input[type=checkbox]:checked {
+			opacity: 0.7;
+		}
+
+		.jop-tinymce ul.joplin-checklist .checked,
+		.md-checkbox .checkbox-label-checked {
+			opacity: 0.5;
+		}
+
+		.exported-note {
+			padding: 1em;
+		}
+
+		.joplin-editable .joplin-source {
+			display: none;
+		}
+
+		mark {
+			background: #F7D26E;
+			color: black;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		.mce-content-body {
+			/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
+			padding: 5px 10px 10em 0;
+		}
+
+		/*
+		.mce-content-body code {
+			background-color: transparent;
+		}
+		*/
+
+		.mce-content-body [data-mce-selected=inline-boundary] {
+			background-color: transparent;
+		}
+
+		.mce-content-body .joplin-editable {
+			cursor: pointer !important;
+		}
+
+		.mce-content-body.mce-content-readonly {
+			opacity: 0.5;
+		}
+
+		/* We need that to make sure click events have the A has a target */
+		.katex a span {
+			pointer-events: none;
+		}
+
+		.media-player {
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.media-player.media-pdf {
+			min-height: 35rem;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0;
+			border: 0;
+			display: block;
+		}
+
+		/* Clear the CODE style if the element is within a joplin-editable block */
+		.mce-content-body .joplin-editable code {
+			border: none;
+			background: none;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		/* To make code blocks horizontally scrollable */
+		/* https://github.com/laurent22/joplin/issues/5740 */
+		pre.hljs {
+			overflow-x: auto;
+		}
+
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		@media print {
+			body {
+				height: auto !important;
+			}
+
+			pre {
+				white-space: pre-wrap;
+			}
+
+			.code, .inline-code {
+				border: 1px solid #CBCBCB;
+			}
+
+			#joplin-container-content {
+				/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
+				   around various issues related to scrolling. However when printing we don't want this
+				   fixed size as that would crop the content. So we set it to auto here. "important" is
+				   needed to override the style set by JavaScript at the element-level. */
+				height: auto !important;
+			}
+		}
+	
+
+				/*
+					FOR THE MARKDOWN EDITOR
+				*/
+
+				/* Remove the indentation from the checkboxes at the root of the document
+				   (otherwise they are too far right), but keep it for their children to allow
+				   nested lists. Make sure this value matches the UL margin. */
+
+				li.md-checkbox {
+					list-style-type: none;
+				}
+
+				li.md-checkbox input[type=checkbox] {
+					margin-left: -1.71em;
+					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
+				}
+				
+				ul.joplin-checklist {
+					list-style:none;
+				}
+
+				/*
+					FOR THE RICH TEXT EDITOR
+				*/
+
+				ul.joplin-checklist li::before {
+					content:"\f14a";
+					font-family:"Font Awesome 5 Free";
+					background-size: 16px 16px;
+					pointer-events: all;
+					cursor: pointer;
+					width: 1em;
+					height: 1em;
+					margin-left: -1.3em;
+					position: absolute;
+					color: #32373F;
+				}
+
+				.joplin-checklist li:not(.checked)::before {
+					content:"\f0c8";
+				}
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><p>HTML  to  Markdown</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="html" data-joplin-source-open="```html&#10;" data-joplin-source-close="&#10;```">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;HTML to Markdown Converter Pro&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .input-section, .output-section {
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .input-section {
+            border-right: 2px solid #f0f0f0;
+        }
+
+        .section-header {
+            background: #f8fafc;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: #334155;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .textarea-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .textarea {
+            flex: 1;
+            border: none;
+            padding: 20px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            background: #fefefe;
+        }
+
+        .textarea:focus {
+            background: #fff;
+        }
+
+        .output-textarea {
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .stats {
+            padding: 15px 20px;
+            background: #f1f5f9;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .examples {
+            margin-top: 20px;
+        }
+
+        .example-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .example-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .input-section {
+                border-right: none;
+                border-bottom: 2px solid #f0f0f0;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+            }
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading .btn-primary::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;header&quot;&gt;
+            &lt;h1&gt;HTML to Markdown Converter Pro&lt;/h1&gt;
+            &lt;p&gt;Convert HTML to clean, readable Markdown with advanced formatting support&lt;/p&gt;
+            &lt;div class=&quot;feature-pills&quot;&gt;
+                &lt;span class=&quot;pill&quot;&gt;Tables&lt;/span&gt;
+                &lt;span class=&quot;pill&quot;&gt;Code Blocks&lt;/span&gt;
+                &lt;span class=&quot;pill&quot;&gt;Links &amp; Images&lt;/span&gt;
+                &lt;span class=&quot;pill&quot;&gt;Lists&lt;/span&gt;
+                &lt;span class=&quot;pill&quot;&gt;Headings&lt;/span&gt;
+                &lt;span class=&quot;pill&quot;&gt;Text Formatting&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;examples&quot;&gt;
+                &lt;button class=&quot;example-btn&quot; onclick=&quot;loadExample('basic')&quot;&gt;Basic HTML&lt;/button&gt;
+                &lt;button class=&quot;example-btn&quot; onclick=&quot;loadExample('table')&quot;&gt;Table&lt;/button&gt;
+                &lt;button class=&quot;example-btn&quot; onclick=&quot;loadExample('complex')&quot;&gt;Complex Document&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;main-content&quot;&gt;
+            &lt;div class=&quot;input-section&quot;&gt;
+                &lt;div class=&quot;section-header&quot;&gt;
+                    &lt;span class=&quot;section-title&quot;&gt;HTML Input&lt;/span&gt;
+                    &lt;div class=&quot;controls&quot;&gt;
+                        &lt;button class=&quot;btn btn-secondary&quot; onclick=&quot;clearInput()&quot;&gt;Clear&lt;/button&gt;
+                        &lt;button class=&quot;btn btn-secondary&quot; onclick=&quot;formatHTML()&quot;&gt;Format HTML&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;textarea-container&quot;&gt;
+                    &lt;textarea 
+                        id=&quot;html-input&quot; 
+                        class=&quot;textarea&quot; 
+                        placeholder=&quot;Paste your HTML code here or try one of the examples above...&quot;
+                        oninput=&quot;convertHTML()&quot;
+                    &gt;&lt;/textarea&gt;
+                    &lt;div class=&quot;stats&quot;&gt;
+                        &lt;span id=&quot;input-stats&quot;&gt;0 characters&lt;/span&gt;
+                        &lt;span id=&quot;input-lines&quot;&gt;0 lines&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;div class=&quot;output-section&quot;&gt;
+                &lt;div class=&quot;section-header&quot;&gt;
+                    &lt;span class=&quot;section-title&quot;&gt;Markdown Output&lt;/span&gt;
+                    &lt;div class=&quot;controls&quot;&gt;
+                        &lt;button class=&quot;btn btn-success&quot; onclick=&quot;copyToClipboard()&quot;&gt;📋 Copy&lt;/button&gt;
+                        &lt;button class=&quot;btn btn-secondary&quot; onclick=&quot;downloadMarkdown()&quot;&gt;💾 Download&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;textarea-container&quot;&gt;
+                    &lt;textarea 
+                        id=&quot;markdown-output&quot; 
+                        class=&quot;textarea output-textarea&quot; 
+                        readonly
+                        placeholder=&quot;Converted Markdown will appear here...&quot;
+                    &gt;&lt;/textarea&gt;
+                    &lt;div class=&quot;stats&quot;&gt;
+                        &lt;span id=&quot;output-stats&quot;&gt;0 characters&lt;/span&gt;
+                        &lt;span id=&quot;output-lines&quot;&gt;0 lines&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;toast&quot; class=&quot;toast&quot;&gt;&lt;/div&gt;
+
+    &lt;script&gt;
+        // Advanced HTML to Markdown converter
+        class HTMLToMarkdownConverter {
+            constructor() {
+                this.rules = [
+                    // Headers (h1-h6)
+                    { pattern: /&lt;h1[^&gt;]*&gt;([\s\S]*?)&lt;\/h1&gt;/gi, replacement: '# $1\n\n' },
+                    { pattern: /&lt;h2[^&gt;]*&gt;([\s\S]*?)&lt;\/h2&gt;/gi, replacement: '## $1\n\n' },
+                    { pattern: /&lt;h3[^&gt;]*&gt;([\s\S]*?)&lt;\/h3&gt;/gi, replacement: '### $1\n\n' },
+                    { pattern: /&lt;h4[^&gt;]*&gt;([\s\S]*?)&lt;\/h4&gt;/gi, replacement: '#### $1\n\n' },
+                    { pattern: /&lt;h5[^&gt;]*&gt;([\s\S]*?)&lt;\/h5&gt;/gi, replacement: '##### $1\n\n' },
+                    { pattern: /&lt;h6[^&gt;]*&gt;([\s\S]*?)&lt;\/h6&gt;/gi, replacement: '###### $1\n\n' },
+                    
+                    // Text formatting
+                    { pattern: /&lt;strong[^&gt;]*&gt;([\s\S]*?)&lt;\/strong&gt;/gi, replacement: '**$1**' },
+                    { pattern: /&lt;b[^&gt;]*&gt;([\s\S]*?)&lt;\/b&gt;/gi, replacement: '**$1**' },
+                    { pattern: /&lt;em[^&gt;]*&gt;([\s\S]*?)&lt;\/em&gt;/gi, replacement: '*$1*' },
+                    { pattern: /&lt;i[^&gt;]*&gt;([\s\S]*?)&lt;\/i&gt;/gi, replacement: '*$1*' },
+                    { pattern: /&lt;del[^&gt;]*&gt;([\s\S]*?)&lt;\/del&gt;/gi, replacement: '~~$1~~' },
+                    { pattern: /&lt;s[^&gt;]*&gt;([\s\S]*?)&lt;\/s&gt;/gi, replacement: '~~$1~~' },
+                    { pattern: /&lt;u[^&gt;]*&gt;([\s\S]*?)&lt;\/u&gt;/gi, replacement: '$1' },
+                    
+                    // Code
+                    { pattern: /&lt;code[^&gt;]*&gt;([\s\S]*?)&lt;\/code&gt;/gi, replacement: '`$1`' },
+                    
+                    // Links and Images
+                    { pattern: /&lt;a[^&gt;]*href\s*=\s*[&quot;']([^&quot;']*)[&quot;'][^&gt;]*&gt;([\s\S]*?)&lt;\/a&gt;/gi, replacement: '[$2]($1)' },
+                    { pattern: /&lt;img[^&gt;]*src\s*=\s*[&quot;']([^&quot;']*)[&quot;'][^&gt;]*alt\s*=\s*[&quot;']([^&quot;']*)[&quot;'][^&gt;]*\/?&gt;/gi, replacement: '![$2]($1)' },
+                    { pattern: /&lt;img[^&gt;]*alt\s*=\s*[&quot;']([^&quot;']*)[&quot;'][^&gt;]*src\s*=\s*[&quot;']([^&quot;']*)[&quot;'][^&gt;]*\/?&gt;/gi, replacement: '![$1]($2)' },
+                    { pattern: /&lt;img[^&gt;]*src\s*=\s*[&quot;']([^&quot;']*)[&quot;'][^&gt;]*\/?&gt;/gi, replacement: '![]($1)' },
+                    
+                    // Paragraphs and line breaks
+                    { pattern: /&lt;p[^&gt;]*&gt;/gi, replacement: '' },
+                    { pattern: /&lt;\/p&gt;/gi, replacement: '\n\n' },
+                    { pattern: /&lt;br\s*\/?&gt;/gi, replacement: '\n' },
+                    
+                    // Horizontal rule
+                    { pattern: /&lt;hr[^&gt;]*\/?&gt;/gi, replacement: '\n---\n\n' },
+                    
+                    // Blockquotes
+                    { pattern: /&lt;blockquote[^&gt;]*&gt;([\s\S]*?)&lt;\/blockquote&gt;/gi, replacement: (match, content) =&gt; {
+                        return content.trim().split('\n').map(line =&gt; '&gt; ' + line.trim()).join('\n') + '\n\n';
+                    }},
+                ];
+            }
+
+            convert(html) {
+                let markdown = html;
+                
+                // Handle pre and code blocks first
+                markdown = this.handleCodeBlocks(markdown);
+                
+                // Handle tables
+                markdown = this.handleTables(markdown);
+                
+                // Handle lists
+                markdown = this.handleLists(markdown);
+                
+                // Apply basic rules
+                for (const rule of this.rules) {
+                    if (typeof rule.replacement === 'function') {
+                        markdown = markdown.replace(rule.pattern, rule.replacement);
+                    } else {
+                        markdown = markdown.replace(rule.pattern, rule.replacement);
+                    }
+                }
+                
+                // Clean up HTML tags and entities
+                markdown = this.cleanupHTML(markdown);
+                
+                // Clean up extra whitespace
+                markdown = this.cleanupWhitespace(markdown);
+                
+                return markdown;
+            }
+
+            handleCodeBlocks(html) {
+                // Handle &lt;pre&gt;&lt;code&gt; blocks
+                html = html.replace(/&lt;pre[^&gt;]*&gt;&lt;code[^&gt;]*&gt;([\s\S]*?)&lt;\/code&gt;&lt;\/pre&gt;/gi, (match, content) =&gt; {
+                    const cleanContent = this.decodeEntities(content.trim());
+                    return '\n```\n' + cleanContent + '\n```\n\n';
+                });
+                
+                // Handle standalone &lt;pre&gt; blocks
+                html = html.replace(/&lt;pre[^&gt;]*&gt;([\s\S]*?)&lt;\/pre&gt;/gi, (match, content) =&gt; {
+                    const cleanContent = this.decodeEntities(content.trim());
+                    return '\n```\n' + cleanContent + '\n```\n\n';
+                });
+                
+                return html;
+            }
+
+            handleTables(html) {
+                return html.replace(/&lt;table[^&gt;]*&gt;([\s\S]*?)&lt;\/table&gt;/gi, (match, tableContent) =&gt; {
+                    const rows = [];
+                    let headerProcessed = false;
+                    
+                    // Extract table rows
+                    const rowMatches = tableContent.match(/&lt;tr[^&gt;]*&gt;([\s\S]*?)&lt;\/tr&gt;/gi);
+                    if (!rowMatches) return match;
+                    
+                    for (const rowMatch of rowMatches) {
+                        const cells = [];
+                        const cellMatches = rowMatch.match(/&lt;t[hd][^&gt;]*&gt;([\s\S]*?)&lt;\/t[hd]&gt;/gi);
+                        
+                        if (cellMatches) {
+                            for (const cellMatch of cellMatches) {
+                                const cellContent = cellMatch.replace(/&lt;t[hd][^&gt;]*&gt;([\s\S]*?)&lt;\/t[hd]&gt;/gi, '$1').trim();
+                                cells.push(this.stripTags(cellContent));
+                            }
+                            
+                            rows.push('| ' + cells.join(' | ') + ' |');
+                            
+                            // Add separator after header row
+                            if (!headerProcessed &amp;&amp; rowMatch.includes('&lt;th')) {
+                                const separator = '| ' + cells.map(() =&gt; '---').join(' | ') + ' |';
+                                rows.push(separator);
+                                headerProcessed = true;
+                            }
+                        }
+                    }
+                    
+                    return '\n' + rows.join('\n') + '\n\n';
+                });
+            }
+
+            handleLists(html) {
+                // Handle unordered lists
+                html = html.replace(/&lt;ul[^&gt;]*&gt;([\s\S]*?)&lt;\/ul&gt;/gi, (match, listContent) =&gt; {
+                    const items = listContent.match(/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi);
+                    if (!items) return match;
+                    
+                    const listItems = items.map(item =&gt; {
+                        const content = item.replace(/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi, '$1').trim();
+                        return '- ' + this.stripTags(content);
+                    });
+                    
+                    return '\n' + listItems.join('\n') + '\n\n';
+                });
+                
+                // Handle ordered lists
+                html = html.replace(/&lt;ol[^&gt;]*&gt;([\s\S]*?)&lt;\/ol&gt;/gi, (match, listContent) =&gt; {
+                    const items = listContent.match(/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi);
+                    if (!items) return match;
+                    
+                    const listItems = items.map((item, index) =&gt; {
+                        const content = item.replace(/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi, '$1').trim();
+                        return `${index + 1}. ${this.stripTags(content)}`;
+                    });
+                    
+                    return '\n' + listItems.join('\n') + '\n\n';
+                });
+                
+                return html;
+            }
+
+            stripTags(html) {
+                return html.replace(/&lt;[^&gt;]*&gt;/g, '');
+            }
+
+            cleanupHTML(html) {
+                // Remove remaining HTML tags
+                html = html.replace(/&lt;[^&gt;]*&gt;/g, '');
+                
+                // Decode HTML entities
+                html = this.decodeEntities(html);
+                
+                return html;
+            }
+
+            decodeEntities(text) {
+                const entities = {
+                    '&amp;amp;': '&amp;',
+                    '&amp;lt;': '&lt;',
+                    '&amp;gt;': '&gt;',
+                    '&amp;quot;': '&quot;',
+                    '&amp;#39;': &quot;'&quot;,
+                    '&amp;nbsp;': ' ',
+                    '&amp;mdash;': '—',
+                    '&amp;ndash;': '–',
+                    '&amp;hellip;': '…'
+                };
+                
+                for (const [entity, char] of Object.entries(entities)) {
+                    text = text.replace(new RegExp(entity, 'g'), char);
+                }
+                
+                return text;
+            }
+
+            cleanupWhitespace(markdown) {
+                // Remove excessive blank lines
+                markdown = markdown.replace(/\n{3,}/g, '\n\n');
+                
+                // Trim whitespace from lines
+                markdown = markdown.split('\n').map(line =&gt; line.trimEnd()).join('\n');
+                
+                // Remove leading/trailing whitespace
+                markdown = markdown.trim();
+                
+                return markdown;
+            }
+        }
+
+        // Initialize converter
+        const converter = new HTMLToMarkdownConverter();
+
+        // DOM elements
+        const htmlInput = document.getElementById('html-input');
+        const markdownOutput = document.getElementById('markdown-output');
+        const inputStats = document.getElementById('input-stats');
+        const inputLines = document.getElementById('input-lines');
+        const outputStats = document.getElementById('output-stats');
+        const outputLines = document.getElementById('output-lines');
+        const toast = document.getElementById('toast');
+
+        // Convert HTML to Markdown
+        function convertHTML() {
+            const html = htmlInput.value;
+            updateStats();
+            
+            if (!html.trim()) {
+                markdownOutput.value = '';
+                return;
+            }
+            
+            try {
+                const markdown = converter.convert(html);
+                markdownOutput.value = markdown;
+            } catch (error) {
+                markdownOutput.value = 'Error converting HTML: ' + error.message;
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const htmlText = htmlInput.value;
+            const markdownText = markdownOutput.value;
+            
+            inputStats.textContent = `${htmlText.length} characters`;
+            inputLines.textContent = `${htmlText.split('\n').length} lines`;
+            
+            outputStats.textContent = `${markdownText.length} characters`;
+            outputLines.textContent = `${markdownText.split('\n').length} lines`;
+        }
+
+        // Clear input
+        function clearInput() {
+            htmlInput.value = '';
+            markdownOutput.value = '';
+            updateStats();
+            htmlInput.focus();
+        }
+
+        // Format HTML (basic indentation)
+        function formatHTML() {
+            const html = htmlInput.value;
+            if (!html.trim()) return;
+            
+            try {
+                const formatted = html
+                    .replace(/&gt;&lt;/g, '&gt;\n&lt;')
+                    .replace(/^\s+|\s+$/gm, '')
+                    .split('\n')
+                    .map(line =&gt; line.trim())
+                    .filter(line =&gt; line)
+                    .join('\n');
+                
+                htmlInput.value = formatted;
+                convertHTML();
+            } catch (error) {
+                showToast('Error formatting HTML');
+            }
+        }
+
+        // Copy to clipboard
+        async function copyToClipboard() {
+            const markdown = markdownOutput.value;
+            if (!markdown.trim()) {
+                showToast('Nothing to copy');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(markdown);
+                showToast('Copied to clipboard!');
+            } catch (error) {
+                // Fallback for older browsers
+                markdownOutput.select();
+                document.execCommand('copy');
+                showToast('Copied to clipboard!');
+            }
+        }
+
+        // Download markdown file
+        function downloadMarkdown() {
+            const markdown = markdownOutput.value;
+            if (!markdown.trim()) {
+                showToast('Nothing to download');
+                return;
+            }
+            
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'converted.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Markdown file downloaded!');
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() =&gt; {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Load example content
+        function loadExample(type) {
+            const examples = {
+                basic: `&lt;h1&gt;Welcome to My Blog&lt;/h1&gt;
+&lt;p&gt;This is a &lt;strong&gt;sample blog post&lt;/strong&gt; with various &lt;em&gt;formatting elements&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Here's a &lt;a href=&quot;https://example.com&quot;&gt;link to my website&lt;/a&gt; and an image:&lt;/p&gt;
+&lt;img src=&quot;https://via.placeholder.com/300x200&quot; alt=&quot;Sample Image&quot; /&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Easy to use&lt;/li&gt;
+&lt;li&gt;Fast conversion&lt;/li&gt;
+&lt;li&gt;Clean output&lt;/li&gt;
+&lt;/ul&gt;`,
+
+                table: `&lt;h2&gt;Product Comparison&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Product&lt;/th&gt;
+&lt;th&gt;Price&lt;/th&gt;
+&lt;th&gt;Rating&lt;/th&gt;
+&lt;th&gt;Available&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Widget A&lt;/td&gt;
+&lt;td&gt;$19.99&lt;/td&gt;
+&lt;td&gt;4.5/5&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Widget B&lt;/td&gt;
+&lt;td&gt;$24.99&lt;/td&gt;
+&lt;td&gt;4.2/5&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Widget C&lt;/td&gt;
+&lt;td&gt;$29.99&lt;/td&gt;
+&lt;td&gt;4.8/5&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;`,
+
+                complex: `&lt;h1&gt;Technical Documentation&lt;/h1&gt;
+&lt;p&gt;This document demonstrates &lt;strong&gt;advanced HTML features&lt;/strong&gt; and their conversion to Markdown.&lt;/p&gt;
+
+&lt;h2&gt;Code Examples&lt;/h2&gt;
+&lt;p&gt;Here's how to create a simple function:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function greet(name) {
+    return &quot;Hello, &quot; + name + &quot;!&quot;;
+}
+
+console.log(greet(&quot;World&quot;));&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Important Information&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is a blockquote with &lt;em&gt;emphasis&lt;/em&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It can span multiple paragraphs.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;Task List&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Review the documentation&lt;/li&gt;
+&lt;li&gt;Test the conversion&lt;/li&gt;
+&lt;li&gt;Deploy to production&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;del&gt;This text is crossed out&lt;/del&gt; while this text is &lt;u&gt;underlined&lt;/u&gt;.&lt;/p&gt;`
+            };
+            
+            htmlInput.value = examples[type] || '';
+            convertHTML();
+            htmlInput.focus();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            htmlInput.focus();
+            
+            // Auto-resize textareas
+            function autoResize(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+            
+            htmlInput.addEventListener('input', function() {
+                convertHTML();
+            });
+            
+            markdownOutput.addEventListener('input', updateStats);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Enter to convert
+            if (e.ctrlKey &amp;&amp; e.key === 'Enter') {
+                e.preventDefault();
+                convertHTML();
+            }
+            
+            // Ctrl+K to clear
+            if (e.ctrlKey &amp;&amp; e.key === 'k') {
+                e.preventDefault();
+                clearInput();
+            }
+            
+            // Ctrl+S to download
+            if (e.ctrlKey &amp;&amp; e.key === 's') {
+                e.preventDefault();
+                downloadMarkdown();
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><pre class="hljs"><code><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>HTML to Markdown Converter Pro<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+        * {
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">box-sizing</span>: border-box;
+        }
+
+        <span class="hljs-selector-tag">body</span> {
+            <span class="hljs-attribute">font-family</span>: -apple-system, BlinkMacSystemFont, <span class="hljs-string">&#x27;Segoe UI&#x27;</span>, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#667eea</span> <span class="hljs-number">0%</span>, <span class="hljs-number">#764ba2</span> <span class="hljs-number">100%</span>);
+            <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+        }
+
+        <span class="hljs-selector-class">.container</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1400px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.95</span>);
+            <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">10px</span>);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">20px</span> <span class="hljs-number">40px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attribute">overflow</span>: hidden;
+        }
+
+        <span class="hljs-selector-class">.header</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#4facfe</span> <span class="hljs-number">0%</span>, <span class="hljs-number">#00f2fe</span> <span class="hljs-number">100%</span>);
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">30px</span>;
+            <span class="hljs-attribute">text-align</span>: center;
+        }
+
+        <span class="hljs-selector-class">.header</span> <span class="hljs-selector-tag">h1</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.5rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
+        }
+
+        <span class="hljs-selector-class">.header</span> <span class="hljs-selector-tag">p</span> {
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.9</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
+        }
+
+        <span class="hljs-selector-class">.main-content</span> {
+            <span class="hljs-attribute">display</span>: grid;
+            <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">min-height</span>: <span class="hljs-number">600px</span>;
+        }
+
+        <span class="hljs-selector-class">.input-section</span>, <span class="hljs-selector-class">.output-section</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">flex-direction</span>: column;
+            <span class="hljs-attribute">background</span>: white;
+        }
+
+        <span class="hljs-selector-class">.input-section</span> {
+            <span class="hljs-attribute">border-right</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#f0f0f0</span>;
+        }
+
+        <span class="hljs-selector-class">.section-header</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#f8fafc</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#e2e8f0</span>;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">justify-content</span>: space-between;
+            <span class="hljs-attribute">align-items</span>: center;
+        }
+
+        <span class="hljs-selector-class">.section-title</span> {
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">600</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#334155</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
+        }
+
+        <span class="hljs-selector-class">.controls</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">align-items</span>: center;
+        }
+
+        <span class="hljs-selector-class">.btn</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">8px</span> <span class="hljs-number">16px</span>;
+            <span class="hljs-attribute">border</span>: none;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9rem</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">500</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.2s</span> ease;
+            <span class="hljs-attribute">text-decoration</span>: none;
+            <span class="hljs-attribute">display</span>: inline-flex;
+            <span class="hljs-attribute">align-items</span>: center;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">6px</span>;
+        }
+
+        <span class="hljs-selector-class">.btn-primary</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#667eea</span> <span class="hljs-number">0%</span>, <span class="hljs-number">#764ba2</span> <span class="hljs-number">100%</span>);
+            <span class="hljs-attribute">color</span>: white;
+        }
+
+        <span class="hljs-selector-class">.btn-primary</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">2px</span>);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">6px</span> <span class="hljs-number">20px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">102</span>, <span class="hljs-number">126</span>, <span class="hljs-number">234</span>, <span class="hljs-number">0.4</span>);
+        }
+
+        <span class="hljs-selector-class">.btn-secondary</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#e2e8f0</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#64748b</span>;
+        }
+
+        <span class="hljs-selector-class">.btn-secondary</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#cbd5e1</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">1px</span>);
+        }
+
+        <span class="hljs-selector-class">.btn-success</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#10b981</span>;
+            <span class="hljs-attribute">color</span>: white;
+        }
+
+        <span class="hljs-selector-class">.btn-success</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#059669</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">1px</span>);
+        }
+
+        <span class="hljs-selector-class">.textarea-container</span> {
+            <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">flex-direction</span>: column;
+        }
+
+        <span class="hljs-selector-class">.textarea</span> {
+            <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;
+            <span class="hljs-attribute">border</span>: none;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;SF Mono&#x27;</span>, Monaco, <span class="hljs-string">&#x27;Cascadia Code&#x27;</span>, <span class="hljs-string">&#x27;Roboto Mono&#x27;</span>, Consolas, <span class="hljs-string">&#x27;Courier New&#x27;</span>, monospace;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
+            <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.6</span>;
+            <span class="hljs-attribute">resize</span>: none;
+            <span class="hljs-attribute">outline</span>: none;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#fefefe</span>;
+        }
+
+        <span class="hljs-selector-class">.textarea</span><span class="hljs-selector-pseudo">:focus</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>;
+        }
+
+        <span class="hljs-selector-class">.output-textarea</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#f8fafc</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#334155</span>;
+        }
+
+        <span class="hljs-selector-class">.stats</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">15px</span> <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#f1f5f9</span>;
+            <span class="hljs-attribute">border-top</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#e2e8f0</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.85rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#64748b</span>;
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">justify-content</span>: space-between;
+        }
+
+        <span class="hljs-selector-class">.feature-pills</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">flex-wrap</span>: wrap;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">8px</span>;
+            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">15px</span>;
+        }
+
+        <span class="hljs-selector-class">.pill</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.2</span>);
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">4px</span> <span class="hljs-number">12px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.8rem</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">500</span>;
+        }
+
+        <span class="hljs-selector-class">.toast</span> {
+            <span class="hljs-attribute">position</span>: fixed;
+            <span class="hljs-attribute">top</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">right</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#10b981</span>;
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">16px</span> <span class="hljs-number">24px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">12px</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">500</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">400px</span>);
+            <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1000</span>;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">25px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">16</span>, <span class="hljs-number">185</span>, <span class="hljs-number">129</span>, <span class="hljs-number">0.3</span>);
+        }
+
+        <span class="hljs-selector-class">.toast</span><span class="hljs-selector-class">.show</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">0</span>);
+        }
+
+        <span class="hljs-selector-class">.examples</span> {
+            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">20px</span>;
+        }
+
+        <span class="hljs-selector-class">.example-btn</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.2</span>);
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">12px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">6px</span>;
+            <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">8px</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">8px</span>;
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.8rem</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.2s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.example-btn</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.2</span>);
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">1px</span>);
+        }
+
+        <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">768px</span>) {
+            <span class="hljs-selector-class">.main-content</span> {
+                <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr;
+            }
+            
+            <span class="hljs-selector-class">.input-section</span> {
+                <span class="hljs-attribute">border-right</span>: none;
+                <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#f0f0f0</span>;
+            }
+            
+            <span class="hljs-selector-class">.header</span> <span class="hljs-selector-tag">h1</span> {
+                <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
+            }
+            
+            <span class="hljs-selector-class">.controls</span> {
+                <span class="hljs-attribute">flex-wrap</span>: wrap;
+            }
+        }
+
+        <span class="hljs-selector-class">.loading</span> {
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.6</span>;
+            <span class="hljs-attribute">pointer-events</span>: none;
+        }
+
+        <span class="hljs-selector-class">.loading</span> <span class="hljs-selector-class">.btn-primary</span><span class="hljs-selector-pseudo">::after</span> {
+            <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">16px</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">16px</span>;
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid transparent;
+            <span class="hljs-attribute">border-top</span>: <span class="hljs-number">2px</span> solid white;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+            <span class="hljs-attribute">animation</span>: spin <span class="hljs-number">1s</span> linear infinite;
+            <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">8px</span>;
+        }
+
+        <span class="hljs-keyword">@keyframes</span> spin {
+            <span class="hljs-number">0%</span> { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">0deg</span>); }
+            <span class="hljs-number">100%</span> { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">360deg</span>); }
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>HTML to Markdown Converter Pro<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Convert HTML to clean, readable Markdown with advanced formatting support<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;feature-pills&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pill&quot;</span>&gt;</span>Tables<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pill&quot;</span>&gt;</span>Code Blocks<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pill&quot;</span>&gt;</span>Links &amp; Images<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pill&quot;</span>&gt;</span>Lists<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pill&quot;</span>&gt;</span>Headings<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pill&quot;</span>&gt;</span>Text Formatting<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;examples&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-btn&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;loadExample(&#x27;basic&#x27;)&quot;</span>&gt;</span>Basic HTML<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-btn&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;loadExample(&#x27;table&#x27;)&quot;</span>&gt;</span>Table<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-btn&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;loadExample(&#x27;complex&#x27;)&quot;</span>&gt;</span>Complex Document<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;main-content&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;input-section&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;section-header&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;section-title&quot;</span>&gt;</span>HTML Input<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;clearInput()&quot;</span>&gt;</span>Clear<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;formatHTML()&quot;</span>&gt;</span>Format HTML<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;textarea-container&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> 
+                        <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;html-input&quot;</span> 
+                        <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;textarea&quot;</span> 
+                        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Paste your HTML code here or try one of the examples above...&quot;</span>
+                        <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;convertHTML()&quot;</span>
+                    &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stats&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input-stats&quot;</span>&gt;</span>0 characters<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input-lines&quot;</span>&gt;</span>0 lines<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;output-section&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;section-header&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;section-title&quot;</span>&gt;</span>Markdown Output<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-success&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;copyToClipboard()&quot;</span>&gt;</span>📋 Copy<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;downloadMarkdown()&quot;</span>&gt;</span>💾 Download<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;textarea-container&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> 
+                        <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;markdown-output&quot;</span> 
+                        <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;textarea output-textarea&quot;</span> 
+                        <span class="hljs-attr">readonly</span>
+                        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Converted Markdown will appear here...&quot;</span>
+                    &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stats&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;output-stats&quot;</span>&gt;</span>0 characters<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;output-lines&quot;</span>&gt;</span>0 lines<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;toast&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toast&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+        <span class="hljs-comment">// Advanced HTML to Markdown converter</span>
+        <span class="hljs-keyword">class</span> <span class="hljs-title class_">HTMLToMarkdownConverter</span> {
+            <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">rules</span> = [
+                    <span class="hljs-comment">// Headers (h1-h6)</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;h1[^&gt;]*&gt;([\s\S]*?)&lt;\/h1&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;# $1\n\n&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;h2[^&gt;]*&gt;([\s\S]*?)&lt;\/h2&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;## $1\n\n&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;h3[^&gt;]*&gt;([\s\S]*?)&lt;\/h3&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;### $1\n\n&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;h4[^&gt;]*&gt;([\s\S]*?)&lt;\/h4&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;#### $1\n\n&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;h5[^&gt;]*&gt;([\s\S]*?)&lt;\/h5&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;##### $1\n\n&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;h6[^&gt;]*&gt;([\s\S]*?)&lt;\/h6&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;###### $1\n\n&#x27;</span> },
+                    
+                    <span class="hljs-comment">// Text formatting</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;strong[^&gt;]*&gt;([\s\S]*?)&lt;\/strong&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;**$1**&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;b[^&gt;]*&gt;([\s\S]*?)&lt;\/b&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;**$1**&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;em[^&gt;]*&gt;([\s\S]*?)&lt;\/em&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;*$1*&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;i[^&gt;]*&gt;([\s\S]*?)&lt;\/i&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;*$1*&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;del[^&gt;]*&gt;([\s\S]*?)&lt;\/del&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;~~$1~~&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;s[^&gt;]*&gt;([\s\S]*?)&lt;\/s&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;~~$1~~&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;u[^&gt;]*&gt;([\s\S]*?)&lt;\/u&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;$1&#x27;</span> },
+                    
+                    <span class="hljs-comment">// Code</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;code[^&gt;]*&gt;([\s\S]*?)&lt;\/code&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;`$1`&#x27;</span> },
+                    
+                    <span class="hljs-comment">// Links and Images</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;a[^&gt;]*href\s*=\s*[&quot;&#x27;]([^&quot;&#x27;]*)[&quot;&#x27;][^&gt;]*&gt;([\s\S]*?)&lt;\/a&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;[$2]($1)&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;img[^&gt;]*src\s*=\s*[&quot;&#x27;]([^&quot;&#x27;]*)[&quot;&#x27;][^&gt;]*alt\s*=\s*[&quot;&#x27;]([^&quot;&#x27;]*)[&quot;&#x27;][^&gt;]*\/?&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;![$2]($1)&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;img[^&gt;]*alt\s*=\s*[&quot;&#x27;]([^&quot;&#x27;]*)[&quot;&#x27;][^&gt;]*src\s*=\s*[&quot;&#x27;]([^&quot;&#x27;]*)[&quot;&#x27;][^&gt;]*\/?&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;![$1]($2)&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;img[^&gt;]*src\s*=\s*[&quot;&#x27;]([^&quot;&#x27;]*)[&quot;&#x27;][^&gt;]*\/?&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;![]($1)&#x27;</span> },
+                    
+                    <span class="hljs-comment">// Paragraphs and line breaks</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;p[^&gt;]*&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;\/p&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;\n\n&#x27;</span> },
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;br\s*\/?&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;\n&#x27;</span> },
+                    
+                    <span class="hljs-comment">// Horizontal rule</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;hr[^&gt;]*\/?&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-string">&#x27;\n---\n\n&#x27;</span> },
+                    
+                    <span class="hljs-comment">// Blockquotes</span>
+                    { <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/&lt;blockquote[^&gt;]*&gt;([\s\S]*?)&lt;\/blockquote&gt;/gi</span>, <span class="hljs-attr">replacement</span>: <span class="hljs-function">(<span class="hljs-params">match, content</span>) =&gt;</span> {
+                        <span class="hljs-keyword">return</span> content.<span class="hljs-title function_">trim</span>().<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;\n&#x27;</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">&#x27;&gt; &#x27;</span> + line.<span class="hljs-title function_">trim</span>()).<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>) + <span class="hljs-string">&#x27;\n\n&#x27;</span>;
+                    }},
+                ];
+            }
+
+            <span class="hljs-title function_">convert</span>(<span class="hljs-params">html</span>) {
+                <span class="hljs-keyword">let</span> markdown = html;
+                
+                <span class="hljs-comment">// Handle pre and code blocks first</span>
+                markdown = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">handleCodeBlocks</span>(markdown);
+                
+                <span class="hljs-comment">// Handle tables</span>
+                markdown = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">handleTables</span>(markdown);
+                
+                <span class="hljs-comment">// Handle lists</span>
+                markdown = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">handleLists</span>(markdown);
+                
+                <span class="hljs-comment">// Apply basic rules</span>
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> rule <span class="hljs-keyword">of</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">rules</span>) {
+                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> rule.<span class="hljs-property">replacement</span> === <span class="hljs-string">&#x27;function&#x27;</span>) {
+                        markdown = markdown.<span class="hljs-title function_">replace</span>(rule.<span class="hljs-property">pattern</span>, rule.<span class="hljs-property">replacement</span>);
+                    } <span class="hljs-keyword">else</span> {
+                        markdown = markdown.<span class="hljs-title function_">replace</span>(rule.<span class="hljs-property">pattern</span>, rule.<span class="hljs-property">replacement</span>);
+                    }
+                }
+                
+                <span class="hljs-comment">// Clean up HTML tags and entities</span>
+                markdown = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">cleanupHTML</span>(markdown);
+                
+                <span class="hljs-comment">// Clean up extra whitespace</span>
+                markdown = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">cleanupWhitespace</span>(markdown);
+                
+                <span class="hljs-keyword">return</span> markdown;
+            }
+
+            <span class="hljs-title function_">handleCodeBlocks</span>(<span class="hljs-params">html</span>) {
+                <span class="hljs-comment">// Handle &lt;pre&gt;&lt;code&gt; blocks</span>
+                html = html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;pre[^&gt;]*&gt;&lt;code[^&gt;]*&gt;([\s\S]*?)&lt;\/code&gt;&lt;\/pre&gt;/gi</span>, <span class="hljs-function">(<span class="hljs-params">match, content</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> cleanContent = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">decodeEntities</span>(content.<span class="hljs-title function_">trim</span>());
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n```\n&#x27;</span> + cleanContent + <span class="hljs-string">&#x27;\n```\n\n&#x27;</span>;
+                });
+                
+                <span class="hljs-comment">// Handle standalone &lt;pre&gt; blocks</span>
+                html = html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;pre[^&gt;]*&gt;([\s\S]*?)&lt;\/pre&gt;/gi</span>, <span class="hljs-function">(<span class="hljs-params">match, content</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> cleanContent = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">decodeEntities</span>(content.<span class="hljs-title function_">trim</span>());
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n```\n&#x27;</span> + cleanContent + <span class="hljs-string">&#x27;\n```\n\n&#x27;</span>;
+                });
+                
+                <span class="hljs-keyword">return</span> html;
+            }
+
+            <span class="hljs-title function_">handleTables</span>(<span class="hljs-params">html</span>) {
+                <span class="hljs-keyword">return</span> html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;table[^&gt;]*&gt;([\s\S]*?)&lt;\/table&gt;/gi</span>, <span class="hljs-function">(<span class="hljs-params">match, tableContent</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> rows = [];
+                    <span class="hljs-keyword">let</span> headerProcessed = <span class="hljs-literal">false</span>;
+                    
+                    <span class="hljs-comment">// Extract table rows</span>
+                    <span class="hljs-keyword">const</span> rowMatches = tableContent.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/&lt;tr[^&gt;]*&gt;([\s\S]*?)&lt;\/tr&gt;/gi</span>);
+                    <span class="hljs-keyword">if</span> (!rowMatches) <span class="hljs-keyword">return</span> match;
+                    
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> rowMatch <span class="hljs-keyword">of</span> rowMatches) {
+                        <span class="hljs-keyword">const</span> cells = [];
+                        <span class="hljs-keyword">const</span> cellMatches = rowMatch.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/&lt;t[hd][^&gt;]*&gt;([\s\S]*?)&lt;\/t[hd]&gt;/gi</span>);
+                        
+                        <span class="hljs-keyword">if</span> (cellMatches) {
+                            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> cellMatch <span class="hljs-keyword">of</span> cellMatches) {
+                                <span class="hljs-keyword">const</span> cellContent = cellMatch.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;t[hd][^&gt;]*&gt;([\s\S]*?)&lt;\/t[hd]&gt;/gi</span>, <span class="hljs-string">&#x27;$1&#x27;</span>).<span class="hljs-title function_">trim</span>();
+                                cells.<span class="hljs-title function_">push</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">stripTags</span>(cellContent));
+                            }
+                            
+                            rows.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;| &#x27;</span> + cells.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27; | &#x27;</span>) + <span class="hljs-string">&#x27; |&#x27;</span>);
+                            
+                            <span class="hljs-comment">// Add separator after header row</span>
+                            <span class="hljs-keyword">if</span> (!headerProcessed &amp;&amp; rowMatch.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;&lt;th&#x27;</span>)) {
+                                <span class="hljs-keyword">const</span> separator = <span class="hljs-string">&#x27;| &#x27;</span> + cells.<span class="hljs-title function_">map</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;---&#x27;</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27; | &#x27;</span>) + <span class="hljs-string">&#x27; |&#x27;</span>;
+                                rows.<span class="hljs-title function_">push</span>(separator);
+                                headerProcessed = <span class="hljs-literal">true</span>;
+                            }
+                        }
+                    }
+                    
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span> + rows.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>) + <span class="hljs-string">&#x27;\n\n&#x27;</span>;
+                });
+            }
+
+            <span class="hljs-title function_">handleLists</span>(<span class="hljs-params">html</span>) {
+                <span class="hljs-comment">// Handle unordered lists</span>
+                html = html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;ul[^&gt;]*&gt;([\s\S]*?)&lt;\/ul&gt;/gi</span>, <span class="hljs-function">(<span class="hljs-params">match, listContent</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> items = listContent.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi</span>);
+                    <span class="hljs-keyword">if</span> (!items) <span class="hljs-keyword">return</span> match;
+                    
+                    <span class="hljs-keyword">const</span> listItems = items.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> {
+                        <span class="hljs-keyword">const</span> content = item.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi</span>, <span class="hljs-string">&#x27;$1&#x27;</span>).<span class="hljs-title function_">trim</span>();
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;- &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">stripTags</span>(content);
+                    });
+                    
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span> + listItems.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>) + <span class="hljs-string">&#x27;\n\n&#x27;</span>;
+                });
+                
+                <span class="hljs-comment">// Handle ordered lists</span>
+                html = html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;ol[^&gt;]*&gt;([\s\S]*?)&lt;\/ol&gt;/gi</span>, <span class="hljs-function">(<span class="hljs-params">match, listContent</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> items = listContent.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi</span>);
+                    <span class="hljs-keyword">if</span> (!items) <span class="hljs-keyword">return</span> match;
+                    
+                    <span class="hljs-keyword">const</span> listItems = items.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> {
+                        <span class="hljs-keyword">const</span> content = item.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;li[^&gt;]*&gt;([\s\S]*?)&lt;\/li&gt;/gi</span>, <span class="hljs-string">&#x27;$1&#x27;</span>).<span class="hljs-title function_">trim</span>();
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${index + <span class="hljs-number">1</span>}</span>. <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.stripTags(content)}</span>`</span>;
+                    });
+                    
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span> + listItems.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>) + <span class="hljs-string">&#x27;\n\n&#x27;</span>;
+                });
+                
+                <span class="hljs-keyword">return</span> html;
+            }
+
+            <span class="hljs-title function_">stripTags</span>(<span class="hljs-params">html</span>) {
+                <span class="hljs-keyword">return</span> html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;[^&gt;]*&gt;/g</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+            }
+
+            <span class="hljs-title function_">cleanupHTML</span>(<span class="hljs-params">html</span>) {
+                <span class="hljs-comment">// Remove remaining HTML tags</span>
+                html = html.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;[^&gt;]*&gt;/g</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+                
+                <span class="hljs-comment">// Decode HTML entities</span>
+                html = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">decodeEntities</span>(html);
+                
+                <span class="hljs-keyword">return</span> html;
+            }
+
+            <span class="hljs-title function_">decodeEntities</span>(<span class="hljs-params">text</span>) {
+                <span class="hljs-keyword">const</span> entities = {
+                    <span class="hljs-string">&#x27;&amp;amp;&#x27;</span>: <span class="hljs-string">&#x27;&amp;&#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;lt;&#x27;</span>: <span class="hljs-string">&#x27;&lt;&#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;gt;&#x27;</span>: <span class="hljs-string">&#x27;&gt;&#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;quot;&#x27;</span>: <span class="hljs-string">&#x27;&quot;&#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;#39;&#x27;</span>: <span class="hljs-string">&quot;&#x27;&quot;</span>,
+                    <span class="hljs-string">&#x27;&amp;nbsp;&#x27;</span>: <span class="hljs-string">&#x27; &#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;mdash;&#x27;</span>: <span class="hljs-string">&#x27;—&#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;ndash;&#x27;</span>: <span class="hljs-string">&#x27;–&#x27;</span>,
+                    <span class="hljs-string">&#x27;&amp;hellip;&#x27;</span>: <span class="hljs-string">&#x27;…&#x27;</span>
+                };
+                
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [entity, char] <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(entities)) {
+                    text = text.<span class="hljs-title function_">replace</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(entity, <span class="hljs-string">&#x27;g&#x27;</span>), char);
+                }
+                
+                <span class="hljs-keyword">return</span> text;
+            }
+
+            <span class="hljs-title function_">cleanupWhitespace</span>(<span class="hljs-params">markdown</span>) {
+                <span class="hljs-comment">// Remove excessive blank lines</span>
+                markdown = markdown.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\n{3,}/g</span>, <span class="hljs-string">&#x27;\n\n&#x27;</span>);
+                
+                <span class="hljs-comment">// Trim whitespace from lines</span>
+                markdown = markdown.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;\n&#x27;</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">trimEnd</span>()).<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
+                
+                <span class="hljs-comment">// Remove leading/trailing whitespace</span>
+                markdown = markdown.<span class="hljs-title function_">trim</span>();
+                
+                <span class="hljs-keyword">return</span> markdown;
+            }
+        }
+
+        <span class="hljs-comment">// Initialize converter</span>
+        <span class="hljs-keyword">const</span> converter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HTMLToMarkdownConverter</span>();
+
+        <span class="hljs-comment">// DOM elements</span>
+        <span class="hljs-keyword">const</span> htmlInput = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;html-input&#x27;</span>);
+        <span class="hljs-keyword">const</span> markdownOutput = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;markdown-output&#x27;</span>);
+        <span class="hljs-keyword">const</span> inputStats = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;input-stats&#x27;</span>);
+        <span class="hljs-keyword">const</span> inputLines = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;input-lines&#x27;</span>);
+        <span class="hljs-keyword">const</span> outputStats = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;output-stats&#x27;</span>);
+        <span class="hljs-keyword">const</span> outputLines = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;output-lines&#x27;</span>);
+        <span class="hljs-keyword">const</span> toast = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;toast&#x27;</span>);
+
+        <span class="hljs-comment">// Convert HTML to Markdown</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">convertHTML</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">const</span> html = htmlInput.<span class="hljs-property">value</span>;
+            <span class="hljs-title function_">updateStats</span>();
+            
+            <span class="hljs-keyword">if</span> (!html.<span class="hljs-title function_">trim</span>()) {
+                markdownOutput.<span class="hljs-property">value</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+                <span class="hljs-keyword">return</span>;
+            }
+            
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">const</span> markdown = converter.<span class="hljs-title function_">convert</span>(html);
+                markdownOutput.<span class="hljs-property">value</span> = markdown;
+            } <span class="hljs-keyword">catch</span> (error) {
+                markdownOutput.<span class="hljs-property">value</span> = <span class="hljs-string">&#x27;Error converting HTML: &#x27;</span> + error.<span class="hljs-property">message</span>;
+            }
+        }
+
+        <span class="hljs-comment">// Update statistics</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">updateStats</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">const</span> htmlText = htmlInput.<span class="hljs-property">value</span>;
+            <span class="hljs-keyword">const</span> markdownText = markdownOutput.<span class="hljs-property">value</span>;
+            
+            inputStats.<span class="hljs-property">textContent</span> = <span class="hljs-string">`<span class="hljs-subst">${htmlText.length}</span> characters`</span>;
+            inputLines.<span class="hljs-property">textContent</span> = <span class="hljs-string">`<span class="hljs-subst">${htmlText.split(<span class="hljs-string">&#x27;\n&#x27;</span>).length}</span> lines`</span>;
+            
+            outputStats.<span class="hljs-property">textContent</span> = <span class="hljs-string">`<span class="hljs-subst">${markdownText.length}</span> characters`</span>;
+            outputLines.<span class="hljs-property">textContent</span> = <span class="hljs-string">`<span class="hljs-subst">${markdownText.split(<span class="hljs-string">&#x27;\n&#x27;</span>).length}</span> lines`</span>;
+        }
+
+        <span class="hljs-comment">// Clear input</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">clearInput</span>(<span class="hljs-params"></span>) {
+            htmlInput.<span class="hljs-property">value</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+            markdownOutput.<span class="hljs-property">value</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+            <span class="hljs-title function_">updateStats</span>();
+            htmlInput.<span class="hljs-title function_">focus</span>();
+        }
+
+        <span class="hljs-comment">// Format HTML (basic indentation)</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">formatHTML</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">const</span> html = htmlInput.<span class="hljs-property">value</span>;
+            <span class="hljs-keyword">if</span> (!html.<span class="hljs-title function_">trim</span>()) <span class="hljs-keyword">return</span>;
+            
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">const</span> formatted = html
+                    .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&gt;&lt;/g</span>, <span class="hljs-string">&#x27;&gt;\n&lt;&#x27;</span>)
+                    .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^\s+|\s+$/gm</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+                    .<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;\n&#x27;</span>)
+                    .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">trim</span>())
+                    .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line)
+                    .<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
+                
+                htmlInput.<span class="hljs-property">value</span> = formatted;
+                <span class="hljs-title function_">convertHTML</span>();
+            } <span class="hljs-keyword">catch</span> (error) {
+                <span class="hljs-title function_">showToast</span>(<span class="hljs-string">&#x27;Error formatting HTML&#x27;</span>);
+            }
+        }
+
+        <span class="hljs-comment">// Copy to clipboard</span>
+        <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">copyToClipboard</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">const</span> markdown = markdownOutput.<span class="hljs-property">value</span>;
+            <span class="hljs-keyword">if</span> (!markdown.<span class="hljs-title function_">trim</span>()) {
+                <span class="hljs-title function_">showToast</span>(<span class="hljs-string">&#x27;Nothing to copy&#x27;</span>);
+                <span class="hljs-keyword">return</span>;
+            }
+            
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">await</span> navigator.<span class="hljs-property">clipboard</span>.<span class="hljs-title function_">writeText</span>(markdown);
+                <span class="hljs-title function_">showToast</span>(<span class="hljs-string">&#x27;Copied to clipboard!&#x27;</span>);
+            } <span class="hljs-keyword">catch</span> (error) {
+                <span class="hljs-comment">// Fallback for older browsers</span>
+                markdownOutput.<span class="hljs-title function_">select</span>();
+                <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">execCommand</span>(<span class="hljs-string">&#x27;copy&#x27;</span>);
+                <span class="hljs-title function_">showToast</span>(<span class="hljs-string">&#x27;Copied to clipboard!&#x27;</span>);
+            }
+        }
+
+        <span class="hljs-comment">// Download markdown file</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">downloadMarkdown</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">const</span> markdown = markdownOutput.<span class="hljs-property">value</span>;
+            <span class="hljs-keyword">if</span> (!markdown.<span class="hljs-title function_">trim</span>()) {
+                <span class="hljs-title function_">showToast</span>(<span class="hljs-string">&#x27;Nothing to download&#x27;</span>);
+                <span class="hljs-keyword">return</span>;
+            }
+            
+            <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Blob</span>([markdown], { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;text/markdown&#x27;</span> });
+            <span class="hljs-keyword">const</span> url = <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">createObjectURL</span>(blob);
+            <span class="hljs-keyword">const</span> a = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;a&#x27;</span>);
+            a.<span class="hljs-property">href</span> = url;
+            a.<span class="hljs-property">download</span> = <span class="hljs-string">&#x27;converted.md&#x27;</span>;
+            <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(a);
+            a.<span class="hljs-title function_">click</span>();
+            <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(a);
+            <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">revokeObjectURL</span>(url);
+            
+            <span class="hljs-title function_">showToast</span>(<span class="hljs-string">&#x27;Markdown file downloaded!&#x27;</span>);
+        }
+
+        <span class="hljs-comment">// Show toast notification</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">showToast</span>(<span class="hljs-params">message</span>) {
+            toast.<span class="hljs-property">textContent</span> = message;
+            toast.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;show&#x27;</span>);
+            <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+                toast.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;show&#x27;</span>);
+            }, <span class="hljs-number">3000</span>);
+        }
+
+        <span class="hljs-comment">// Load example content</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">loadExample</span>(<span class="hljs-params">type</span>) {
+            <span class="hljs-keyword">const</span> examples = {
+                <span class="hljs-attr">basic</span>: <span class="hljs-string">`&lt;h1&gt;Welcome to My Blog&lt;/h1&gt;
+&lt;p&gt;This is a &lt;strong&gt;sample blog post&lt;/strong&gt; with various &lt;em&gt;formatting elements&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Here&#x27;s a &lt;a href=&quot;https://example.com&quot;&gt;link to my website&lt;/a&gt; and an image:&lt;/p&gt;
+&lt;img src=&quot;https://via.placeholder.com/300x200&quot; alt=&quot;Sample Image&quot; /&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Easy to use&lt;/li&gt;
+&lt;li&gt;Fast conversion&lt;/li&gt;
+&lt;li&gt;Clean output&lt;/li&gt;
+&lt;/ul&gt;`</span>,
+
+                <span class="hljs-attr">table</span>: <span class="hljs-string">`&lt;h2&gt;Product Comparison&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Product&lt;/th&gt;
+&lt;th&gt;Price&lt;/th&gt;
+&lt;th&gt;Rating&lt;/th&gt;
+&lt;th&gt;Available&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Widget A&lt;/td&gt;
+&lt;td&gt;$19.99&lt;/td&gt;
+&lt;td&gt;4.5/5&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Widget B&lt;/td&gt;
+&lt;td&gt;$24.99&lt;/td&gt;
+&lt;td&gt;4.2/5&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Widget C&lt;/td&gt;
+&lt;td&gt;$29.99&lt;/td&gt;
+&lt;td&gt;4.8/5&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;`</span>,
+
+                <span class="hljs-attr">complex</span>: <span class="hljs-string">`&lt;h1&gt;Technical Documentation&lt;/h1&gt;
+&lt;p&gt;This document demonstrates &lt;strong&gt;advanced HTML features&lt;/strong&gt; and their conversion to Markdown.&lt;/p&gt;
+
+&lt;h2&gt;Code Examples&lt;/h2&gt;
+&lt;p&gt;Here&#x27;s how to create a simple function:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function greet(name) {
+    return &quot;Hello, &quot; + name + &quot;!&quot;;
+}
+
+console.log(greet(&quot;World&quot;));&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Important Information&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is a blockquote with &lt;em&gt;emphasis&lt;/em&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It can span multiple paragraphs.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;Task List&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Review the documentation&lt;/li&gt;
+&lt;li&gt;Test the conversion&lt;/li&gt;
+&lt;li&gt;Deploy to production&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;del&gt;This text is crossed out&lt;/del&gt; while this text is &lt;u&gt;underlined&lt;/u&gt;.&lt;/p&gt;`</span>
+            };
+            
+            htmlInput.<span class="hljs-property">value</span> = examples[type] || <span class="hljs-string">&#x27;&#x27;</span>;
+            <span class="hljs-title function_">convertHTML</span>();
+            htmlInput.<span class="hljs-title function_">focus</span>();
+        }
+
+        <span class="hljs-comment">// Initialize</span>
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;DOMContentLoaded&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-title function_">updateStats</span>();
+            htmlInput.<span class="hljs-title function_">focus</span>();
+            
+            <span class="hljs-comment">// Auto-resize textareas</span>
+            <span class="hljs-keyword">function</span> <span class="hljs-title function_">autoResize</span>(<span class="hljs-params">textarea</span>) {
+                textarea.<span class="hljs-property">style</span>.<span class="hljs-property">height</span> = <span class="hljs-string">&#x27;auto&#x27;</span>;
+                textarea.<span class="hljs-property">style</span>.<span class="hljs-property">height</span> = textarea.<span class="hljs-property">scrollHeight</span> + <span class="hljs-string">&#x27;px&#x27;</span>;
+            }
+            
+            htmlInput.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;input&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-title function_">convertHTML</span>();
+            });
+            
+            markdownOutput.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;input&#x27;</span>, updateStats);
+        });
+
+        <span class="hljs-comment">// Keyboard shortcuts</span>
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) {
+            <span class="hljs-comment">// Ctrl+Enter to convert</span>
+            <span class="hljs-keyword">if</span> (e.<span class="hljs-property">ctrlKey</span> &amp;&amp; e.<span class="hljs-property">key</span> === <span class="hljs-string">&#x27;Enter&#x27;</span>) {
+                e.<span class="hljs-title function_">preventDefault</span>();
+                <span class="hljs-title function_">convertHTML</span>();
+            }
+            
+            <span class="hljs-comment">// Ctrl+K to clear</span>
+            <span class="hljs-keyword">if</span> (e.<span class="hljs-property">ctrlKey</span> &amp;&amp; e.<span class="hljs-property">key</span> === <span class="hljs-string">&#x27;k&#x27;</span>) {
+                e.<span class="hljs-title function_">preventDefault</span>();
+                <span class="hljs-title function_">clearInput</span>();
+            }
+            
+            <span class="hljs-comment">// Ctrl+S to download</span>
+            <span class="hljs-keyword">if</span> (e.<span class="hljs-property">ctrlKey</span> &amp;&amp; e.<span class="hljs-property">key</span> === <span class="hljs-string">&#x27;s&#x27;</span>) {
+                e.<span class="hljs-title function_">preventDefault</span>();
+                <span class="hljs-title function_">downloadMarkdown</span>();
+            }
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+</div></div>
+					</body>
+				</html>
+			

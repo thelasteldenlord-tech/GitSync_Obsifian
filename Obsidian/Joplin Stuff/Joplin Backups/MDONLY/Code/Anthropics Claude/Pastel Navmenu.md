@@ -1,0 +1,234 @@
+``` html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Pastel Navigation Menu</title>
+    <style>
+        :root {
+            --nav-item-color: white;
+            --nav-item-color-hover: white;
+            --nav-collapse-icon-color: white;
+            --nav-item-color-active: white;
+            --background-color: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+
+        .nav-files-container {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-files-container > div {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-folder {
+            position: relative;
+        }
+
+        .nav-folder-title {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--nav-item-color);
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-folder-children {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 200px;
+            background-color: inherit;
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-folder.open > .nav-folder-children {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .nav-folder-children a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--nav-item-color);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-folder-children a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-folder-collapse-indicator {
+            font-size: 0.8em;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-folder.open > .nav-folder-title .nav-folder-collapse-indicator {
+            transform: rotate(90deg);
+        }
+
+        .nav-files-container > div > .nav-folder > .nav-folder-title {
+            background-color: var(--folder-color);
+        }
+
+        .nav-files-container > div > .nav-folder > .nav-folder-children {
+            background-color: var(--folder-color);
+            opacity: 0.9;
+        }
+
+        .nav-files-container > div > .nav-folder:nth-child(1) { --folder-color: rgb(243, 139, 168); }
+        .nav-files-container > div > .nav-folder:nth-child(2) { --folder-color: rgb(166, 227, 161); }
+        .nav-files-container > div > .nav-folder:nth-child(3) { --folder-color: rgb(137, 220, 235); }
+        .nav-files-container > div > .nav-folder:nth-child(4) { --folder-color: rgb(180, 190, 254); }
+        .nav-files-container > div > .nav-folder:nth-child(5) { --folder-color: rgb(203, 166, 247); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        main {
+            padding: 5rem 2rem 2rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-files-container">
+        <div>
+            <div class="nav-folder">
+                <div class="nav-folder-title">
+                    <span>Documents</span>
+                    <span class="nav-folder-collapse-indicator">▼</span>
+                </div>
+                <div class="nav-folder-children">
+                    <a href="#">Work Projects</a>
+                    <a href="#">Personal Files</a>
+                    <a href="#">Templates</a>
+                    <a href="#">Archives</a>
+                </div>
+            </div>
+
+            <div class="nav-folder">
+                <div class="nav-folder-title">
+                    <span>Media</span>
+                    <span class="nav-folder-collapse-indicator">▼</span>
+                </div>
+                <div class="nav-folder-children">
+                    <a href="#">Photo Gallery</a>
+                    <a href="#">Music Library</a>
+                    <a href="#">Video Collection</a>
+                    <a href="#">Podcasts</a>
+                </div>
+            </div>
+
+            <div class="nav-folder">
+                <div class="nav-folder-title">
+                    <span>Projects</span>
+                    <span class="nav-folder-collapse-indicator">▼</span>
+                </div>
+                <div class="nav-folder-children">
+                    <a href="#">Active Projects</a>
+                    <a href="#">Completed Work</a>
+                    <a href="#">Collaborations</a>
+                    <a href="#">Project Archive</a>
+                </div>
+            </div>
+
+            <div class="nav-folder">
+                <div class="nav-folder-title">
+                    <span>Settings</span>
+                    <span class="nav-folder-collapse-indicator">▼</span>
+                </div>
+                <div class="nav-folder-children">
+                    <a href="#">User Profile</a>
+                    <a href="#">Preferences</a>
+                    <a href="#">Security</a>
+                    <a href="#">Notifications</a>
+                </div>
+            </div>
+
+            <div class="nav-folder">
+                <div class="nav-folder-title">
+                    <span>Help</span>
+                    <span class="nav-folder-collapse-indicator">▼</span>
+                </div>
+                <div class="nav-folder-children">
+                    <a href="#">Documentation</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Welcome to Your Dashboard</h1>
+        <p>Select a category from the navigation menu above to get started.</p>
+    </main>
+
+    <script>
+        document.querySelectorAll('.nav-folder-title').forEach(title => {
+            title.addEventListener('click', (e) => {
+                const folder = title.parentElement;
+                const wasOpen = folder.classList.contains('open');
+                
+                // Close all other folders
+                document.querySelectorAll('.nav-folder').forEach(f => {
+                    f.classList.remove('open');
+                });
+                
+                // Toggle current folder
+                if (!wasOpen) {
+                    folder.classList.add('open');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-folder')) {
+                document.querySelectorAll('.nav-folder').forEach(f => {
+                    f.classList.remove('open');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

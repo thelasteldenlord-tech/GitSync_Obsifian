@@ -1,0 +1,3 @@
+
+# John Tuggle 
+Pussy ass bitch, you want that princess back she's all yours, no harm no foul but I wouldn't mind  punching a bigger hole in you than your Diddy did to himself. You inbred ass pencil dick motherfucking fiend. I heard younsucked nigger dick whole time in prison,  not over Heather either BTW, just cause I can. I am Daniek goddammit Moore, I do what I want. Donwhat ya gotta, do what ya can hiss my dick taste? Like a candy yam. What i heard anyhow.

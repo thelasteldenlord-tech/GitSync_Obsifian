@@ -1,0 +1,9 @@
+views:
+  - type: table
+    name: Table
+  - type: cards
+    name: Image Grid
+    image: file.file
+    imageAspectRatio: 1.3
+    imageFit: contain
+    cardSize: 260

@@ -1,0 +1,2 @@
+
+![Mindmap_Strategic_Business_Management_For_Small_Cleaning_Service_Entrepreneurs.png](../../_resources/Mindmap_Strategic_Business_Management_For_Small_Cl.png)

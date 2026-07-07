@@ -1,0 +1,1028 @@
+
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<meta charset="UTF-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+						<link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<title>Python HTML to Markdown</title>
+					</head>
+					<body>
+						<div class="exported-note"><div class="exported-note-title">Python HTML to Markdown</div>
+
+<style>
+		/* https://necolas.github.io/normalize.css/ */
+		html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+		article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}
+		pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}
+		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
+
+		body {
+			font-size: 15px;
+			color: #32373F;
+			word-wrap: break-word;
+			line-height: 1.6em;
+			background-color: #ffffff;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+			padding-bottom: 0px;
+			padding-top: 0px;
+		}
+		kbd {
+			border: 1px solid rgb(220, 220, 220);
+			box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
+			padding: 2px 4px;
+			border-radius: 3px;
+			background-color: rgb(243, 243, 243);
+		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
+		::-webkit-scrollbar {
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
+		}
+		::-webkit-scrollbar-corner {
+			background: none;
+		}
+		::-webkit-scrollbar-track {
+			border: none;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(50, 55, 63, 0.54); 
+		}
+		::-webkit-scrollbar-track:hover {
+			background: rgba(0, 0, 0, 0.1); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(50, 55, 63, 0.63); 
+		}
+
+		
+
+		/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+
+		#rendered-md > h1:first-child,
+		#rendered-md > h2:first-child,
+		#rendered-md > h3:first-child,
+		#rendered-md > h4:first-child,
+		#rendered-md > ul:first-child,
+		#rendered-md > ol:first-child,
+		#rendered-md > table:first-child,
+		#rendered-md > blockquote:first-child,
+		#rendered-md > img:first-child,
+		#rendered-md > p:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		p, h1, h2, h3, h4, h5, h6, ul, table {
+			margin-top: .6em;
+			margin-bottom: 1.35em;
+
+			/*
+				Adds support for RTL text in the note body. It automatically detects the direction using the content.
+				Issue: https://github.com/laurent22/joplin/issues/3991
+			*/
+			unicode-bidi: plaintext;
+		}
+
+		h1, h2, h3, h4, h5, h6, ul, table {
+			margin-bottom: 0.65em;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			line-height: 1.5em;
+		}
+		h1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			border-bottom: 1px solid #dddddd;
+			padding-bottom: .3em;
+		}
+		h2 {
+			font-size: 1.3em;
+			font-weight: bold;
+			padding-bottom: .1em; */
+		}
+		h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		h4, h5, h6 {
+			font-size: 1em;
+			font-weight: bold;
+		}
+
+		.exported-note-title {
+			font-size: 2em;
+			font-weight: bold;
+			margin-bottom: 0.8em;
+			line-height: 1.5em;
+			padding-bottom: .35em;
+			border-bottom: 1px solid #dddddd;
+		}
+
+		a {
+			color: #155BDA;
+		}
+		ul, ol {
+			padding-left: 0;
+			margin-left: 1.7em;
+		}
+		li {
+			margin-bottom: .4em;
+		}
+		li p {
+			margin-top: 0.2em;
+			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.resource-icon {
+			display: inline-block;
+			position: relative;
+			top: 0.3em;
+			text-decoration: none;
+			width: 1.2em;
+			height: 1.4em;
+			margin-right: 0.4em;
+			background-color:  #155BDA;
+		}
+    /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
+     * into the css classes below.
+     * svgs are obtained from https://github.com/ForkAwesome/Fork-Awesome/tree/master/src/icons/svg
+     * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
+     * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
+     * and of course finishes with ");
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * on the following line
+     * */
+		.fa-joplin {
+			/* Awesome Font file */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
+		}
+		.fa-file-image {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-pdf {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-word {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-powerpoint {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-excel {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-audio {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-video {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-archive {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-code {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-alt, .fa-file-csv {
+      /* fork-awesome doesn't have csv so we use the text icon */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		blockquote {
+			border-left: 4px solid rgb(220, 220, 220);
+			padding-left: 1.2em;
+			margin-left: 0;
+			opacity: 0.7;
+		}
+
+		.jop-tinymce table,
+		table {
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid rgb(220, 220, 220);
+			background-color: #ffffff;
+		}
+
+		.jop-tinymce table td, .jop-tinymce table th,
+		table td, th {
+			text-align: left;
+			padding: .5em 1em .5em 1em;
+			font-size: 15;
+			color: #32373F;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+		}
+
+		.jop-tinymce table td,
+		table td {
+			border: 1px solid rgb(220, 220, 220);
+		}
+
+		.jop-tinymce table th,
+		table th {
+			border: 1px solid rgb(220, 220, 220);
+			border-bottom: 2px solid rgb(220, 220, 220);
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:nth-child(even),
+		table tr:nth-child(even) {
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:hover,
+		table tr:hover {
+			background-color: #e5e5e5;
+		}
+
+		hr {
+			border: none;
+			border-bottom: 2px solid #dddddd;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.inline-code,
+		.mce-content-body code {
+			border: 1px solid rgb(220, 220, 220);
+			background-color: rgb(243, 243, 243);
+			padding-right: .2em;
+			padding-left: .2em;
+			border-radius: .25em;
+			color: rgb(0,0,0);
+			font-size: .9em;
+		}
+
+		.highlighted-keyword {
+			background-color: #F3B717;
+			color: black;
+		}
+
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
+
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
+
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+
+		.md-checkbox input[type=checkbox]:checked {
+			opacity: 0.7;
+		}
+
+		.jop-tinymce ul.joplin-checklist .checked,
+		.md-checkbox .checkbox-label-checked {
+			opacity: 0.5;
+		}
+
+		.exported-note {
+			padding: 1em;
+		}
+
+		.joplin-editable .joplin-source {
+			display: none;
+		}
+
+		mark {
+			background: #F7D26E;
+			color: black;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		.mce-content-body {
+			/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
+			padding: 5px 10px 10em 0;
+		}
+
+		/*
+		.mce-content-body code {
+			background-color: transparent;
+		}
+		*/
+
+		.mce-content-body [data-mce-selected=inline-boundary] {
+			background-color: transparent;
+		}
+
+		.mce-content-body .joplin-editable {
+			cursor: pointer !important;
+		}
+
+		.mce-content-body.mce-content-readonly {
+			opacity: 0.5;
+		}
+
+		/* We need that to make sure click events have the A has a target */
+		.katex a span {
+			pointer-events: none;
+		}
+
+		.media-player {
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.media-player.media-pdf {
+			min-height: 35rem;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0;
+			border: 0;
+			display: block;
+		}
+
+		/* Clear the CODE style if the element is within a joplin-editable block */
+		.mce-content-body .joplin-editable code {
+			border: none;
+			background: none;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		/* To make code blocks horizontally scrollable */
+		/* https://github.com/laurent22/joplin/issues/5740 */
+		pre.hljs {
+			overflow-x: auto;
+		}
+
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		@media print {
+			body {
+				height: auto !important;
+			}
+
+			pre {
+				white-space: pre-wrap;
+			}
+
+			.code, .inline-code {
+				border: 1px solid #CBCBCB;
+			}
+
+			#joplin-container-content {
+				/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
+				   around various issues related to scrolling. However when printing we don't want this
+				   fixed size as that would crop the content. So we set it to auto here. "important" is
+				   needed to override the style set by JavaScript at the element-level. */
+				height: auto !important;
+			}
+		}
+	
+
+				/*
+					FOR THE MARKDOWN EDITOR
+				*/
+
+				/* Remove the indentation from the checkboxes at the root of the document
+				   (otherwise they are too far right), but keep it for their children to allow
+				   nested lists. Make sure this value matches the UL margin. */
+
+				li.md-checkbox {
+					list-style-type: none;
+				}
+
+				li.md-checkbox input[type=checkbox] {
+					margin-left: -1.71em;
+					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
+				}
+				
+				ul.joplin-checklist {
+					list-style:none;
+				}
+
+				/*
+					FOR THE RICH TEXT EDITOR
+				*/
+
+				ul.joplin-checklist li::before {
+					content:"\f14a";
+					font-family:"Font Awesome 5 Free";
+					background-size: 16px 16px;
+					pointer-events: all;
+					cursor: pointer;
+					width: 1em;
+					height: 1em;
+					margin-left: -1.3em;
+					position: absolute;
+					color: #32373F;
+				}
+
+				.joplin-checklist li:not(.checked)::before {
+					content:"\f0c8";
+				}
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><h1 id="url-to-markdown">URL to Markdown</h1>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="python" data-joplin-source-open="```python&#10;" data-joplin-source-close="&#10;```">
+#!/usr/bin/env python3
+&quot;&quot;&quot;
+Web to Markdown Converter
+A simple CLI tool to fetch web pages and convert them to clean Markdown files.
+&quot;&quot;&quot;
+
+import requests
+from bs4 import BeautifulSoup
+import html2text
+import os
+import sys
+from urllib.parse import urlparse, urljoin
+import re
+from pathlib import Path
+import time
+
+class WebToMarkdown:
+    def __init__(self, output_dir=&quot;./markdown&quot;):
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(exist_ok=True)
+        
+        # Configure html2text for better output
+        self.h = html2text.HTML2Text()
+        self.h.ignore_links = False
+        self.h.ignore_images = False
+        self.h.ignore_emphasis = False
+        self.h.body_width = 0  # Don't wrap lines
+        self.h.protect_links = True
+        self.h.mark_code = True
+        self.h.wrap_links = False
+        
+        # Common headers to appear more like a real browser
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+
+    def clean_filename(self, filename):
+        &quot;&quot;&quot;Clean filename to be filesystem safe&quot;&quot;&quot;
+        # Remove or replace invalid characters
+        filename = re.sub(r'[&lt;&gt;:&quot;/\\|?*]', '-', filename)
+        # Remove multiple dashes
+        filename = re.sub(r'-+', '-', filename)
+        # Remove leading/trailing dashes and spaces
+        filename = filename.strip('- ')
+        # Limit length
+        if len(filename) &gt; 200:
+            filename = filename[:200]
+        return filename or &quot;webpage&quot;
+
+    def extract_title(self, soup):
+        &quot;&quot;&quot;Extract page title with fallbacks&quot;&quot;&quot;
+        # Try different title sources in order of preference
+        title_sources = [
+            lambda: soup.find('meta', property='og:title'),
+            lambda: soup.find('meta', name='twitter:title'),
+            lambda: soup.find('h1'),
+            lambda: soup.find('title')
+        ]
+        
+        for source in title_sources:
+            try:
+                element = source()
+                if element:
+                    if element.name == 'meta':
+                        title = element.get('content', '').strip()
+                    else:
+                        title = element.get_text().strip()
+                    
+                    if title and len(title) &gt; 3:
+                        return title
+            except:
+                continue
+        
+        return &quot;Untitled&quot;
+
+    def clean_content(self, soup, url):
+        &quot;&quot;&quot;Remove unwanted elements and clean up the content&quot;&quot;&quot;
+        # Remove script, style, nav, footer, ads, etc.
+        unwanted_tags = [
+            'script', 'style', 'nav', 'footer', 'header', 'aside',
+            'iframe', 'noscript', 'form', 'button', 'input'
+        ]
+        
+        for tag in unwanted_tags:
+            for element in soup.find_all(tag):
+                element.decompose()
+        
+        # Remove elements with common ad/navigation class names
+        unwanted_classes = [
+            'nav', 'navigation', 'menu', 'sidebar', 'footer', 'header',
+            'ad', 'ads', 'advertisement', 'banner', 'popup', 'modal',
+            'cookie', 'subscribe', 'newsletter', 'social', 'share',
+            'comment', 'related', 'recommendation'
+        ]
+        
+        for class_name in unwanted_classes:
+            for element in soup.find_all(class_=lambda x: x and any(unwanted in str(x).lower() for unwanted in [class_name])):
+                element.decompose()
+        
+        # Try to find main content area
+        main_content_selectors = [
+            'article', 'main', '.content', '#content', '.post', '.entry',
+            '.article', '[role=&quot;main&quot;]', '.main-content'
+        ]
+        
+        main_content = None
+        for selector in main_content_selectors:
+            main_content = soup.select_one(selector)
+            if main_content:
+                break
+        
+        # If we found a main content area, use only that
+        if main_content:
+            # Create new soup with just the main content
+            new_soup = BeautifulSoup('&lt;div&gt;&lt;/div&gt;', 'html.parser')
+            new_soup.div.append(main_content)
+            soup = new_soup
+        
+        # Convert relative URLs to absolute
+        base_url = url.rsplit('/', 1)[0]
+        for img in soup.find_all('img', src=True):
+            img['src'] = urljoin(url, img['src'])
+        
+        for link in soup.find_all('a', href=True):
+            link['href'] = urljoin(url, link['href'])
+        
+        return soup
+
+    def fetch_and_convert(self, url, output_filename=None):
+        &quot;&quot;&quot;Fetch URL and convert to markdown&quot;&quot;&quot;
+        print(f&quot;🌐 Fetching: {url}&quot;)
+        
+        try:
+            # Validate URL
+            parsed = urlparse(url)
+            if not parsed.scheme:
+                url = 'https://' + url
+                parsed = urlparse(url)
+            
+            # Fetch the page
+            response = requests.get(url, headers=self.headers, timeout=30)
+            response.raise_for_status()
+            
+            print(f&quot;✅ Successfully fetched ({response.status_code})&quot;)
+            
+            # Parse HTML
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Extract title
+            title = self.extract_title(soup)
+            print(f&quot;📰 Title: {title}&quot;)
+            
+            # Clean content
+            cleaned_soup = self.clean_content(soup, url)
+            
+            # Convert to markdown
+            markdown_content = self.h.handle(str(cleaned_soup))
+            
+            # Add metadata header
+            metadata = f&quot;&quot;&quot;# {title}
+
+**Source:** {url}  
+**Fetched:** {time.strftime('%Y-%m-%d %H:%M:%S')}
+
+---
+
+&quot;&quot;&quot;
+            
+            final_content = metadata + markdown_content.strip()
+            
+            # Determine output filename
+            if not output_filename:
+                output_filename = self.clean_filename(title)
+            
+            if not output_filename.endswith('.md'):
+                output_filename += '.md'
+            
+            # Save to file
+            output_path = self.output_dir / output_filename
+            
+            # Handle file conflicts
+            counter = 1
+            original_path = output_path
+            while output_path.exists():
+                name_part = original_path.stem
+                output_path = self.output_dir / f&quot;{name_part}_{counter}.md&quot;
+                counter += 1
+            
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(final_content)
+            
+            print(f&quot;💾 Saved: {output_path}&quot;)
+            print(f&quot;📊 Content length: {len(final_content)} characters&quot;)
+            
+            return output_path
+            
+        except requests.RequestException as e:
+            print(f&quot;❌ Error fetching URL: {e}&quot;)
+            return None
+        except Exception as e:
+            print(f&quot;❌ Error processing content: {e}&quot;)
+            return None
+
+    def interactive_mode(self):
+        &quot;&quot;&quot;Run in interactive mode&quot;&quot;&quot;
+        print(&quot;🔄 Web to Markdown Converter&quot;)
+        print(&quot;=&quot; * 40)
+        
+        while True:
+            print(&quot;\n📝 Enter a URL to convert (or 'quit' to exit):&quot;)
+            url = input(&quot;URL: &quot;).strip()
+            
+            if url.lower() in ['quit', 'exit', 'q']:
+                print(&quot;👋 Goodbye!&quot;)
+                break
+            
+            if not url:
+                print(&quot;❌ Please enter a valid URL&quot;)
+                continue
+            
+            print(&quot;\n📁 Enter output filename (optional, press Enter for auto):&quot;)
+            filename = input(&quot;Filename: &quot;).strip()
+            
+            if not filename:
+                filename = None
+            
+            print()  # Empty line for better readability
+            result = self.fetch_and_convert(url, filename)
+            
+            if result:
+                print(f&quot;✨ Successfully converted and saved to: {result}&quot;)
+                
+                # Ask if user wants to open the file
+                open_file = input(&quot;\n🔍 Open the markdown file? (y/n): &quot;).strip().lower()
+                if open_file in ['y', 'yes']:
+                    try:
+                        os.startfile(result)  # Windows
+                    except AttributeError:
+                        try:
+                            os.system(f'open &quot;{result}&quot;')  # macOS
+                        except:
+                            os.system(f'xdg-open &quot;{result}&quot;')  # Linux
+                    except Exception as e:
+                        print(f&quot;❌ Could not open file: {e}&quot;)
+            
+            print(&quot;\n&quot; + &quot;─&quot; * 40)
+
+def main():
+    &quot;&quot;&quot;Main function&quot;&quot;&quot;
+    converter = WebToMarkdown()
+    
+    # Check if URL provided as command line argument
+    if len(sys.argv) &gt; 1:
+        url = sys.argv[1]
+        filename = sys.argv[2] if len(sys.argv) &gt; 2 else None
+        converter.fetch_and_convert(url, filename)
+    else:
+        # Run in interactive mode
+        converter.interactive_mode()
+
+if __name__ == &quot;__main__&quot;:
+    main()</pre><pre class="hljs"><code>
+<span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-string">&quot;&quot;&quot;
+Web to Markdown Converter
+A simple CLI tool to fetch web pages and convert them to clean Markdown files.
+&quot;&quot;&quot;</span>
+
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup
+<span class="hljs-keyword">import</span> html2text
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> urlparse, urljoin
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+<span class="hljs-keyword">import</span> time
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">WebToMarkdown</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, output_dir=<span class="hljs-string">&quot;./markdown&quot;</span></span>):
+        <span class="hljs-variable language_">self</span>.output_dir = Path(output_dir)
+        <span class="hljs-variable language_">self</span>.output_dir.mkdir(exist_ok=<span class="hljs-literal">True</span>)
+        
+        <span class="hljs-comment"># Configure html2text for better output</span>
+        <span class="hljs-variable language_">self</span>.h = html2text.HTML2Text()
+        <span class="hljs-variable language_">self</span>.h.ignore_links = <span class="hljs-literal">False</span>
+        <span class="hljs-variable language_">self</span>.h.ignore_images = <span class="hljs-literal">False</span>
+        <span class="hljs-variable language_">self</span>.h.ignore_emphasis = <span class="hljs-literal">False</span>
+        <span class="hljs-variable language_">self</span>.h.body_width = <span class="hljs-number">0</span>  <span class="hljs-comment"># Don&#x27;t wrap lines</span>
+        <span class="hljs-variable language_">self</span>.h.protect_links = <span class="hljs-literal">True</span>
+        <span class="hljs-variable language_">self</span>.h.mark_code = <span class="hljs-literal">True</span>
+        <span class="hljs-variable language_">self</span>.h.wrap_links = <span class="hljs-literal">False</span>
+        
+        <span class="hljs-comment"># Common headers to appear more like a real browser</span>
+        <span class="hljs-variable language_">self</span>.headers = {
+            <span class="hljs-string">&#x27;User-Agent&#x27;</span>: <span class="hljs-string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36&#x27;</span>,
+            <span class="hljs-string">&#x27;Accept&#x27;</span>: <span class="hljs-string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#x27;</span>,
+            <span class="hljs-string">&#x27;Accept-Language&#x27;</span>: <span class="hljs-string">&#x27;en-US,en;q=0.5&#x27;</span>,
+            <span class="hljs-string">&#x27;Accept-Encoding&#x27;</span>: <span class="hljs-string">&#x27;gzip, deflate&#x27;</span>,
+            <span class="hljs-string">&#x27;DNT&#x27;</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+            <span class="hljs-string">&#x27;Connection&#x27;</span>: <span class="hljs-string">&#x27;keep-alive&#x27;</span>,
+            <span class="hljs-string">&#x27;Upgrade-Insecure-Requests&#x27;</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+        }
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">clean_filename</span>(<span class="hljs-params">self, filename</span>):
+        <span class="hljs-string">&quot;&quot;&quot;Clean filename to be filesystem safe&quot;&quot;&quot;</span>
+        <span class="hljs-comment"># Remove or replace invalid characters</span>
+        filename = re.sub(<span class="hljs-string">r&#x27;[&lt;&gt;:&quot;/\\|?*]&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, filename)
+        <span class="hljs-comment"># Remove multiple dashes</span>
+        filename = re.sub(<span class="hljs-string">r&#x27;-+&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, filename)
+        <span class="hljs-comment"># Remove leading/trailing dashes and spaces</span>
+        filename = filename.strip(<span class="hljs-string">&#x27;- &#x27;</span>)
+        <span class="hljs-comment"># Limit length</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(filename) &gt; <span class="hljs-number">200</span>:
+            filename = filename[:<span class="hljs-number">200</span>]
+        <span class="hljs-keyword">return</span> filename <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;webpage&quot;</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_title</span>(<span class="hljs-params">self, soup</span>):
+        <span class="hljs-string">&quot;&quot;&quot;Extract page title with fallbacks&quot;&quot;&quot;</span>
+        <span class="hljs-comment"># Try different title sources in order of preference</span>
+        title_sources = [
+            <span class="hljs-keyword">lambda</span>: soup.find(<span class="hljs-string">&#x27;meta&#x27;</span>, <span class="hljs-built_in">property</span>=<span class="hljs-string">&#x27;og:title&#x27;</span>),
+            <span class="hljs-keyword">lambda</span>: soup.find(<span class="hljs-string">&#x27;meta&#x27;</span>, name=<span class="hljs-string">&#x27;twitter:title&#x27;</span>),
+            <span class="hljs-keyword">lambda</span>: soup.find(<span class="hljs-string">&#x27;h1&#x27;</span>),
+            <span class="hljs-keyword">lambda</span>: soup.find(<span class="hljs-string">&#x27;title&#x27;</span>)
+        ]
+        
+        <span class="hljs-keyword">for</span> source <span class="hljs-keyword">in</span> title_sources:
+            <span class="hljs-keyword">try</span>:
+                element = source()
+                <span class="hljs-keyword">if</span> element:
+                    <span class="hljs-keyword">if</span> element.name == <span class="hljs-string">&#x27;meta&#x27;</span>:
+                        title = element.get(<span class="hljs-string">&#x27;content&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).strip()
+                    <span class="hljs-keyword">else</span>:
+                        title = element.get_text().strip()
+                    
+                    <span class="hljs-keyword">if</span> title <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(title) &gt; <span class="hljs-number">3</span>:
+                        <span class="hljs-keyword">return</span> title
+            <span class="hljs-keyword">except</span>:
+                <span class="hljs-keyword">continue</span>
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Untitled&quot;</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">clean_content</span>(<span class="hljs-params">self, soup, url</span>):
+        <span class="hljs-string">&quot;&quot;&quot;Remove unwanted elements and clean up the content&quot;&quot;&quot;</span>
+        <span class="hljs-comment"># Remove script, style, nav, footer, ads, etc.</span>
+        unwanted_tags = [
+            <span class="hljs-string">&#x27;script&#x27;</span>, <span class="hljs-string">&#x27;style&#x27;</span>, <span class="hljs-string">&#x27;nav&#x27;</span>, <span class="hljs-string">&#x27;footer&#x27;</span>, <span class="hljs-string">&#x27;header&#x27;</span>, <span class="hljs-string">&#x27;aside&#x27;</span>,
+            <span class="hljs-string">&#x27;iframe&#x27;</span>, <span class="hljs-string">&#x27;noscript&#x27;</span>, <span class="hljs-string">&#x27;form&#x27;</span>, <span class="hljs-string">&#x27;button&#x27;</span>, <span class="hljs-string">&#x27;input&#x27;</span>
+        ]
+        
+        <span class="hljs-keyword">for</span> tag <span class="hljs-keyword">in</span> unwanted_tags:
+            <span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> soup.find_all(tag):
+                element.decompose()
+        
+        <span class="hljs-comment"># Remove elements with common ad/navigation class names</span>
+        unwanted_classes = [
+            <span class="hljs-string">&#x27;nav&#x27;</span>, <span class="hljs-string">&#x27;navigation&#x27;</span>, <span class="hljs-string">&#x27;menu&#x27;</span>, <span class="hljs-string">&#x27;sidebar&#x27;</span>, <span class="hljs-string">&#x27;footer&#x27;</span>, <span class="hljs-string">&#x27;header&#x27;</span>,
+            <span class="hljs-string">&#x27;ad&#x27;</span>, <span class="hljs-string">&#x27;ads&#x27;</span>, <span class="hljs-string">&#x27;advertisement&#x27;</span>, <span class="hljs-string">&#x27;banner&#x27;</span>, <span class="hljs-string">&#x27;popup&#x27;</span>, <span class="hljs-string">&#x27;modal&#x27;</span>,
+            <span class="hljs-string">&#x27;cookie&#x27;</span>, <span class="hljs-string">&#x27;subscribe&#x27;</span>, <span class="hljs-string">&#x27;newsletter&#x27;</span>, <span class="hljs-string">&#x27;social&#x27;</span>, <span class="hljs-string">&#x27;share&#x27;</span>,
+            <span class="hljs-string">&#x27;comment&#x27;</span>, <span class="hljs-string">&#x27;related&#x27;</span>, <span class="hljs-string">&#x27;recommendation&#x27;</span>
+        ]
+        
+        <span class="hljs-keyword">for</span> class_name <span class="hljs-keyword">in</span> unwanted_classes:
+            <span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> soup.find_all(class_=<span class="hljs-keyword">lambda</span> x: x <span class="hljs-keyword">and</span> <span class="hljs-built_in">any</span>(unwanted <span class="hljs-keyword">in</span> <span class="hljs-built_in">str</span>(x).lower() <span class="hljs-keyword">for</span> unwanted <span class="hljs-keyword">in</span> [class_name])):
+                element.decompose()
+        
+        <span class="hljs-comment"># Try to find main content area</span>
+        main_content_selectors = [
+            <span class="hljs-string">&#x27;article&#x27;</span>, <span class="hljs-string">&#x27;main&#x27;</span>, <span class="hljs-string">&#x27;.content&#x27;</span>, <span class="hljs-string">&#x27;#content&#x27;</span>, <span class="hljs-string">&#x27;.post&#x27;</span>, <span class="hljs-string">&#x27;.entry&#x27;</span>,
+            <span class="hljs-string">&#x27;.article&#x27;</span>, <span class="hljs-string">&#x27;[role=&quot;main&quot;]&#x27;</span>, <span class="hljs-string">&#x27;.main-content&#x27;</span>
+        ]
+        
+        main_content = <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">for</span> selector <span class="hljs-keyword">in</span> main_content_selectors:
+            main_content = soup.select_one(selector)
+            <span class="hljs-keyword">if</span> main_content:
+                <span class="hljs-keyword">break</span>
+        
+        <span class="hljs-comment"># If we found a main content area, use only that</span>
+        <span class="hljs-keyword">if</span> main_content:
+            <span class="hljs-comment"># Create new soup with just the main content</span>
+            new_soup = BeautifulSoup(<span class="hljs-string">&#x27;&lt;div&gt;&lt;/div&gt;&#x27;</span>, <span class="hljs-string">&#x27;html.parser&#x27;</span>)
+            new_soup.div.append(main_content)
+            soup = new_soup
+        
+        <span class="hljs-comment"># Convert relative URLs to absolute</span>
+        base_url = url.rsplit(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">for</span> img <span class="hljs-keyword">in</span> soup.find_all(<span class="hljs-string">&#x27;img&#x27;</span>, src=<span class="hljs-literal">True</span>):
+            img[<span class="hljs-string">&#x27;src&#x27;</span>] = urljoin(url, img[<span class="hljs-string">&#x27;src&#x27;</span>])
+        
+        <span class="hljs-keyword">for</span> link <span class="hljs-keyword">in</span> soup.find_all(<span class="hljs-string">&#x27;a&#x27;</span>, href=<span class="hljs-literal">True</span>):
+            link[<span class="hljs-string">&#x27;href&#x27;</span>] = urljoin(url, link[<span class="hljs-string">&#x27;href&#x27;</span>])
+        
+        <span class="hljs-keyword">return</span> soup
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_and_convert</span>(<span class="hljs-params">self, url, output_filename=<span class="hljs-literal">None</span></span>):
+        <span class="hljs-string">&quot;&quot;&quot;Fetch URL and convert to markdown&quot;&quot;&quot;</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;🌐 Fetching: <span class="hljs-subst">{url}</span>&quot;</span>)
+        
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># Validate URL</span>
+            parsed = urlparse(url)
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> parsed.scheme:
+                url = <span class="hljs-string">&#x27;https://&#x27;</span> + url
+                parsed = urlparse(url)
+            
+            <span class="hljs-comment"># Fetch the page</span>
+            response = requests.get(url, headers=<span class="hljs-variable language_">self</span>.headers, timeout=<span class="hljs-number">30</span>)
+            response.raise_for_status()
+            
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ Successfully fetched (<span class="hljs-subst">{response.status_code}</span>)&quot;</span>)
+            
+            <span class="hljs-comment"># Parse HTML</span>
+            soup = BeautifulSoup(response.content, <span class="hljs-string">&#x27;html.parser&#x27;</span>)
+            
+            <span class="hljs-comment"># Extract title</span>
+            title = <span class="hljs-variable language_">self</span>.extract_title(soup)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;📰 Title: <span class="hljs-subst">{title}</span>&quot;</span>)
+            
+            <span class="hljs-comment"># Clean content</span>
+            cleaned_soup = <span class="hljs-variable language_">self</span>.clean_content(soup, url)
+            
+            <span class="hljs-comment"># Convert to markdown</span>
+            markdown_content = <span class="hljs-variable language_">self</span>.h.handle(<span class="hljs-built_in">str</span>(cleaned_soup))
+            
+            <span class="hljs-comment"># Add metadata header</span>
+            metadata = <span class="hljs-string">f&quot;&quot;&quot;# <span class="hljs-subst">{title}</span>
+
+**Source:** <span class="hljs-subst">{url}</span>  
+**Fetched:** <span class="hljs-subst">{time.strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)}</span>
+
+---
+
+&quot;&quot;&quot;</span>
+            
+            final_content = metadata + markdown_content.strip()
+            
+            <span class="hljs-comment"># Determine output filename</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> output_filename:
+                output_filename = <span class="hljs-variable language_">self</span>.clean_filename(title)
+            
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> output_filename.endswith(<span class="hljs-string">&#x27;.md&#x27;</span>):
+                output_filename += <span class="hljs-string">&#x27;.md&#x27;</span>
+            
+            <span class="hljs-comment"># Save to file</span>
+            output_path = <span class="hljs-variable language_">self</span>.output_dir / output_filename
+            
+            <span class="hljs-comment"># Handle file conflicts</span>
+            counter = <span class="hljs-number">1</span>
+            original_path = output_path
+            <span class="hljs-keyword">while</span> output_path.exists():
+                name_part = original_path.stem
+                output_path = <span class="hljs-variable language_">self</span>.output_dir / <span class="hljs-string">f&quot;<span class="hljs-subst">{name_part}</span>_<span class="hljs-subst">{counter}</span>.md&quot;</span>
+                counter += <span class="hljs-number">1</span>
+            
+            <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_path, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:
+                f.write(final_content)
+            
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;💾 Saved: <span class="hljs-subst">{output_path}</span>&quot;</span>)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;📊 Content length: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(final_content)}</span> characters&quot;</span>)
+            
+            <span class="hljs-keyword">return</span> output_path
+            
+        <span class="hljs-keyword">except</span> requests.RequestException <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ Error fetching URL: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ Error processing content: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">interactive_mode</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;Run in interactive mode&quot;&quot;&quot;</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;🔄 Web to Markdown Converter&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=&quot;</span> * <span class="hljs-number">40</span>)
+        
+        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n📝 Enter a URL to convert (or &#x27;quit&#x27; to exit):&quot;</span>)
+            url = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;URL: &quot;</span>).strip()
+            
+            <span class="hljs-keyword">if</span> url.lower() <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;quit&#x27;</span>, <span class="hljs-string">&#x27;exit&#x27;</span>, <span class="hljs-string">&#x27;q&#x27;</span>]:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;👋 Goodbye!&quot;</span>)
+                <span class="hljs-keyword">break</span>
+            
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> url:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;❌ Please enter a valid URL&quot;</span>)
+                <span class="hljs-keyword">continue</span>
+            
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n📁 Enter output filename (optional, press Enter for auto):&quot;</span>)
+            filename = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Filename: &quot;</span>).strip()
+            
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> filename:
+                filename = <span class="hljs-literal">None</span>
+            
+            <span class="hljs-built_in">print</span>()  <span class="hljs-comment"># Empty line for better readability</span>
+            result = <span class="hljs-variable language_">self</span>.fetch_and_convert(url, filename)
+            
+            <span class="hljs-keyword">if</span> result:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✨ Successfully converted and saved to: <span class="hljs-subst">{result}</span>&quot;</span>)
+                
+                <span class="hljs-comment"># Ask if user wants to open the file</span>
+                open_file = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;\n🔍 Open the markdown file? (y/n): &quot;</span>).strip().lower()
+                <span class="hljs-keyword">if</span> open_file <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;y&#x27;</span>, <span class="hljs-string">&#x27;yes&#x27;</span>]:
+                    <span class="hljs-keyword">try</span>:
+                        os.startfile(result)  <span class="hljs-comment"># Windows</span>
+                    <span class="hljs-keyword">except</span> AttributeError:
+                        <span class="hljs-keyword">try</span>:
+                            os.system(<span class="hljs-string">f&#x27;open &quot;<span class="hljs-subst">{result}</span>&quot;&#x27;</span>)  <span class="hljs-comment"># macOS</span>
+                        <span class="hljs-keyword">except</span>:
+                            os.system(<span class="hljs-string">f&#x27;xdg-open &quot;<span class="hljs-subst">{result}</span>&quot;&#x27;</span>)  <span class="hljs-comment"># Linux</span>
+                    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+                        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ Could not open file: <span class="hljs-subst">{e}</span>&quot;</span>)
+            
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n&quot;</span> + <span class="hljs-string">&quot;─&quot;</span> * <span class="hljs-number">40</span>)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-string">&quot;&quot;&quot;Main function&quot;&quot;&quot;</span>
+    converter = WebToMarkdown()
+    
+    <span class="hljs-comment"># Check if URL provided as command line argument</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt; <span class="hljs-number">1</span>:
+        url = sys.argv[<span class="hljs-number">1</span>]
+        filename = sys.argv[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt; <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span>
+        converter.fetch_and_convert(url, filename)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-comment"># Run in interactive mode</span>
+        converter.interactive_mode()
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    main()</code></pre></div>
+</div></div>
+					</body>
+				</html>
+			

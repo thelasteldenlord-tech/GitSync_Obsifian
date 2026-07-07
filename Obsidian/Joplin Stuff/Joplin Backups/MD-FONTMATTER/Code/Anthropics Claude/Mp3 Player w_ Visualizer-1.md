@@ -1,0 +1,502 @@
+---
+title: Mp3 Player w/ Visualizer
+updated: 2025-09-02 07:50:04Z
+created: 2025-09-02 07:49:41Z
+---
+
+``` html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winamp-Style MP3 Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lucida Grande', 'Segoe UI', Arial, sans-serif;
+            background-color: #222;
+            color: #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1fcf6d;
+            text-shadow: 0 0 5px rgba(31, 207, 109, 0.5);
+            font-size: 28px;
+        }
+
+        .player-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .player-wrapper {
+                flex-direction: row;
+            }
+        }
+
+        .player-section, .visualizer-section {
+            flex: 1;
+        }
+
+        .player-section {
+            background-color: #222;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .visualizer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .visualizer-container {
+            flex: 1;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .file-upload {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .file-upload label {
+            background-color: #1fcf6d;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .file-upload label:hover {
+            background-color: #19b35d;
+            transform: translateY(-2px);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            align-items: center;
+        }
+
+        .playlist {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .playlist-item {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .playlist-item:hover {
+            background-color: #444;
+        }
+
+        .playlist-item.active {
+            background-color: #1fcf6d;
+            color: #000;
+        }
+
+        .control-button {
+            background-color: #444;
+            color: #eee;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 40px;
+        }
+
+        .control-button:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+
+        .control-button.primary {
+            background-color: #1fcf6d;
+            color: #000;
+        }
+
+        .control-button.primary:hover {
+            background-color: #19b35d;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #444;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #1fcf6d;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .volume-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            background: #444;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #1fcf6d;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #1fcf6d;
+            cursor: pointer;
+            border: none;
+        }
+
+        .time-display {
+            font-family: monospace;
+            color: #1fcf6d;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .visualizer-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .playlist-empty {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Winamp-Style MP3 Player</h1>
+        
+        <div class="player-wrapper">
+            <div class="player-section">
+                <div class="file-upload">
+                    <label for="audio-upload">Upload MP3 Files</label>
+                    <input type="file" id="audio-upload" accept="audio/*" multiple>
+                </div>
+                
+                <div class="controls">
+                    <button id="prev-button" class="control-button">⏮</button>
+                    <button id="play-button" class="control-button primary">▶</button>
+                    <button id="stop-button" class="control-button">■</button>
+                    <button id="next-button" class="control-button">⏭</button>
+                </div>
+                
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                
+                <div class="time-display">
+                    <span id="current-time">00:00</span> / <span id="total-time">00:00</span>
+                </div>
+                
+                <div class="volume-container">
+                    <span>🔊</span>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
+                </div>
+                
+                <div id="playlist" class="playlist">
+                    <div class="playlist-empty">No tracks loaded. Upload some MP3 files to begin.</div>
+                </div>
+            </div>
+            
+            <div class="visualizer-section">
+                <div class="visualizer-container">
+                    <canvas id="visualizer-canvas"></canvas>
+                </div>
+                
+                <div class="visualizer-options">
+                    <button id="viz-mode-btn" class="control-button">Change Effect</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div id="track-info">Ready to play</div>
+            <div id="player-status">No track loaded</div>
+        </div>
+    </div>
+
+    <script>
+        // Audio context and variables
+        let audioContext;
+        let audioSource;
+        let audioAnalyser;
+        let audioBuffer;
+        let gainNode;
+        let currentTrack = null;
+        let isPlaying = false;
+        let playlist = [];
+        let currentTrackIndex = -1;
+        let animationFrame;
+        let vizMode = 0;
+        const vizModes = ['Classic', 'MilkDrop', 'Wave', 'Bars', 'Circular'];
+        
+        // Canvas setup
+        const canvas = document.getElementById('visualizer-canvas');
+        const canvasCtx = canvas.getContext('2d');
+        
+        // Ensure canvas is responsive
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Initialize audio context
+        function initAudioContext() {
+            try {
+                // Modern AudioContext implementation
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioContext = new AudioContext();
+                
+                // Create gain node for volume control
+                gainNode = audioContext.createGain();
+                gainNode.gain.value = 0.7; // Default volume
+                
+                // Connect gain node to output
+                gainNode.connect(audioContext.destination);
+                
+                // Create analyzer for visualization
+                audioAnalyser = audioContext.createAnalyser();
+                audioAnalyser.fftSize = 2048;
+                audioAnalyser.smoothingTimeConstant = 0.8;
+                audioAnalyser.connect(gainNode);
+                
+                console.log('Audio context initialized successfully');
+            } catch (e) {
+                console.error('Failed to initialize audio context:', e);
+                alert('Your browser may not support the Web Audio API. Please try a modern browser like Chrome or Firefox.');
+            }
+        }
+
+        // File upload handler
+        document.getElementById('audio-upload').addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                handleFileUpload(files);
+            }
+        });
+
+        // Handle file uploads
+        function handleFileUpload(files) {
+            const playlistElement = document.getElementById('playlist');
+            const wasEmpty = playlist.length === 0;
+            
+            Array.from(files).forEach(file => {
+                if (file.type.includes('audio')) {
+                    const trackInfo = {
+                        file: file,
+                        name: file.name,
+                        duration: 0
+                    };
+                    
+                    playlist.push(trackInfo);
+                }
+            });
+            
+            updatePlaylistUI();
+            
+            // If playlist was empty before, start playing the first track
+            if (wasEmpty && playlist.length > 0) {
+                playTrack(0);
+            }
+            
+            document.getElementById('player-status').textContent = `${playlist.length} tracks loaded`;
+        }
+
+        // Update playlist UI
+        function updatePlaylistUI() {
+            const playlistElement = document.getElementById('playlist');
+            
+            // Clear current playlist UI
+            playlistElement.innerHTML = '';
+            
+            if (playlist.length === 0) {
+                playlistElement.innerHTML = '<div class="playlist-empty">No tracks loaded. Upload some MP3 files to begin.</div>';
+                return;
+            }
+            
+            // Add each track to the playlist UI
+            playlist.forEach((track, index) => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item';
+                if (index === currentTrackIndex) {
+                    item.classList.add('active');
+                }
+                
+                // Format name to remove extension
+                let displayName = track.name;
+                if (displayName.lastIndexOf('.') !== -1) {
+                    displayName = displayName.substring(0, displayName.lastIndexOf('.'));
+                }
+                
+                item.textContent = displayName;
+                item.addEventListener('click', () => {
+                    playTrack(index);
+                });
+                
+                playlistElement.appendChild(item);
+            });
+        }
+
+        // Play a specific track from the playlist
+        function playTrack(index) {
+            if (index < 0 || index >= playlist.length) {
+                return;
+            }
+            
+            // Stop current track if playing
+            if (isPlaying) {
+                stopTrack();
+            }
+            
+            currentTrackIndex = index;
+            currentTrack = playlist[currentTrackIndex];
+            
+            // Update UI
+            updatePlaylistUI();
+            document.getElementById('track-info').textContent = `Playing: ${currentTrack.name}`;
+            document.getElementById('player-status').textContent = 'Loading track...';
+            
+            // Load and play the file
+            const fileReader = new FileReader();
+            
+            fileReader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                
+                // Resume audio context if suspended (browser policy)
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                
+                // Decode audio data
+                audioContext.decodeAudioData(arrayBuffer)
+                    .then(buffer => {
+                        audioBuffer = buffer;
+                        currentTrack.duration = buffer.duration;
+                        
+                        // Update duration display
+                        document.getElementById('total-time').textContent = formatTime(buffer.duration);
+                        
+                        // Start playback
+                        startPlayback();
+                    })
+                    .catch(err => {
+                        console.error('Error decoding audio data:', err);
+                        document.getElementById('player-status').textContent = 'Error: Could not decode audio';
+                    });
+            };
+            
+            fileReader.onerror = function() {
+                console.error('Error reading file');
+                document.getElementById('player-status').textContent = 'Error: Could not read file';
+            };
+            
+            // Read the file as an array buffer
+            fileReader.readAsArrayBuffer(currentTrack.file);

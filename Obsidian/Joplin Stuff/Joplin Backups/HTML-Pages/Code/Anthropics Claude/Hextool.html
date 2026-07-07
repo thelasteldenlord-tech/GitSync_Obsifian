@@ -1,0 +1,1476 @@
+
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<meta charset="UTF-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+						<link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<title>Hextool</title>
+					</head>
+					<body>
+						<div class="exported-note"><div class="exported-note-title">Hextool</div>
+
+<style>
+		/* https://necolas.github.io/normalize.css/ */
+		html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+		article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}
+		pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}
+		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
+
+		body {
+			font-size: 15px;
+			color: #32373F;
+			word-wrap: break-word;
+			line-height: 1.6em;
+			background-color: #ffffff;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+			padding-bottom: 0px;
+			padding-top: 0px;
+		}
+		kbd {
+			border: 1px solid rgb(220, 220, 220);
+			box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
+			padding: 2px 4px;
+			border-radius: 3px;
+			background-color: rgb(243, 243, 243);
+		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
+		::-webkit-scrollbar {
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
+		}
+		::-webkit-scrollbar-corner {
+			background: none;
+		}
+		::-webkit-scrollbar-track {
+			border: none;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(50, 55, 63, 0.54); 
+		}
+		::-webkit-scrollbar-track:hover {
+			background: rgba(0, 0, 0, 0.1); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(50, 55, 63, 0.63); 
+		}
+
+		
+
+		/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+
+		#rendered-md > h1:first-child,
+		#rendered-md > h2:first-child,
+		#rendered-md > h3:first-child,
+		#rendered-md > h4:first-child,
+		#rendered-md > ul:first-child,
+		#rendered-md > ol:first-child,
+		#rendered-md > table:first-child,
+		#rendered-md > blockquote:first-child,
+		#rendered-md > img:first-child,
+		#rendered-md > p:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		p, h1, h2, h3, h4, h5, h6, ul, table {
+			margin-top: .6em;
+			margin-bottom: 1.35em;
+
+			/*
+				Adds support for RTL text in the note body. It automatically detects the direction using the content.
+				Issue: https://github.com/laurent22/joplin/issues/3991
+			*/
+			unicode-bidi: plaintext;
+		}
+
+		h1, h2, h3, h4, h5, h6, ul, table {
+			margin-bottom: 0.65em;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			line-height: 1.5em;
+		}
+		h1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			border-bottom: 1px solid #dddddd;
+			padding-bottom: .3em;
+		}
+		h2 {
+			font-size: 1.3em;
+			font-weight: bold;
+			padding-bottom: .1em; */
+		}
+		h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		h4, h5, h6 {
+			font-size: 1em;
+			font-weight: bold;
+		}
+
+		.exported-note-title {
+			font-size: 2em;
+			font-weight: bold;
+			margin-bottom: 0.8em;
+			line-height: 1.5em;
+			padding-bottom: .35em;
+			border-bottom: 1px solid #dddddd;
+		}
+
+		a {
+			color: #155BDA;
+		}
+		ul, ol {
+			padding-left: 0;
+			margin-left: 1.7em;
+		}
+		li {
+			margin-bottom: .4em;
+		}
+		li p {
+			margin-top: 0.2em;
+			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.resource-icon {
+			display: inline-block;
+			position: relative;
+			top: 0.3em;
+			text-decoration: none;
+			width: 1.2em;
+			height: 1.4em;
+			margin-right: 0.4em;
+			background-color:  #155BDA;
+		}
+    /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
+     * into the css classes below.
+     * svgs are obtained from https://github.com/ForkAwesome/Fork-Awesome/tree/master/src/icons/svg
+     * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
+     * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
+     * and of course finishes with ");
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * on the following line
+     * */
+		.fa-joplin {
+			/* Awesome Font file */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
+		}
+		.fa-file-image {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-pdf {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-word {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-powerpoint {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-excel {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-audio {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-video {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-archive {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-code {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-alt, .fa-file-csv {
+      /* fork-awesome doesn't have csv so we use the text icon */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		blockquote {
+			border-left: 4px solid rgb(220, 220, 220);
+			padding-left: 1.2em;
+			margin-left: 0;
+			opacity: 0.7;
+		}
+
+		.jop-tinymce table,
+		table {
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid rgb(220, 220, 220);
+			background-color: #ffffff;
+		}
+
+		.jop-tinymce table td, .jop-tinymce table th,
+		table td, th {
+			text-align: left;
+			padding: .5em 1em .5em 1em;
+			font-size: 15;
+			color: #32373F;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+		}
+
+		.jop-tinymce table td,
+		table td {
+			border: 1px solid rgb(220, 220, 220);
+		}
+
+		.jop-tinymce table th,
+		table th {
+			border: 1px solid rgb(220, 220, 220);
+			border-bottom: 2px solid rgb(220, 220, 220);
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:nth-child(even),
+		table tr:nth-child(even) {
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:hover,
+		table tr:hover {
+			background-color: #e5e5e5;
+		}
+
+		hr {
+			border: none;
+			border-bottom: 2px solid #dddddd;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.inline-code,
+		.mce-content-body code {
+			border: 1px solid rgb(220, 220, 220);
+			background-color: rgb(243, 243, 243);
+			padding-right: .2em;
+			padding-left: .2em;
+			border-radius: .25em;
+			color: rgb(0,0,0);
+			font-size: .9em;
+		}
+
+		.highlighted-keyword {
+			background-color: #F3B717;
+			color: black;
+		}
+
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
+
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
+
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+
+		.md-checkbox input[type=checkbox]:checked {
+			opacity: 0.7;
+		}
+
+		.jop-tinymce ul.joplin-checklist .checked,
+		.md-checkbox .checkbox-label-checked {
+			opacity: 0.5;
+		}
+
+		.exported-note {
+			padding: 1em;
+		}
+
+		.joplin-editable .joplin-source {
+			display: none;
+		}
+
+		mark {
+			background: #F7D26E;
+			color: black;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		.mce-content-body {
+			/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
+			padding: 5px 10px 10em 0;
+		}
+
+		/*
+		.mce-content-body code {
+			background-color: transparent;
+		}
+		*/
+
+		.mce-content-body [data-mce-selected=inline-boundary] {
+			background-color: transparent;
+		}
+
+		.mce-content-body .joplin-editable {
+			cursor: pointer !important;
+		}
+
+		.mce-content-body.mce-content-readonly {
+			opacity: 0.5;
+		}
+
+		/* We need that to make sure click events have the A has a target */
+		.katex a span {
+			pointer-events: none;
+		}
+
+		.media-player {
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.media-player.media-pdf {
+			min-height: 35rem;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0;
+			border: 0;
+			display: block;
+		}
+
+		/* Clear the CODE style if the element is within a joplin-editable block */
+		.mce-content-body .joplin-editable code {
+			border: none;
+			background: none;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		/* To make code blocks horizontally scrollable */
+		/* https://github.com/laurent22/joplin/issues/5740 */
+		pre.hljs {
+			overflow-x: auto;
+		}
+
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		@media print {
+			body {
+				height: auto !important;
+			}
+
+			pre {
+				white-space: pre-wrap;
+			}
+
+			.code, .inline-code {
+				border: 1px solid #CBCBCB;
+			}
+
+			#joplin-container-content {
+				/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
+				   around various issues related to scrolling. However when printing we don't want this
+				   fixed size as that would crop the content. So we set it to auto here. "important" is
+				   needed to override the style set by JavaScript at the element-level. */
+				height: auto !important;
+			}
+		}
+	
+
+				/*
+					FOR THE MARKDOWN EDITOR
+				*/
+
+				/* Remove the indentation from the checkboxes at the root of the document
+				   (otherwise they are too far right), but keep it for their children to allow
+				   nested lists. Make sure this value matches the UL margin. */
+
+				li.md-checkbox {
+					list-style-type: none;
+				}
+
+				li.md-checkbox input[type=checkbox] {
+					margin-left: -1.71em;
+					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
+				}
+				
+				ul.joplin-checklist {
+					list-style:none;
+				}
+
+				/*
+					FOR THE RICH TEXT EDITOR
+				*/
+
+				ul.joplin-checklist li::before {
+					content:"\f14a";
+					font-family:"Font Awesome 5 Free";
+					background-size: 16px 16px;
+					pointer-events: all;
+					cursor: pointer;
+					width: 1em;
+					height: 1em;
+					margin-left: -1.3em;
+					position: absolute;
+					color: #32373F;
+				}
+
+				.joplin-checklist li:not(.checked)::before {
+					content:"\f0c8";
+				}
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><p>Hextool</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="html" data-joplin-source-open="```html&#10;" data-joplin-source-close="&#10;```">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Photo Color Hex Extractor&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .upload-section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 15px;
+            padding: 60px 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #fafafa;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover .upload-icon {
+            color: #ff6b6b;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .preview-section {
+            padding: 0 40px 20px;
+            display: none;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .color-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .color-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #333;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .color-hex:hover {
+            background: #f0f0f0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff6b6b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .export-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .export-btn.css {
+            background: linear-gradient(135deg, #6f42c1, #e83e8c);
+        }
+
+        .export-btn.css:hover {
+            box-shadow: 0 6px 20px rgba(111, 66, 193, 0.4);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;header&quot;&gt;
+            &lt;h1&gt;🎨 Color Extractor&lt;/h1&gt;
+            &lt;p&gt;Upload a photo and discover its dominant colors with hex values&lt;/p&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;upload-section&quot;&gt;
+            &lt;div class=&quot;upload-area&quot; onclick=&quot;document.getElementById('fileInput').click()&quot; ondrop=&quot;handleDrop(event)&quot; ondragover=&quot;handleDragOver(event)&quot; ondragleave=&quot;handleDragLeave(event)&quot;&gt;
+                &lt;div class=&quot;upload-icon&quot;&gt;📸&lt;/div&gt;
+                &lt;div class=&quot;upload-text&quot;&gt;Drop your image here or click to browse&lt;/div&gt;
+                &lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;Choose Photo&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;input type=&quot;file&quot; id=&quot;fileInput&quot; class=&quot;file-input&quot; accept=&quot;image/*&quot; onchange=&quot;handleFileSelect(event)&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;loading&quot;&gt;
+            &lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
+            &lt;p&gt;Analyzing colors...&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;preview-section&quot;&gt;
+            &lt;img id=&quot;imagePreview&quot; class=&quot;image-preview&quot; alt=&quot;Uploaded image&quot;&gt;
+            &lt;div class=&quot;results-header&quot;&gt;Dominant Colors&lt;/div&gt;
+            &lt;div id=&quot;colorsGrid&quot; class=&quot;colors-grid&quot;&gt;&lt;/div&gt;
+            
+            &lt;div class=&quot;export-section&quot;&gt;
+                &lt;h3&gt;Export Colors&lt;/h3&gt;
+                &lt;p&gt;Download your color palette for easy use in CSS themes&lt;/p&gt;
+                &lt;div class=&quot;export-buttons&quot;&gt;
+                    &lt;button class=&quot;export-btn&quot; onclick=&quot;exportAsCSV()&quot;&gt;📊 Export as CSV&lt;/button&gt;
+                    &lt;button class=&quot;export-btn&quot; onclick=&quot;exportAsText()&quot;&gt;📄 Export as Text&lt;/button&gt;
+                    &lt;button class=&quot;export-btn css&quot; onclick=&quot;exportAsCSS()&quot;&gt;🎨 Export as CSS Variables&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length &gt; 0) {
+                processFile(files[0]);
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        function processFile(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                showLoading();
+                const img = new Image();
+                img.onload = function() {
+                    extractColors(img);
+                };
+                img.src = e.target.result;
+                document.getElementById('imagePreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showLoading() {
+            document.querySelector('.loading').style.display = 'block';
+            document.querySelector('.preview-section').style.display = 'none';
+        }
+
+        function extractColors(img) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Resize for performance
+            const maxSize = 300;
+            const ratio = Math.min(maxSize / img.width, maxSize / img.height);
+            canvas.width = img.width * ratio;
+            canvas.height = img.height * ratio;
+            
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            
+            const colorMap = new Map();
+            
+            // Sample every 4th pixel for performance
+            for (let i = 0; i &lt; data.length; i += 16) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+                const alpha = data[i + 3];
+                
+                if (alpha &lt; 128) continue; // Skip transparent pixels
+                
+                // Group similar colors
+                const key = `${Math.floor(r/10)*10},${Math.floor(g/10)*10},${Math.floor(b/10)*10}`;
+                colorMap.set(key, (colorMap.get(key) || 0) + 1);
+            }
+            
+            // Get most frequent colors
+            const sortedColors = Array.from(colorMap.entries())
+                .sort((a, b) =&gt; b[1] - a[1])
+                .slice(0, 12)
+                .map(([color]) =&gt; {
+                    const [r, g, b] = color.split(',').map(Number);
+                    return { r, g, b };
+                });
+            
+            displayColors(sortedColors);
+        }
+
+        function displayColors(colors) {
+            const grid = document.getElementById('colorsGrid');
+            grid.innerHTML = '';
+            
+            // Store colors globally for export
+            extractedColors = colors;
+            
+            colors.forEach(color =&gt; {
+                const hex = rgbToHex(color.r, color.g, color.b);
+                const colorItem = document.createElement('div');
+                colorItem.className = 'color-item';
+                colorItem.innerHTML = `
+                    &lt;div class=&quot;color-swatch&quot; style=&quot;background-color: ${hex}&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;color-hex&quot; onclick=&quot;copyToClipboard('${hex}')&quot; title=&quot;Click to copy&quot;&gt;${hex}&lt;/div&gt;
+                `;
+                grid.appendChild(colorItem);
+            });
+            
+            document.querySelector('.loading').style.display = 'none';
+            document.querySelector('.preview-section').style.display = 'block';
+        }
+
+        function rgbToHex(r, g, b) {
+            return &quot;#&quot; + ((1 &lt;&lt; 24) + (r &lt;&lt; 16) + (g &lt;&lt; 8) + b).toString(16).slice(1).toUpperCase();
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() =&gt; {
+                // Visual feedback
+                const temp = document.createElement('div');
+                temp.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#333;color:white;padding:10px 20px;border-radius:5px;z-index:1000;';
+                temp.textContent = `Copied ${text}!`;
+                document.body.appendChild(temp);
+                setTimeout(() =&gt; document.body.removeChild(temp), 1500);
+            });
+        }
+
+        // Store extracted colors globally for export
+        let extractedColors = [];
+
+        function exportAsCSV() {
+            if (extractedColors.length === 0) {
+                alert('No colors to export. Please upload an image first.');
+                return;
+            }
+            
+            let csvContent = &quot;Color Name,Hex Code,RGB Values\n&quot;;
+            extractedColors.forEach((color, index) =&gt; {
+                const hex = rgbToHex(color.r, color.g, color.b);
+                csvContent += `Color ${index + 1},${hex},&quot;rgb(${color.r}, ${color.g}, ${color.b})&quot;\n`;
+            });
+            
+            downloadFile(csvContent, 'photo-colors.csv', 'text/csv');
+        }
+
+        function exportAsText() {
+            if (extractedColors.length === 0) {
+                alert('No colors to export. Please upload an image first.');
+                return;
+            }
+            
+            let textContent = &quot;Photo Color Palette\n&quot;;
+            textContent += &quot;==================\n\n&quot;;
+            extractedColors.forEach((color, index) =&gt; {
+                const hex = rgbToHex(color.r, color.g, color.b);
+                textContent += `Color ${index + 1}: ${hex} (RGB: ${color.r}, ${color.g}, ${color.b})\n`;
+            });
+            
+            downloadFile(textContent, 'photo-colors.txt', 'text/plain');
+        }
+
+        function exportAsCSS() {
+            if (extractedColors.length === 0) {
+                alert('No colors to export. Please upload an image first.');
+                return;
+            }
+            
+            let cssContent = &quot;/* Photo Color Palette - CSS Variables */\n&quot;;
+            cssContent += &quot;:root {\n&quot;;
+            extractedColors.forEach((color, index) =&gt; {
+                const hex = rgbToHex(color.r, color.g, color.b);
+                cssContent += `  --color-${index + 1}: ${hex};\n`;
+                cssContent += `  --color-${index + 1}-rgb: ${color.r}, ${color.g}, ${color.b};\n`;
+            });
+            cssContent += &quot;}\n\n&quot;;
+            cssContent += &quot;/* Usage Examples */\n&quot;;
+            cssContent += &quot;/* .primary-bg { background-color: var(--color-1); } */\n&quot;;
+            cssContent += &quot;/* .accent-text { color: var(--color-2); } */\n&quot;;
+            cssContent += &quot;/* .transparent-bg { background-color: rgba(var(--color-3-rgb), 0.5); } */\n&quot;;
+            
+            downloadFile(cssContent, 'photo-colors.css', 'text/css');
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            try {
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // Show success message
+                showMessage(`${filename} downloaded successfully!`, '#28a745');
+            } catch (error) {
+                console.error('Download failed:', error);
+                showMessage('Download failed. Please try again.', '#dc3545');
+            }
+        }
+
+        function showMessage(text, color) {
+            const temp = document.createElement('div');
+            temp.style.cssText = `position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:${color};color:white;padding:15px 25px;border-radius:8px;z-index:1000;font-weight:bold;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+            temp.textContent = text;
+            document.body.appendChild(temp);
+            setTimeout(() =&gt; {
+                if (document.body.contains(temp)) {
+                    document.body.removeChild(temp);
+                }
+            }, 2000);
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><pre class="hljs"><code>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Photo Color Hex Extractor<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+        * {
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">box-sizing</span>: border-box;
+        }
+
+        <span class="hljs-selector-tag">body</span> {
+            <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Segoe UI&#x27;</span>, Tahoma, Geneva, Verdana, sans-serif;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#667eea</span> <span class="hljs-number">0%</span>, <span class="hljs-number">#764ba2</span> <span class="hljs-number">100%</span>);
+            <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+        }
+
+        <span class="hljs-selector-class">.container</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">900px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.95</span>);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">20px</span> <span class="hljs-number">40px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attribute">overflow</span>: hidden;
+        }
+
+        <span class="hljs-selector-class">.header</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#ff6b6b</span>, <span class="hljs-number">#ffa726</span>);
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">30px</span>;
+            <span class="hljs-attribute">text-align</span>: center;
+        }
+
+        <span class="hljs-selector-class">.header</span> <span class="hljs-selector-tag">h1</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.5rem</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
+        }
+
+        <span class="hljs-selector-class">.header</span> <span class="hljs-selector-tag">p</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.9</span>;
+        }
+
+        <span class="hljs-selector-class">.upload-section</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">40px</span>;
+            <span class="hljs-attribute">text-align</span>: center;
+        }
+
+        <span class="hljs-selector-class">.upload-area</span> {
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">3px</span> dashed <span class="hljs-number">#ddd</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">15px</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">60px</span> <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">30px</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#fafafa</span>;
+        }
+
+        <span class="hljs-selector-class">.upload-area</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-class">.upload-area</span><span class="hljs-selector-class">.dragover</span> {
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#ff6b6b</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff5f5</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">2px</span>);
+        }
+
+        <span class="hljs-selector-class">.upload-icon</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#ddd</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>;
+        }
+
+        <span class="hljs-selector-class">.upload-area</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.upload-icon</span> {
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#ff6b6b</span>;
+        }
+
+        <span class="hljs-selector-class">.upload-text</span> {
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.2rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#666</span>;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">15px</span>;
+        }
+
+        <span class="hljs-selector-class">.file-input</span> {
+            <span class="hljs-attribute">display</span>: none;
+        }
+
+        <span class="hljs-selector-class">.btn</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#ff6b6b</span>, <span class="hljs-number">#ffa726</span>);
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">border</span>: none;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">12px</span> <span class="hljs-number">30px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">25px</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>;
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-number">15px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">107</span>, <span class="hljs-number">107</span>, <span class="hljs-number">0.3</span>);
+        }
+
+        <span class="hljs-selector-class">.btn</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">2px</span>);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">8px</span> <span class="hljs-number">25px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">107</span>, <span class="hljs-number">107</span>, <span class="hljs-number">0.4</span>);
+        }
+
+        <span class="hljs-selector-class">.preview-section</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">40px</span> <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">display</span>: none;
+        }
+
+        <span class="hljs-selector-class">.image-preview</span> {
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">max-height</span>: <span class="hljs-number">400px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">15px</span>;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">30px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">30px</span>;
+        }
+
+        <span class="hljs-selector-class">.colors-grid</span> {
+            <span class="hljs-attribute">display</span>: grid;
+            <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(auto-fit, <span class="hljs-built_in">minmax</span>(<span class="hljs-number">120px</span>, <span class="hljs-number">1</span>fr));
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">15px</span>;
+            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">20px</span>;
+        }
+
+        <span class="hljs-selector-class">.color-item</span> {
+            <span class="hljs-attribute">background</span>: white;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">15px</span>;
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-number">15px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
+            <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.color-item</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">5px</span>);
+        }
+
+        <span class="hljs-selector-class">.color-swatch</span> {
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">60px</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">60px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">3px</span> solid white;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">3px</span> <span class="hljs-number">10px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.2</span>);
+        }
+
+        <span class="hljs-selector-class">.color-hex</span> {
+            <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Courier New&#x27;</span>, monospace;
+            <span class="hljs-attribute">font-weight</span>: bold;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>;
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;
+            <span class="hljs-attribute">transition</span>: background <span class="hljs-number">0.3s</span> ease;
+        }
+
+        <span class="hljs-selector-class">.color-hex</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#f0f0f0</span>;
+        }
+
+        <span class="hljs-selector-class">.loading</span> {
+            <span class="hljs-attribute">display</span>: none;
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+        }
+
+        <span class="hljs-selector-class">.spinner</span> {
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">4px</span> solid <span class="hljs-number">#f3f3f3</span>;
+            <span class="hljs-attribute">border-top</span>: <span class="hljs-number">4px</span> solid <span class="hljs-number">#ff6b6b</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
+            <span class="hljs-attribute">animation</span>: spin <span class="hljs-number">1s</span> linear infinite;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto <span class="hljs-number">15px</span>;
+        }
+
+        <span class="hljs-keyword">@keyframes</span> spin {
+            <span class="hljs-number">0%</span> { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">0deg</span>); }
+            <span class="hljs-number">100%</span> { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">360deg</span>); }
+        }
+
+        <span class="hljs-selector-class">.results-header</span> {
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>;
+            <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">600</span>;
+        }
+
+        <span class="hljs-selector-class">.export-section</span> {
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">30px</span> <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#f8f9fa</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">15px</span>;
+        }
+
+        <span class="hljs-selector-class">.export-buttons</span> {
+            <span class="hljs-attribute">display</span>: flex;
+            <span class="hljs-attribute">gap</span>: <span class="hljs-number">15px</span>;
+            <span class="hljs-attribute">justify-content</span>: center;
+            <span class="hljs-attribute">flex-wrap</span>: wrap;
+            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">15px</span>;
+        }
+
+        <span class="hljs-selector-class">.export-btn</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#28a745</span>, <span class="hljs-number">#20c997</span>);
+            <span class="hljs-attribute">color</span>: white;
+            <span class="hljs-attribute">border</span>: none;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9rem</span>;
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">3px</span> <span class="hljs-number">10px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">40</span>, <span class="hljs-number">167</span>, <span class="hljs-number">69</span>, <span class="hljs-number">0.3</span>);
+        }
+
+        <span class="hljs-selector-class">.export-btn</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">2px</span>);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">6px</span> <span class="hljs-number">20px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">40</span>, <span class="hljs-number">167</span>, <span class="hljs-number">69</span>, <span class="hljs-number">0.4</span>);
+        }
+
+        <span class="hljs-selector-class">.export-btn</span><span class="hljs-selector-class">.css</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">135deg</span>, <span class="hljs-number">#6f42c1</span>, <span class="hljs-number">#e83e8c</span>);
+        }
+
+        <span class="hljs-selector-class">.export-btn</span><span class="hljs-selector-class">.css</span><span class="hljs-selector-pseudo">:hover</span> {
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">6px</span> <span class="hljs-number">20px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">111</span>, <span class="hljs-number">66</span>, <span class="hljs-number">193</span>, <span class="hljs-number">0.4</span>);
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>🎨 Color Extractor<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Upload a photo and discover its dominant colors with hex values<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;upload-section&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;upload-area&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;document.getElementById(&#x27;fileInput&#x27;).click()&quot;</span> <span class="hljs-attr">ondrop</span>=<span class="hljs-string">&quot;handleDrop(event)&quot;</span> <span class="hljs-attr">ondragover</span>=<span class="hljs-string">&quot;handleDragOver(event)&quot;</span> <span class="hljs-attr">ondragleave</span>=<span class="hljs-string">&quot;handleDragLeave(event)&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;upload-icon&quot;</span>&gt;</span>📸<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;upload-text&quot;</span>&gt;</span>Drop your image here or click to browse<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span>&gt;</span>Choose Photo<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;fileInput&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;file-input&quot;</span> <span class="hljs-attr">accept</span>=<span class="hljs-string">&quot;image/*&quot;</span> <span class="hljs-attr">onchange</span>=<span class="hljs-string">&quot;handleFileSelect(event)&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;loading&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;spinner&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Analyzing colors...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;preview-section&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;imagePreview&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;image-preview&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Uploaded image&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;results-header&quot;</span>&gt;</span>Dominant Colors<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;colorsGrid&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;colors-grid&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;export-section&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Export Colors<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Download your color palette for easy use in CSS themes<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;export-buttons&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;export-btn&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;exportAsCSV()&quot;</span>&gt;</span>📊 Export as CSV<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;export-btn&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;exportAsText()&quot;</span>&gt;</span>📄 Export as Text<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;export-btn css&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;exportAsCSS()&quot;</span>&gt;</span>🎨 Export as CSS Variables<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDragOver</span>(<span class="hljs-params">e</span>) {
+            e.<span class="hljs-title function_">preventDefault</span>();
+            e.<span class="hljs-property">currentTarget</span>.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;dragover&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDragLeave</span>(<span class="hljs-params">e</span>) {
+            e.<span class="hljs-property">currentTarget</span>.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;dragover&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDrop</span>(<span class="hljs-params">e</span>) {
+            e.<span class="hljs-title function_">preventDefault</span>();
+            e.<span class="hljs-property">currentTarget</span>.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;dragover&#x27;</span>);
+            <span class="hljs-keyword">const</span> files = e.<span class="hljs-property">dataTransfer</span>.<span class="hljs-property">files</span>;
+            <span class="hljs-keyword">if</span> (files.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-title function_">processFile</span>(files[<span class="hljs-number">0</span>]);
+            }
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleFileSelect</span>(<span class="hljs-params">e</span>) {
+            <span class="hljs-keyword">const</span> file = e.<span class="hljs-property">target</span>.<span class="hljs-property">files</span>[<span class="hljs-number">0</span>];
+            <span class="hljs-keyword">if</span> (file) {
+                <span class="hljs-title function_">processFile</span>(file);
+            }
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">processFile</span>(<span class="hljs-params">file</span>) {
+            <span class="hljs-keyword">if</span> (!file.<span class="hljs-property">type</span>.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;image/&#x27;</span>)) {
+                <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;Please select an image file.&#x27;</span>);
+                <span class="hljs-keyword">return</span>;
+            }
+
+            <span class="hljs-keyword">const</span> reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>();
+            reader.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) {
+                <span class="hljs-title function_">showLoading</span>();
+                <span class="hljs-keyword">const</span> img = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();
+                img.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+                    <span class="hljs-title function_">extractColors</span>(img);
+                };
+                img.<span class="hljs-property">src</span> = e.<span class="hljs-property">target</span>.<span class="hljs-property">result</span>;
+                <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;imagePreview&#x27;</span>).<span class="hljs-property">src</span> = e.<span class="hljs-property">target</span>.<span class="hljs-property">result</span>;
+            };
+            reader.<span class="hljs-title function_">readAsDataURL</span>(file);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">showLoading</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;.loading&#x27;</span>).<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;block&#x27;</span>;
+            <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;.preview-section&#x27;</span>).<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;none&#x27;</span>;
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">extractColors</span>(<span class="hljs-params">img</span>) {
+            <span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;canvas&#x27;</span>);
+            <span class="hljs-keyword">const</span> ctx = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;2d&#x27;</span>);
+            
+            <span class="hljs-comment">// Resize for performance</span>
+            <span class="hljs-keyword">const</span> maxSize = <span class="hljs-number">300</span>;
+            <span class="hljs-keyword">const</span> ratio = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(maxSize / img.<span class="hljs-property">width</span>, maxSize / img.<span class="hljs-property">height</span>);
+            canvas.<span class="hljs-property">width</span> = img.<span class="hljs-property">width</span> * ratio;
+            canvas.<span class="hljs-property">height</span> = img.<span class="hljs-property">height</span> * ratio;
+            
+            ctx.<span class="hljs-title function_">drawImage</span>(img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.<span class="hljs-property">width</span>, canvas.<span class="hljs-property">height</span>);
+            
+            <span class="hljs-keyword">const</span> imageData = ctx.<span class="hljs-title function_">getImageData</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.<span class="hljs-property">width</span>, canvas.<span class="hljs-property">height</span>);
+            <span class="hljs-keyword">const</span> data = imageData.<span class="hljs-property">data</span>;
+            
+            <span class="hljs-keyword">const</span> colorMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+            
+            <span class="hljs-comment">// Sample every 4th pixel for performance</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; data.<span class="hljs-property">length</span>; i += <span class="hljs-number">16</span>) {
+                <span class="hljs-keyword">const</span> r = data[i];
+                <span class="hljs-keyword">const</span> g = data[i + <span class="hljs-number">1</span>];
+                <span class="hljs-keyword">const</span> b = data[i + <span class="hljs-number">2</span>];
+                <span class="hljs-keyword">const</span> alpha = data[i + <span class="hljs-number">3</span>];
+                
+                <span class="hljs-keyword">if</span> (alpha &lt; <span class="hljs-number">128</span>) <span class="hljs-keyword">continue</span>; <span class="hljs-comment">// Skip transparent pixels</span>
+                
+                <span class="hljs-comment">// Group similar colors</span>
+                <span class="hljs-keyword">const</span> key = <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">Math</span>.floor(r/<span class="hljs-number">10</span>)*<span class="hljs-number">10</span>}</span>,<span class="hljs-subst">${<span class="hljs-built_in">Math</span>.floor(g/<span class="hljs-number">10</span>)*<span class="hljs-number">10</span>}</span>,<span class="hljs-subst">${<span class="hljs-built_in">Math</span>.floor(b/<span class="hljs-number">10</span>)*<span class="hljs-number">10</span>}</span>`</span>;
+                colorMap.<span class="hljs-title function_">set</span>(key, (colorMap.<span class="hljs-title function_">get</span>(key) || <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);
+            }
+            
+            <span class="hljs-comment">// Get most frequent colors</span>
+            <span class="hljs-keyword">const</span> sortedColors = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(colorMap.<span class="hljs-title function_">entries</span>())
+                .<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> b[<span class="hljs-number">1</span>] - a[<span class="hljs-number">1</span>])
+                .<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, <span class="hljs-number">12</span>)
+                .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">[color]</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> [r, g, b] = color.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>).<span class="hljs-title function_">map</span>(<span class="hljs-title class_">Number</span>);
+                    <span class="hljs-keyword">return</span> { r, g, b };
+                });
+            
+            <span class="hljs-title function_">displayColors</span>(sortedColors);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">displayColors</span>(<span class="hljs-params">colors</span>) {
+            <span class="hljs-keyword">const</span> grid = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;colorsGrid&#x27;</span>);
+            grid.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;
+            
+            <span class="hljs-comment">// Store colors globally for export</span>
+            extractedColors = colors;
+            
+            colors.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">color</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> hex = <span class="hljs-title function_">rgbToHex</span>(color.<span class="hljs-property">r</span>, color.<span class="hljs-property">g</span>, color.<span class="hljs-property">b</span>);
+                <span class="hljs-keyword">const</span> colorItem = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);
+                colorItem.<span class="hljs-property">className</span> = <span class="hljs-string">&#x27;color-item&#x27;</span>;
+                colorItem.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">`
+                    &lt;div class=&quot;color-swatch&quot; style=&quot;background-color: <span class="hljs-subst">${hex}</span>&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;color-hex&quot; onclick=&quot;copyToClipboard(&#x27;<span class="hljs-subst">${hex}</span>&#x27;)&quot; title=&quot;Click to copy&quot;&gt;<span class="hljs-subst">${hex}</span>&lt;/div&gt;
+                `</span>;
+                grid.<span class="hljs-title function_">appendChild</span>(colorItem);
+            });
+            
+            <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;.loading&#x27;</span>).<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;none&#x27;</span>;
+            <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;.preview-section&#x27;</span>).<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;block&#x27;</span>;
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">rgbToHex</span>(<span class="hljs-params">r, g, b</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;#&quot;</span> + ((<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">24</span>) + (r &lt;&lt; <span class="hljs-number">16</span>) + (g &lt;&lt; <span class="hljs-number">8</span>) + b).<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>).<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">toUpperCase</span>();
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">copyToClipboard</span>(<span class="hljs-params">text</span>) {
+            navigator.<span class="hljs-property">clipboard</span>.<span class="hljs-title function_">writeText</span>(text).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-comment">// Visual feedback</span>
+                <span class="hljs-keyword">const</span> temp = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);
+                temp.<span class="hljs-property">style</span>.<span class="hljs-property">cssText</span> = <span class="hljs-string">&#x27;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#333;color:white;padding:10px 20px;border-radius:5px;z-index:1000;&#x27;</span>;
+                temp.<span class="hljs-property">textContent</span> = <span class="hljs-string">`Copied <span class="hljs-subst">${text}</span>!`</span>;
+                <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(temp);
+                <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(temp), <span class="hljs-number">1500</span>);
+            });
+        }
+
+        <span class="hljs-comment">// Store extracted colors globally for export</span>
+        <span class="hljs-keyword">let</span> extractedColors = [];
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">exportAsCSV</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">if</span> (extractedColors.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) {
+                <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;No colors to export. Please upload an image first.&#x27;</span>);
+                <span class="hljs-keyword">return</span>;
+            }
+            
+            <span class="hljs-keyword">let</span> csvContent = <span class="hljs-string">&quot;Color Name,Hex Code,RGB Values\n&quot;</span>;
+            extractedColors.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">color, index</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> hex = <span class="hljs-title function_">rgbToHex</span>(color.<span class="hljs-property">r</span>, color.<span class="hljs-property">g</span>, color.<span class="hljs-property">b</span>);
+                csvContent += <span class="hljs-string">`Color <span class="hljs-subst">${index + <span class="hljs-number">1</span>}</span>,<span class="hljs-subst">${hex}</span>,&quot;rgb(<span class="hljs-subst">${color.r}</span>, <span class="hljs-subst">${color.g}</span>, <span class="hljs-subst">${color.b}</span>)&quot;\n`</span>;
+            });
+            
+            <span class="hljs-title function_">downloadFile</span>(csvContent, <span class="hljs-string">&#x27;photo-colors.csv&#x27;</span>, <span class="hljs-string">&#x27;text/csv&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">exportAsText</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">if</span> (extractedColors.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) {
+                <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;No colors to export. Please upload an image first.&#x27;</span>);
+                <span class="hljs-keyword">return</span>;
+            }
+            
+            <span class="hljs-keyword">let</span> textContent = <span class="hljs-string">&quot;Photo Color Palette\n&quot;</span>;
+            textContent += <span class="hljs-string">&quot;==================\n\n&quot;</span>;
+            extractedColors.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">color, index</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> hex = <span class="hljs-title function_">rgbToHex</span>(color.<span class="hljs-property">r</span>, color.<span class="hljs-property">g</span>, color.<span class="hljs-property">b</span>);
+                textContent += <span class="hljs-string">`Color <span class="hljs-subst">${index + <span class="hljs-number">1</span>}</span>: <span class="hljs-subst">${hex}</span> (RGB: <span class="hljs-subst">${color.r}</span>, <span class="hljs-subst">${color.g}</span>, <span class="hljs-subst">${color.b}</span>)\n`</span>;
+            });
+            
+            <span class="hljs-title function_">downloadFile</span>(textContent, <span class="hljs-string">&#x27;photo-colors.txt&#x27;</span>, <span class="hljs-string">&#x27;text/plain&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">exportAsCSS</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-keyword">if</span> (extractedColors.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) {
+                <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;No colors to export. Please upload an image first.&#x27;</span>);
+                <span class="hljs-keyword">return</span>;
+            }
+            
+            <span class="hljs-keyword">let</span> cssContent = <span class="hljs-string">&quot;/* Photo Color Palette - CSS Variables */\n&quot;</span>;
+            cssContent += <span class="hljs-string">&quot;:root {\n&quot;</span>;
+            extractedColors.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">color, index</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> hex = <span class="hljs-title function_">rgbToHex</span>(color.<span class="hljs-property">r</span>, color.<span class="hljs-property">g</span>, color.<span class="hljs-property">b</span>);
+                cssContent += <span class="hljs-string">`  --color-<span class="hljs-subst">${index + <span class="hljs-number">1</span>}</span>: <span class="hljs-subst">${hex}</span>;\n`</span>;
+                cssContent += <span class="hljs-string">`  --color-<span class="hljs-subst">${index + <span class="hljs-number">1</span>}</span>-rgb: <span class="hljs-subst">${color.r}</span>, <span class="hljs-subst">${color.g}</span>, <span class="hljs-subst">${color.b}</span>;\n`</span>;
+            });
+            cssContent += <span class="hljs-string">&quot;}\n\n&quot;</span>;
+            cssContent += <span class="hljs-string">&quot;/* Usage Examples */\n&quot;</span>;
+            cssContent += <span class="hljs-string">&quot;/* .primary-bg { background-color: var(--color-1); } */\n&quot;</span>;
+            cssContent += <span class="hljs-string">&quot;/* .accent-text { color: var(--color-2); } */\n&quot;</span>;
+            cssContent += <span class="hljs-string">&quot;/* .transparent-bg { background-color: rgba(var(--color-3-rgb), 0.5); } */\n&quot;</span>;
+            
+            <span class="hljs-title function_">downloadFile</span>(cssContent, <span class="hljs-string">&#x27;photo-colors.css&#x27;</span>, <span class="hljs-string">&#x27;text/css&#x27;</span>);
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">downloadFile</span>(<span class="hljs-params">content, filename, mimeType</span>) {
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Blob</span>([content], { <span class="hljs-attr">type</span>: mimeType });
+                <span class="hljs-keyword">const</span> url = <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">createObjectURL</span>(blob);
+                <span class="hljs-keyword">const</span> a = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;a&#x27;</span>);
+                a.<span class="hljs-property">href</span> = url;
+                a.<span class="hljs-property">download</span> = filename;
+                a.<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;none&#x27;</span>;
+                <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(a);
+                a.<span class="hljs-title function_">click</span>();
+                <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(a);
+                <span class="hljs-variable constant_">URL</span>.<span class="hljs-title function_">revokeObjectURL</span>(url);
+                
+                <span class="hljs-comment">// Show success message</span>
+                <span class="hljs-title function_">showMessage</span>(<span class="hljs-string">`<span class="hljs-subst">${filename}</span> downloaded successfully!`</span>, <span class="hljs-string">&#x27;#28a745&#x27;</span>);
+            } <span class="hljs-keyword">catch</span> (error) {
+                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Download failed:&#x27;</span>, error);
+                <span class="hljs-title function_">showMessage</span>(<span class="hljs-string">&#x27;Download failed. Please try again.&#x27;</span>, <span class="hljs-string">&#x27;#dc3545&#x27;</span>);
+            }
+        }
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">showMessage</span>(<span class="hljs-params">text, color</span>) {
+            <span class="hljs-keyword">const</span> temp = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);
+            temp.<span class="hljs-property">style</span>.<span class="hljs-property">cssText</span> = <span class="hljs-string">`position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:<span class="hljs-subst">${color}</span>;color:white;padding:15px 25px;border-radius:8px;z-index:1000;font-weight:bold;box-shadow:0 4px 20px rgba(0,0,0,0.3);`</span>;
+            temp.<span class="hljs-property">textContent</span> = text;
+            <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(temp);
+            <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">contains</span>(temp)) {
+                    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(temp);
+                }
+            }, <span class="hljs-number">2000</span>);
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+</div></div>
+					</body>
+				</html>
+			

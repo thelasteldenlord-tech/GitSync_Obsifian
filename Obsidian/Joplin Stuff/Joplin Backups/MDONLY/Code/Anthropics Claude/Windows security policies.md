@@ -1,0 +1,112 @@
+# Windows security policies 
+Can be configured to alert administrators about failed authentication attempts using several PowerShell and Group Policy approaches:
+
+## Event Log Monitoring and Alerting
+
+**Set up Event Log alerting for authentication failures:**
+
+```powershell
+# Create a scheduled task to monitor failed logon events
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-Command `"Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} | Where-Object {$_.TimeCreated -gt (Get-Date).AddMinutes(-5)} | ForEach-Object {Send-MailMessage -To 'admin@company.com' -From 'security@company.com' -Subject 'Failed Logon Alert' -Body $_.Message -SmtpServer 'smtp.company.com'}`""
+
+$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 5)
+
+Register-ScheduledTask -TaskName "FailedLogonAlert" -Action $action -Trigger $trigger -RunLevel Highest
+```
+
+## Audit Policy Configuration
+
+**Enable detailed authentication auditing:**
+
+```powershell
+# Enable audit policies for logon events
+auditpol /set /subcategory:"Logon" /success:enable /failure:enable
+auditpol /set /subcategory:"Logoff" /success:enable /failure:enable
+auditpol /set /subcategory:"Account Lockout" /success:enable /failure:enable
+auditpol /set /subcategory:"Other Logon/Logoff Events" /success:enable /failure:enable
+
+# For network authentication
+auditpol /set /subcategory:"Network Policy Server" /success:enable /failure:enable
+```
+
+## Account Lockout Policy
+
+**Configure account lockout thresholds:**
+
+```powershell
+# Set account lockout policy via secedit
+$securityTemplate = @"
+[System Access]
+LockoutBadCount = 5
+LockoutDuration = 30
+ResetLockoutCount = 30
+"@
+
+$securityTemplate | Out-File -FilePath "C:\temp\lockout.inf" -Encoding ASCII
+secedit /configure /db C:\temp\lockout.sdb /cfg C:\temp\lockout.inf
+```
+
+## Real-time Monitoring Script
+
+**Create a PowerShell script for continuous monitoring:**
+
+```powershell
+# Monitor failed authentication attempts in real-time
+Register-WmiEvent -Query "SELECT * FROM __InstanceCreationEvent WITHIN 5 WHERE TargetInstance ISA 'Win32_NTLogEvent' AND TargetInstance.LogFile = 'Security' AND (TargetInstance.EventCode = 4625 OR TargetInstance.EventCode = 4771)" -Action {
+    $event = $Event.SourceEventArgs.NewEvent.TargetInstance
+    $message = "Failed authentication attempt detected: Event ID $($event.EventCode) at $(Get-Date)"
+    
+    # Send email alert
+    Send-MailMessage -To "admin@company.com" -From "security@company.com" -Subject "Security Alert: Failed Authentication" -Body $message -SmtpServer "your-smtp-server"
+    
+    # Log to custom event log
+    Write-EventLog -LogName "Application" -Source "Security Monitor" -EventId 1001 -Message $message -EntryType Warning
+}
+```
+
+## Network Authentication Monitoring
+
+**Monitor network-based authentication failures:**
+
+```powershell
+# Enable NetLogon logging for domain authentication issues
+nltest /dbflag:0x2080ffff
+
+# Monitor for specific network authentication events
+$filterXml = @"
+<QueryList>
+  <Query Id="0" Path="Security">
+    <Select Path="Security">
+      *[System[EventID=4625 or EventID=4771 or EventID=4776]]
+      and
+      *[EventData[Data[@Name='IpAddress'] and (Data='127.0.0.1' or Data!='127.0.0.1')]]
+    </Select>
+  </Query>
+</QueryList>
+"@
+
+Register-WmiEvent -Query $filterXml -Action { /* Alert logic here */ }
+```
+
+## Group Policy Settings
+
+**Configure via Group Policy (requires domain environment):**
+
+```powershell
+# Export current security settings
+secedit /export /cfg C:\temp\current_security.inf
+
+# Key settings to modify in Group Policy:
+# - Computer Configuration > Windows Settings > Security Settings > Account Policies > Account Lockout Policy
+# - Computer Configuration > Windows Settings > Security Settings > Advanced Audit Policy Configuration
+```
+
+## Important Event IDs to Monitor
+
+- **4625**: Failed logon attempt
+- **4771**: Kerberos pre-authentication failed
+- **4776**: Attempted to validate credentials (NTLM)
+- **4740**: User account was locked out
+- **4648**: Logon attempted with explicit credentials
+
+These configurations will help you detect and alert on authentication failures from both local machine attempts and network-based authentication attempts. Make sure to test thoroughly and adjust thresholds to avoid alert fatigue while maintaining security visibility.

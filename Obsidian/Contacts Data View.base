@@ -1,0 +1,27 @@
+formulas:
+  Untitled: datr()cssclasses
+  Untitled 2: number()
+properties:
+  formula.Untitled 2:
+    displayName: age
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.inFolder("Contacts")
+    order:
+      - file.ctime
+      - file.name
+      - file.backlinks
+      - file.folder
+      - file.links
+      - formula.Untitled 2
+    sort:
+      - property: formula.Untitled 2
+        direction: ASC
+      - property: file.embeds
+        direction: ASC
+    columnSize:
+      file.ctime: 206
+      file.ext: 29

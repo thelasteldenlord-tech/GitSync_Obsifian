@@ -1,0 +1,16 @@
+{
+  "alwaysUpdateLinks": true,
+  "promptDelete": false,
+  "showLineNumber": true,
+  "defaultViewMode": "source",
+  "livePreview": true,
+  "readableLineLength": false,
+  "foldIndent": false,
+  "strictLineBreaks": true,
+  "foldHeading": false,
+  "useTab": false,
+  "tabSize": 2,
+  "openBehavior": "file:Obsidian/Canvas Notes/Primary Canvas.canvas",
+  "showUnsupportedFiles": true,
+  "trashOption": "local"
+}

@@ -1,0 +1,22 @@
+views:
+  - type: table
+    name: Table
+  - type: table
+    name: View
+    filters:
+      and:
+        - nsfw == true
+    order:
+      - tags
+      - Type
+      - file.embeds
+      - file.folder
+    image: note.cssclasses
+    cardSize: 300
+    markers: number
+  - type: table
+    name: View 2
+    filters:
+      and:
+        - file.tags.contains("'#result")
+    rowHeight: extra

@@ -1,0 +1,277 @@
+{
+  "main": {
+    "id": "b45ecf6dfaa296c6",
+    "type": "split",
+    "children": [
+      {
+        "id": "025281ee882eab2f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c2355f5fd7bd0dc8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Business Management and Tracking/targeted_leads/contacted/result/Filtered Results.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Filtered Results"
+            }
+          },
+          {
+            "id": "04ce4e53531a2094",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Contacts/Steve Mattox.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steve Mattox"
+            }
+          },
+          {
+            "id": "24c9539b238c991e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Contacts/Maxxim Manufacturing.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Maxxim Manufacturing"
+            }
+          },
+          {
+            "id": "82b6e92d530962b1",
+            "type": "leaf",
+            "state": {
+              "type": "bases",
+              "state": {
+                "file": "Contacts Data View.base",
+                "viewName": "Table"
+              },
+              "icon": "lucide-table",
+              "title": "Contacts Data View"
+            }
+          },
+          {
+            "id": "43cde8e2b9b90317",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Business Management and Tracking/Templates/Customer Profile.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Customer Profile"
+            }
+          },
+          {
+            "id": "a2071338815dc5f3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Business Management and Tracking/targeted_leads/contacted/result/contracted/access/requirements.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "requirements"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a3f5fafab2a5ed96",
+    "type": "split",
+    "children": [
+      {
+        "id": "65b501357bd3866d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0c647e9b71d1f3e4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "c123ba5dbf2ec74c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "8700ec5954b1adb0",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4a8aafec9595ca20",
+    "type": "split",
+    "children": [
+      {
+        "id": "48d81c5b6f574812",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "414dc110a79b36e9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Business Management and Tracking/Templates/Customer Profile.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Customer Profile"
+            }
+          },
+          {
+            "id": "92935fbd20dcd66c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Business Management and Tracking/Templates/Customer Profile.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Customer Profile"
+            }
+          },
+          {
+            "id": "6bb76161438b9d56",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "2bf19bb3415195a4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Business Management and Tracking/Templates/Customer Profile.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Customer Profile"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "43cde8e2b9b90317",
+  "lastOpenFiles": [
+    "Business Management and Tracking/targeted_leads/contacted/result/Filtered Results.md",
+    "Untitled 1.canvas",
+    "Embeds.md",
+    "Contacts/Kim Smith.md",
+    "Contacts/Danny Sanders.md",
+    "Contacts Data View.base",
+    "Contacts/Maxxim Manufacturing.md",
+    "Contacts/Steve Mattox.md",
+    "Untitled.canvas",
+    "Business Management and Tracking/data/prospective_customers/R H Sheppard Inc/R H Sheppard Inc.md",
+    "Business Management and Tracking/Templates/Customer Profile.md",
+    "Business Management and Tracking/Sales Process/Sales Workflow.md",
+    "Planning and Notes/Brand importance.md",
+    "Planning and Notes",
+    "Contacts",
+    "Raw Data and Scratcpad",
+    "Business Management and Tracking/index.md",
+    "Business Management and Tracking/targeted_leads/contacted/result/contracted/access/requirements.md",
+    "Business Management and Tracking/Bluefield Manufacturing, Inc..md",
+    "Business Management and Tracking",
+    "Business Management and Tracking/Leads/list of leads.md",
+    "Business Management and Tracking/Templates/Template Index.md",
+    "Business Management and Tracking/Templates/Service Contract.md",
+    "Business Management and Tracking/Templates/Meeting Notes.md",
+    "Business Management and Tracking/Templates/Daily Note.md",
+    "Business Management and Tracking/Policies/Client Access Policy.md",
+    "Business Management and Tracking/Policies/Policy Index.md",
+    "Business Management and Tracking/Policies/Data Privacy Policy.md",
+    "Business Management and Tracking/Resources/Resource Index.md",
+    "Business Management and Tracking/Resources/Customer Service Standards.md",
+    "Business Management and Tracking/Resources/Safety Training.md",
+    "Business Management and Tracking/Resources/Employee Handbook.md"
+  ]
+}

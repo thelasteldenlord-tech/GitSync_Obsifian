@@ -1,0 +1,256 @@
+---
+title: Client Cost Admin Panel
+updated: 2025-09-02 07:51:11Z
+created: 2025-09-02 07:50:51Z
+---
+
+``` js
+
+import React, { useState } from 'react';
+import { Plus, Trash2, Save, FileText, Package, DollarSign, Users } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+
+const AdminPanel = () => {
+  // State for estimates
+  const [estimates, setEstimates] = useState([]);
+  const [currentEstimate, setCurrentEstimate] = useState({
+    jobDate: '',
+    clientName: '',
+    surfaceArea: '',
+    totalHours: '',
+    supplies: [{ name: '', cost: '', quantity: '' }]
+  });
+
+  // State for inventory
+  const [inventory, setInventory] = useState([]);
+  const [showInventoryForm, setShowInventoryForm] = useState(false);
+
+  const addSupplyField = () => {
+    setCurrentEstimate(prev => ({
+      ...prev,
+      supplies: [...prev.supplies, { name: '', cost: '', quantity: '' }]
+    }));
+  };
+
+  const updateSupply = (index, field, value) => {
+    const newSupplies = [...currentEstimate.supplies];
+    newSupplies[index] = { ...newSupplies[index], [field]: value };
+    setCurrentEstimate(prev => ({
+      ...prev,
+      supplies: newSupplies
+    }));
+  };
+
+  const removeSupply = (index) => {
+    setCurrentEstimate(prev => ({
+      ...prev,
+      supplies: prev.supplies.filter((_, i) => i !== index)
+    }));
+  };
+
+  const calculateTotal = () => {
+    const setupCost = 100;
+    const hourlyRate = 25;
+    const laborCost = setupCost + (Math.max(0, parseFloat(currentEstimate.totalHours) - 1) * hourlyRate);
+    const suppliesCost = currentEstimate.supplies.reduce((total, supply) => {
+      return total + (parseFloat(supply.cost) || 0) * (parseFloat(supply.quantity) || 0);
+    }, 0);
+    return (laborCost + suppliesCost).toFixed(2);
+  };
+
+  const saveEstimate = () => {
+    const newEstimate = {
+      ...currentEstimate,
+      id: Date.now(),
+      totalCost: calculateTotal()
+    };
+    setEstimates(prev => [...prev, newEstimate]);
+    // Reset form
+    setCurrentEstimate({
+      jobDate: '',
+      clientName: '',
+      surfaceArea: '',
+      totalHours: '',
+      supplies: [{ name: '', cost: '', quantity: '' }]
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Cleaning Service Admin Panel</h1>
+          <div className="flex gap-4">
+            <Button variant="outline" className="flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              Reports
+            </Button>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Package className="w-4 h-4" />
+              Inventory
+            </Button>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Clients
+            </Button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* New Estimate Form */}
+          <Card>
+            <CardHeader>
+              <CardTitle>New Estimate</CardTitle>
+              <CardDescription>Create a new cleaning estimate</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="jobDate">Job Date</Label>
+                    <Input
+                      type="date"
+                      id="jobDate"
+                      value={currentEstimate.jobDate}
+                      onChange={(e) => setCurrentEstimate(prev => ({...prev, jobDate: e.target.value}))}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="clientName">Client Name</Label>
+                    <Input
+                      type="text"
+                      id="clientName"
+                      value={currentEstimate.clientName}
+                      onChange={(e) => setCurrentEstimate(prev => ({...prev, clientName: e.target.value}))}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="surfaceArea">Surface Area (sqft)</Label>
+                    <Input
+                      type="number"
+                      id="surfaceArea"
+                      value={currentEstimate.surfaceArea}
+                      onChange={(e) => setCurrentEstimate(prev => ({...prev, surfaceArea: e.target.value}))}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="totalHours">Total Hours</Label>
+                    <Input
+                      type="number"
+                      id="totalHours"
+                      value={currentEstimate.totalHours}
+                      onChange={(e) => setCurrentEstimate(prev => ({...prev, totalHours: e.target.value}))}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <Label>Supplies</Label>
+                  {currentEstimate.supplies.map((supply, index) => (
+                    <div key={index} className="grid grid-cols-3 gap-2 items-end">
+                      <div>
+                        <Input
+                          placeholder="Item name"
+                          value={supply.name}
+                          onChange={(e) => updateSupply(index, 'name', e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <Input
+                          type="number"
+                          placeholder="Cost"
+                          value={supply.cost}
+                          onChange={(e) => updateSupply(index, 'cost', e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Input
+                          type="number"
+                          placeholder="Qty"
+                          value={supply.quantity}
+                          onChange={(e) => updateSupply(index, 'quantity', e.target.value)}
+                        />
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          onClick={() => removeSupply(index)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                  <Button
+                    variant="outline"
+                    onClick={addSupplyField}
+                    className="w-full flex items-center justify-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Supply
+                  </Button>
+                </div>
+
+                <div className="flex justify-between items-center pt-4">
+                  <div className="text-lg font-semibold">
+                    Total: ${calculateTotal()}
+                  </div>
+                  <Button onClick={saveEstimate} className="flex items-center gap-2">
+                    <Save className="w-4 h-4" />
+                    Save Estimate
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Estimates */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Estimates</CardTitle>
+              <CardDescription>View and manage recent estimates</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {estimates.map(estimate => (
+                  <div
+                    key={estimate.id}
+                    className="p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-semibold">{estimate.clientName}</h3>
+                        <p className="text-sm text-gray-500">
+                          {new Date(estimate.jobDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold">${estimate.totalCost}</p>
+                        <p className="text-sm text-gray-500">
+                          {estimate.totalHours} hours
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminPanel;
