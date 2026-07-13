@@ -1,9 +1,9 @@
 {
   "cssTheme": "Obsidian gruvbox",
   "accentColor": "#d8a22c",
-  "textFontFamily": "Arimo",
-  "interfaceFontFamily": "Ubuntu",
+  "textFontFamily": "Palatino",
+  "interfaceFontFamily": "Tahoma",
   "monospaceFontFamily": "Ubuntu Mono",
-  "baseFontSize": 12,
+  "baseFontSize": 22,
   "nativeMenus": false
 }

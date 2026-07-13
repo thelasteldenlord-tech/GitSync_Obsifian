@@ -1,3 +1,5 @@
+
+#norma #probkems #scammers #money
 ## Immediate Steps to Stop the Scammer and Protect Your Mother
 
 ### 1. **Secure Financial Access**
