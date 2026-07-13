@@ -35,10 +35,14 @@ Device: Samsung s26 Ultra
 Queen of Spades, Medieval Fantasy, High Fantasy, Art by Brom
 ```
 ---
-
-
+# Spider Lady
+![[Pasted image 20260713112556.jpg]]
+```
 "A spider's sinister presence lurking beneath the surface of her delicate features," 
 Spider Mage female, Dark Fantasy, Steampunk, Style: Victorian Gothic, Artist: Ash Thorp
+```
+---
+
 
 "Purple skin glowing like a beacon in the dark expanse of space," 
 Purple Skinned Voidborn, Science Fiction, Cosmic Horror, Art by Camille Rose Garcia
