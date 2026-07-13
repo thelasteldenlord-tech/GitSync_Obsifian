@@ -43,9 +43,14 @@ Spider Mage female, Dark Fantasy, Steampunk, Style: Victorian Gothic, Artist: As
 ```
 ---
 
+![[Pasted image 20260713122124.jpg]]
 
+```
 "Purple skin glowing like a beacon in the dark expanse of space," 
 Purple Skinned Voidborn, Science Fiction, Cosmic Horror, Art by Camille Rose Garcia
+
+```
+
 
 "A fiery spirit and a heart full of hope," 
 Firekeeper princess, Fantasy Romance, Adventure, Style: Watercolor Illustration, Artist: Charles Vess
