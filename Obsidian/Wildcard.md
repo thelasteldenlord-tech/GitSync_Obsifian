@@ -1,3 +1,4 @@
+```
 
 Voluptuous Orc Queen
 Wild 1girl, Witch y warrior
@@ -25,6 +26,9 @@ Wild 1girl, Witch y warrior, Cyberpunk, Action, Artist: Ashley Wood
 Device: Samsung s26 Ultra
       
 ```
+````
+
+
 {"_localdream_params":true,"v":1,"model_id":"wai_anima_v1_turbo","prompt":"Royal bloodline and a dagger at her side, ever prepared to defend her kingdom from invaders,\" \nQueen of Spades, Medieval Fantasy, High Fantasy, Art by Brom","negative_prompt":"","steps":12,"cfg":1,"seed":4135700795,"scheduler":"euler","mode":"TXT2IMG"}
 ```
 
