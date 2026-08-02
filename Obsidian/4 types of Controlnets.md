@@ -12,5 +12,5 @@ Nodes:
   Restart Confty, add image 
   Load image
   Drag noodle search preprocessor 
-  Into a preview
+  Into a preview image
 
