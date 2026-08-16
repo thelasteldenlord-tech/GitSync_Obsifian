@@ -10,7 +10,7 @@ Each day is designed to be about 1 hour long, and I can adjust the timing to fit
 
 #### **Day 1: Introduction to Python**
 - **Time:** 9:00 AM - 10:00 AM
-- **Title:** Introduction to Python
+- **Title:** [[Introduction to Python]]
 - **Focus:** Install Python, set up an IDE (e.g., PyCharm, VSCode), and write your first Python program.
 
 #### **Day 2: Variables and Data Types**
