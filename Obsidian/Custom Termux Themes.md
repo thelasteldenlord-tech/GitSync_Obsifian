@@ -1,41 +1,67 @@
 To apply custom the ring simply replace the values in the file and reload the config file located in the home directory, usually:
 ``` bash
 
-# Edit the Termux colors file, adding the theme colors from below or use the script to do it automatically
-nano ~/.termux/colors.properties
 
 ```
 
 # Cyberpunk Colors
 # Primary Terminal UI Configuration
-background=#0d0e12
-foreground=#e1e4ed
-cursor=#ff0055
 
 # 16 Standard ANSI Colors (Used by Oh My Zsh and CLI apps)
 ---
 ``` bash
-# All colors use a dark and a light shade, dark is the first color. Light follows on the next line as seen in black"
-#
-# Black (Dark)
+
+# Theme: "Cybergrr"; Author: Daniel Moore
+# I made for personal use, use with caution. If you'd like to comment or communicate,
+# you can always Email me at daniel@swvaclean.com
+#`And be patient, I respond slowly
+
+# All colors use a dark and a light shade, dark is the 
+# first color. Light follows on the next line as seen in black"
+
+# Create theme installer directory, please ensure this doesn't overwrite anything
+CREATE_SCRIPT_DIR=mkdir~ -p ~/.bash_scripts/daniels_termux_theme_installers/
+
+
+
+# Create bash script for this themes installer
+touch ~/.bash_scripts/daniels_termux_theme_installers/cyber.sh
+
+
+
+# Edit the Termux colors file, adding the theme colors from below or use the script to do it automatically
+nano ~/.termux/colors.properties
+
+
+# Main elements
+background=#0d0e12
+foreground=#e1e4ed
+cursor=#ff0055
+
+# Black (Dark, color0) / Black (Lighter, 'color8')
 color0=#16171f
-# Black (Dark)
 color8=#2b2d3d
+
 # Red
 color1=#ff4a6b
 color9=#ff6b8b
-# Green (Perfect for status checks)
+
+# Green
 color2=#00e699
 color10=#33ffbb
+
 # Yellow
 color3=#e6b800
 color11=#ffd633
-# Blue (Often used for main prompt backgrounds)
+
+# Blue
 color4=#66b2ff
 color12=#99ccff
+
 # Magenta
 color5=#9b51e0
 color13=#b57bed
+
 # Cyan
 color6=#00f0ff
 color14=#55f7ff
@@ -48,7 +74,12 @@ Termux uses a colors. Properties file to color the terminal, can you generate a 
 # Copy and paste into a new file and run the command ./theme.sh
 
 ``` bash
-mkdir -p ~/.bash_scripts/
+
+
+
+
+
+
 ```
 background=#0d0e12 
 foreground=#e1e4ed

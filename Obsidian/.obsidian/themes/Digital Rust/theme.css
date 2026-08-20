@@ -1,0 +1,1979 @@
+/* ─────────────────────────────────────────────────────────────
+   Digital Rust — Obsidian Theme
+   A warm, tech-dystopian colour scheme inspired by corrupted
+   hardware and failing systems. Built around deep rust-copper
+   tones with strategic pops of colour named after system failures.
+
+   Author:  Kat Suricata
+   Website: https://digitalrust.katsuricata.com/
+   Spec:    Digital Rust Specification v1.2.1
+   ───────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════
+   §1  DIGITAL RUST DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+
+body {
+	/* ── Global Typography & Rendering Nicening ─────────────────── */
+	scroll-behavior: smooth;
+	font-variant-ligatures: common-ligatures discretionary-ligatures no-historical-ligatures contextual;
+	font-kerning: normal;
+	font-optical-sizing: auto;
+	text-rendering: optimizelegibility;
+	overflow-wrap: break-word;
+	font-variant-numeric: oldstyle-nums proportional-nums slashed-zero;
+	orphans: 3;
+	widows: 3;
+	font-language-override: normal;
+
+	/* ── Main Palette ─────────────────────────────────────────── */
+	--dr-ghost-pixel:         #f7eae8;
+	--dr-phosphor-smoke:      #efd5d1;
+	--dr-phantom-current:     #e7c0ba;
+	--dr-corrupted-cache:     #dfaba3;
+	--dr-copper-trace:        #d7968c;
+	--dr-fatal-error:        #cf8175;
+	--dr-rouge-signal:        #c76c5e;
+	--dr-amber-alert:        #bf5747;
+	--dr-amber-alert-text:   #cb6353;       /* WCAG-AA text variant */
+	--dr-firewall-breach:    #b74230;
+	--dr-rust:               #af2e1a;
+	--dr-kernel-panic:       #9d2917;
+	--dr-data-rot:           #8c2414;
+	--dr-bricked-board:      #7a2012;
+	--dr-dark-packet:        #691b0f;
+	--dr-daemon-blood:       #57170d;
+	--dr-bad-sector:         #46120a;
+	--dr-core-meltdown:      #340d07;
+	--dr-null-pointer:       #230905;
+	--dr-horizon:            #110402;
+
+	/* ── ANSI / Accent Palette ────────────────────────────────── */
+	--dr-memory-leek:            #8fa667;
+	--dr-memory-leek-dim:        #627247;
+	--dr-memory-leek-bright:     #94a577;
+	--dr-stack-overglow:         #d4a759;
+	--dr-stack-overglow-dim:     #a07e43;
+	--dr-stack-overglow-bright:  #d3ae6e;
+	--dr-blue-screen:            #8791b0;
+	--dr-blue-screen-dim:        #60677c;
+	--dr-blue-screen-bright:     #999eaf;
+	--dr-fractured-shell:        #ba5a7d;
+	--dr-fractured-shell-dim:    #87405a;
+	--dr-fractured-shell-bright: #ba6b88;
+	--dr-dead-thread:            #6fa5a0;
+	--dr-dead-thread-dim:        #4c726e;
+	--dr-dead-thread-bright:     #7fa5a1;
+	--dr-thermal-throttle:       #d78556;
+	--dr-thermal-throttle-dim:   #ac6d4a;
+	--dr-thermal-throttle-bright:#d6926b;
+
+	/* ── Semantic Surfaces ─────────────────────────────────────── */
+	--dr-surface-base:       var(--dr-horizon);
+	--dr-surface-secondary:  var(--dr-null-pointer);
+	--dr-surface-elevated:   var(--dr-core-meltdown);
+	--dr-surface-highlight:  var(--dr-bad-sector);
+	--dr-surface-active:     #5a1810;
+
+	/* ── Semantic Text ────────────────────────────────────────── */
+	--dr-text-primary:       var(--dr-ghost-pixel);
+	--dr-text-secondary:     var(--dr-phosphor-smoke);
+	--dr-text-tertiary:      #c9a39c;
+	--dr-text-link:          var(--dr-phantom-current);
+	--dr-text-link-hover:    var(--dr-fatal-error);
+	--dr-text-link-visited:  var(--dr-corrupted-cache);
+	--dr-text-on-accent:     var(--dr-ghost-pixel);
+	--dr-text-muted:         rgb(239 213 209 / 50%);
+
+	/* ── Semantic Accents ─────────────────────────────────────── */
+	--dr-accent:             var(--dr-rust);
+	--dr-accent-hover:       var(--dr-firewall-breach);
+	--dr-accent-secondary:   var(--dr-fatal-error);
+	--dr-accent-tertiary:    var(--dr-copper-trace);
+
+	/* ── State Colours (v1.2.1 semantic layer) ───────────────── */
+	--dr-success:            var(--dr-memory-leek);
+	--dr-warning:            var(--dr-stack-overglow);
+	--dr-danger:             var(--dr-amber-alert);
+	--dr-danger-text:        var(--dr-amber-alert-text);
+	--dr-error:              var(--dr-amber-alert);
+	--dr-critical:           var(--dr-rust);
+	--dr-info:               var(--dr-dead-thread);
+
+	/* ── Badge wash tokens (spec: Badges & Tags) ─────────────── */
+	--dr-memory-leek-15:        rgb(143 166 103 / 15%);
+	--dr-memory-leek-30:        rgb(143 166 103 / 30%);
+	--dr-dead-thread-15:        rgb(111 165 160 / 15%);
+	--dr-dead-thread-30:        rgb(111 165 160 / 30%);
+	--dr-amber-alert-10:        rgb(191 87 71 / 10%);
+	--dr-amber-alert-25:        rgb(191 87 71 / 25%);
+	--dr-stack-overglow-15:     rgb(212 167 89 / 15%);
+	--dr-stack-overglow-30:     rgb(212 167 89 / 30%);
+
+	/* ── Semantic Border Colours ───────────────────────────────── */
+	--dr-border-color:        var(--dr-dark-packet);
+	--dr-border-color-well:   var(--dr-bad-sector);
+	--dr-border-color-hover:  var(--dr-rust);
+	--dr-border-color-invalid:var(--dr-amber-alert);
+
+	/* ── Focus Ring ─────────────────────────────────────────── */
+	--dr-focus-ring:         2px solid var(--dr-stack-overglow);
+	--dr-focus-ring-offset:  2px;
+
+	/* ── RGB Channels ─────────────────────────────────────────── */
+	--dr-bg-rgb:             17 4 2;
+	--dr-accent-rgb:         175 46 26;
+	--dr-border-rgb:         105 27 15;
+	--dr-success-rgb:       143 166 103;
+	--dr-error-rgb:         191 87 71;
+	--dr-warning-rgb:       212 167 89;
+
+	/* ── Elevation & Shadow Tokens ────────────────────────────── */
+	--dr-shadow-offset-sm:         2px 2px 0 0 var(--dr-surface-highlight);
+	--dr-shadow-offset-md:         3px 3px 0 0 var(--dr-surface-highlight);
+	--dr-shadow-offset-lg:         4px 4px 0 0 var(--dr-surface-highlight);
+	--dr-shadow-hover-md:          4px 4px 0 0 var(--dr-surface-highlight);
+	--dr-shadow-active:            0 0 0 0 var(--dr-surface-highlight);
+	--dr-shadow-glow-sm:           0 0 10px rgb(175 46 26 / 40%);
+	--dr-shadow-glow-md:           0 0 20px rgb(175 46 26 / 40%);
+	--dr-shadow-inner-highlight:   inset 0 1px 0 rgb(255 255 255 / 10%);
+	--dr-shadow-inner-lowlight:    inset 0 -1px 0 rgb(17 4 2 / 60%);
+
+	/* ── Interaction Physics ───────────────────────────────────── */
+	--dr-press-hover:      translate(-2px, -2px);
+	--dr-press-active:     translate(2px, 2px);
+	--dr-duration-fast:    150ms;
+	--dr-duration-slow:    400ms;
+	--dr-ease-default:     cubic-bezier(0.4, 0, 0.2, 1);
+	--dr-transition-fast:  var(--dr-duration-fast) var(--dr-ease-default);
+
+	/* ── Spacing ─────────────────────────────────────────────── */
+	--dr-space-sm:         0.5rem;
+	--dr-space-lg:         1.5rem;
+
+	/* ── Font Sizes ─────────────────────────────────────────── */
+	--dr-text-xs:          0.75rem;
+	--dr-text-sm:          0.875rem;
+	--dr-text-base:        1rem;
+
+	/* ── Texture / Z-Index ───────────────────────────────────── */
+	--dr-scanline:         rgb(175 46 26 / 3%);
+	--dr-z-content:        0;
+	--dr-z-noise:          9999;
+
+	/* ── Radius (max 6px — Digital Rust is sharp) ─────────────── */
+	--dr-radius:           4px;
+	--radius-s:              2px;
+	--radius-m:              4px;
+	--radius-l:              6px;
+	--input-radius:          4px;
+	--tab-radius-active:     4px;
+	--checkbox-radius:       2px;
+	--toggle-radius:         4px;
+	--toggle-thumb-radius:   2px;
+	--slider-thumb-radius:   2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §2  OBSIDIAN CORE VARIABLES
+   ═══════════════════════════════════════════════════════════════ */
+
+body {
+	/* ── Backgrounds ───────────────────────────────────────────── */
+	--background-primary:            var(--dr-horizon);
+	--background-primary-alt:         var(--dr-core-meltdown);
+	--background-secondary:           var(--dr-null-pointer);
+	--background-secondary-alt:       var(--dr-bad-sector);
+	--background-modifier-hover:      rgb(var(--dr-border-rgb) / 50%);
+	--background-modifier-active:     rgb(var(--dr-border-rgb) / 40%);
+	--background-modifier-active-hover: var(--dr-bad-sector);
+	--background-modifier-border:     var(--dr-dark-packet);
+	--background-modifier-border-hover: var(--dr-bad-sector);
+	--background-modifier-border-focus:var(--dr-stack-overglow);
+	--background-modifier-error:      rgb(var(--dr-error-rgb) / 15%);
+	--background-modifier-error-hover:rgb(var(--dr-error-rgb) / 25%);
+	--background-modifier-success:    rgb(var(--dr-success-rgb) / 15%);
+	--background-modifier-success-hover: rgb(var(--dr-success-rgb) / 25%);
+
+	/* ── Text ─────────────────────────────────────────────────── */
+	--text-normal:           var(--dr-ghost-pixel);
+	--text-muted:             var(--dr-phosphor-smoke);
+	--text-faint:             var(--dr-text-tertiary);
+	--text-on-accent:         var(--dr-ghost-pixel);
+	--text-on-accent-inverted:var(--dr-horizon);
+	--text-error:             var(--dr-amber-alert-text);
+	--text-error-hover:       var(--dr-amber-alert);
+	--text-warning:           var(--dr-stack-overglow);
+	--text-success:           var(--dr-memory-leek);
+	--text-accent:            var(--dr-rust);
+	--text-accent-hover:      var(--dr-firewall-breach);
+	--text-selection:         rgb(var(--dr-border-rgb) / 70%);
+
+	/* ── Interactive / Accent ──────────────────────────────────── */
+	--interactive-normal:       var(--dr-core-meltdown);
+	--interactive-hover:        var(--dr-bad-sector);
+	--interactive-accent:       var(--dr-rust);
+	--interactive-accent-hover: var(--dr-firewall-breach);
+
+	/* ── Scrollbar ────────────────────────────────────────────── */
+	--scrollbar-bg:           transparent;
+	--scrollbar-thumb-bg:     var(--dr-dark-packet);
+	--scrollbar-active-thumb-bg: var(--dr-surface-active);
+
+	/* ── Highlight / Selection ─────────────────────────────────── */
+	--text-highlight-bg:      rgb(var(--dr-warning-rgb) / 30%);
+	--text-highlight-bg-active:rgb(var(--dr-warning-rgb) / 50%);
+	--text-highlight-fg:      var(--dr-ghost-pixel);
+
+	/* ── Search ───────────────────────────────────────────────── */
+	--nav-item-background-highlight: rgb(var(--dr-border-rgb) / 40%);
+
+	/* ── Dividers ─────────────────────────────────────────────── */
+	--divider-color:          var(--dr-dark-packet);
+	--divider-color-hover:     var(--dr-bad-sector);
+
+	/* ── Titlebar ──────────────────────────────────────────────── */
+	--titlebar-background:     var(--dr-null-pointer);
+	--titlebar-background-focused: var(--dr-bricked-board);
+
+	/* ── Tabs ─────────────────────────────────────────────────── */
+	--tab-text-color-focused-active:         var(--dr-ghost-pixel);
+	--tab-text-color-focused-active-hover:    var(--dr-ghost-pixel);
+	--tab-text-color-focused-inactive:        var(--dr-phosphor-smoke);
+	--tab-text-color-focused-inactive-hover:  var(--dr-ghost-pixel);
+	--tab-text-color-unfocused:               var(--dr-text-tertiary);
+	--tab-text-color-unfocused-hover:         var(--dr-phosphor-smoke);
+
+	/* ── Headings (panel/card titles: label sans, uppercase) ──── */
+	--h1-color:  var(--dr-fatal-error);
+	--h2-color:  var(--dr-fatal-error);
+	--h3-color:  var(--dr-fatal-error);
+	--h4-color:  var(--dr-fatal-error);
+	--h5-color:  var(--dr-fatal-error);
+	--h6-color:  var(--dr-fatal-error);
+	--h1-font:   var(--font-interface-theme);
+	--h2-font:   var(--font-interface-theme);
+	--h3-font:   var(--font-interface-theme);
+	--h4-font:   var(--font-interface-theme);
+	--h5-font:   var(--font-interface-theme);
+	--h6-font:   var(--font-interface-theme);
+	--h1-text-transform: uppercase;
+	--h2-text-transform: uppercase;
+	--h3-text-transform: uppercase;
+	--h4-text-transform: uppercase;
+	--h5-text-transform: uppercase;
+	--h6-text-transform: uppercase;
+
+	/* ── Bold ─────────────────────────────────────────────────── */
+	--bold-color:           var(--dr-ghost-pixel);
+	--italic-color:         var(--dr-ghost-pixel);
+
+	/* ── Links ────────────────────────────────────────────────── */
+	--link-color:            var(--dr-phantom-current);
+	--link-color-hover:      var(--dr-fatal-error);
+	--link-external-color:   var(--dr-phantom-current);
+	--link-external-color-hover: var(--dr-fatal-error);
+	--link-unresolved-color:    var(--dr-amber-alert-text);
+	--link-unresolved-color-hover: var(--dr-amber-alert);
+
+	/* ── Tags ─────────────────────────────────────────────────── */
+	--tag-color:             var(--dr-ghost-pixel);
+	--tag-color-hover:       var(--dr-ghost-pixel);
+	--tag-background:        var(--dr-dark-packet);
+	--tag-background-hover:  var(--dr-bad-sector);
+	--tag-border-color:      var(--dr-daemon-blood);
+	--tag-border-color-hover: var(--dr-rust);
+	--tag-border-width:      1px;
+	--tag-weight:            700;
+	--tag-padding-x:         0.6rem;
+	--tag-padding-y:         0.2rem;
+	--tag-radius:            999px;
+
+	/* ── Mention ─────────────────────────────────────────────── */
+	--mention-color:         var(--dr-ghost-pixel);
+	--mention-background:    rgb(var(--dr-accent-rgb) / 25%);
+
+	/* ── Code ─────────────────────────────────────────────────── */
+	--code-normal:           var(--dr-memory-leek);
+	--code-background:       var(--dr-bad-sector);
+	--code-comment:          var(--dr-thermal-throttle-dim);
+	--code-function:         var(--dr-stack-overglow);
+	--code-important:        var(--dr-stack-overglow-bright);
+	--code-keyword:          var(--dr-fatal-error);
+	--code-operator:         var(--dr-copper-trace);
+	--code-property:         var(--dr-stack-overglow-dim);
+	--code-punctuation:      var(--dr-copper-trace);
+	--code-string:           var(--dr-memory-leek);
+	--code-tag:              var(--dr-dead-thread);
+	--code-value:            var(--dr-thermal-throttle);
+
+	/* ── Blockquotes ──────────────────────────────────────────── */
+
+	/* ── Blockquote border: 3px Copper Trace (quote-marker colour) ── */
+	--blockquote-border-thickness: 3px;
+	--blockquote-border-color:  var(--dr-copper-trace);
+
+	/* ── Navigation ────────────────────────────────────────────── */
+	--nav-item-color:          var(--dr-phosphor-smoke);
+	--nav-item-color-hover:    var(--dr-ghost-pixel);
+	--nav-item-color-active:   var(--dr-ghost-pixel);
+	--nav-item-color-selected: var(--dr-ghost-pixel);
+	--nav-indentation-guide-color: var(--dr-bad-sector);
+	--nav-collapse-icon-color: var(--dr-phosphor-smoke);
+	--nav-collapse-icon-color-collapsed: var(--dr-phosphor-smoke);
+	--nav-file-color:          var(--dr-phosphor-smoke);
+	--nav-file-color-hover:    var(--dr-ghost-pixel);
+	--nav-file-color-active:   var(--dr-ghost-pixel);
+	--nav-file-color-selected: var(--dr-ghost-pixel);
+
+	/* ── Prompt ──────────────────────────────────────────────── */
+	--prompt-border-color:   var(--dr-dark-packet);
+
+	/* ── Metadata ────────────────────────────────────────────── */
+	--metadata-label-text-color:   var(--dr-phosphor-smoke);
+	--metadata-input-text-color:   var(--dr-ghost-pixel);
+	--metadata-input-background:   var(--dr-horizon);
+
+	/* ── Checkbox ────────────────────────────────────────────── */
+	--checkbox-marker-color:   var(--dr-ghost-pixel);
+	--checkbox-color:           var(--dr-rust);
+	--checkbox-color-hover:     var(--dr-firewall-breach);
+	--checkbox-border-color:    var(--dr-dark-packet);
+	--checkbox-border-color-hover: var(--dr-rust);
+
+	/* ── Toggle ──────────────────────────────────────────────── */
+	--toggle-thumb-color:     var(--dr-ghost-pixel);
+	--toggle-thumb-color-hover: var(--dr-ghost-pixel);
+
+	/* ── Slider ──────────────────────────────────────────────── */
+	--slider-thumb-border-color: var(--dr-dark-packet);
+
+	/* ── Icon colours ───────────────────────────────────────── */
+	--icon-color:             var(--dr-phosphor-smoke);
+	--icon-color-hover:       var(--dr-ghost-pixel);
+	--icon-color-active:      var(--dr-ghost-pixel);
+	--icon-color-focused:      var(--dr-stack-overglow);
+	--icon-color-var:          var(--dr-ghost-pixel);
+
+	/* ── Punctuation ────────────────────────────────────────── */
+	--punctuation-color:      var(--dr-copper-trace);
+
+	/* ── Embedded notes ────────────────────────────────────────── */
+	--embed-background:       rgb(var(--dr-bg-rgb) / 50%);
+	--embed-border-left:      2px solid var(--dr-dark-packet);
+
+	/* ── Table ───────────────────────────────────────────────── */
+	--table-border-color:  var(--dr-dark-packet);
+
+	/* ── Canvas ──────────────────────────────────────────────── */
+	--canvas-color:            var(--dr-copper-trace);
+	--canvas-dot-color:        var(--dr-bad-sector);
+	--canvas-line-color:       var(--dr-copper-trace);
+	--canvas-line-color-dots:  var(--dr-bad-sector);
+	--canvas-node-border:      var(--dr-dark-packet);
+	--canvas-node-color:        var(--dr-horizon);
+
+	/* ── Suggestion ──────────────────────────────────────────── */
+	--prompt-suggestion-color:  var(--dr-phosphor-smoke);
+	--prompt-suggestion-highlight-background: rgb(var(--dr-warning-rgb) / 20%);
+
+	/* ── Misc / Composites ──────────────────────────────────── */
+	--drag-ghost-background:          var(--dr-core-meltdown);
+	--drag-ghost-text-color:           var(--dr-ghost-pixel);
+	--icon-color-success:             var(--dr-memory-leek);
+	--icon-color-warning:             var(--dr-stack-overglow);
+	--icon-color-error:               var(--dr-amber-alert);
+	--icon-color-info:                var(--dr-dead-thread);
+	--indentation-guide-color:        var(--dr-bad-sector);
+	--indentation-guide-color-active: var(--dr-dark-packet);
+	--list-marker-color:              var(--dr-copper-trace);
+	--hr-color:                       var(--dr-dark-packet);
+	--search-result-file-title-color: var(--dr-ghost-pixel);
+	--search-result-file-match-text-color: var(--dr-ghost-pixel);
+	--search-result-file-match:
+		background rgb(var(--dr-warning-rgb) / 25%);
+	--nav-file-tag-color:             var(--dr-stack-overglow-dim);
+	--graph-line:                     var(--dr-bad-sector);
+	--graph-node:                     var(--dr-phantom-current);
+	--graph-node-focused:             var(--dr-fatal-error);
+	--graph-node-tag:                 var(--dr-dead-thread);
+	--graph-node-attachment:          var(--dr-stack-overglow);
+	--graph-node-unresolved:          var(--dr-thermal-throttle-dim);
+
+	/* ── Fonts ──────────────────────────────────────────────── */
+	--font-text-theme: 'Optima', 'Optima Nova', 'Candara', 'Gill Sans Nova', 'Gill Sans', 'Calibri', 'Ubuntu', 'Cantarell', 'Noto Sans', 'Trebuchet MS', sans-serif;
+	--font-monospace-theme: 'Fira Code', 'Fira Mono', 'Cascadia Code', 'Cascadia Mono', 'JetBrains Mono', 'Source Code Pro', 'Consolas', 'Menlo', 'Monaco', 'Ubuntu Mono', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+	--font-interface-theme: 'Optima', 'Optima Nova', 'Candara', 'Gill Sans Nova', 'Gill Sans', 'Calibri', 'Ubuntu', 'Cantarell', 'Noto Sans', 'Trebuchet MS', sans-serif;
+
+	/* ── Font sizes ─────────────────────────────────────────── */
+	--font-smallest:     0.8em;
+	--font-smaller:      0.875em;
+	--font-small:        0.933em;
+
+	/* ── Line heights ───────────────────────────────────────── */
+	--line-height-normal:  1.6;
+	--line-height-tight:   1.25;
+
+	/* ── Heading sizes ─────────────────────────────────────── */
+	--h1-size:  2em;
+	--h2-size:  1.6em;
+	--h3-size:  1.37em;
+	--h4-size:  1.25em;
+	--h5-size:  1.12em;
+	--h6-size:  1em;
+	--h1-weight: 700;
+	--h2-weight: 700;
+	--h3-weight: 700;
+	--h4-weight: 700;
+	--h5-weight: 700;
+	--h6-weight: 700;
+	--heading-spacing: 0.1em;
+
+	/* ── Borders ────────────────────────────────────────────── */
+	--input-border-width: 2px;
+	--tab-outline-width:  1px;
+	--divider-width:      1px;
+
+	/* ── Input vars for plugin compat ───────────────────────── */
+	--input-focus-border-color: var(--dr-border-color-hover);
+	--input-focus-outline: var(--dr-focus-ring);
+	--input-unfocused-border-color: var(--dr-border-color-well);
+	--input-disabled-border-color: transparent;
+	--input-hover-border-color: var(--dr-border-color);
+
+	/* ── Cursor ─────────────────────────────────────────────── */
+	--cursor: default;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §3  AMBIENT TEXTURE — NOISE & SCANLINE OVERLAYS
+   Two full-page fixed overlays stacked above content.
+   Content stays below both. Wells (inputs) are exempt.
+   Suppressed entirely under prefers-reduced-motion.
+   ═══════════════════════════════════════════════════════════════ */
+
+body {
+	position: relative;
+	z-index: var(--dr-z-content);
+}
+
+/* Noise layer — SVG feTurbulence at 2% opacity */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	opacity: 0.02;
+	pointer-events: none;
+	z-index: var(--dr-z-noise);
+}
+
+/* Scanline layer — 4px repeating band directly under the noise */
+body::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	background: repeating-linear-gradient(0deg,
+		transparent,
+		transparent 2px,
+		var(--dr-scanline) 2px,
+		var(--dr-scanline) 4px);
+	pointer-events: none;
+	z-index: calc(var(--dr-z-noise) - 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §4  WORKSPACE STRUCTURE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Ribbon ────────────────────────────────────────────────── */
+.workspace-ribbon.mod-left {
+	border-right: 2px solid var(--dr-dark-packet);
+}
+
+.workspace-ribbon.mod-right {
+	border-left: 2px solid var(--dr-dark-packet);
+}
+
+/* ── Tab header decorative elements (brutalist: remove rounded caps) ── */
+.workspace-tab-header.is-active::before,
+.workspace-tab-header.is-active::after {
+	display: none;
+}
+
+/* ── SVG strokes (square joints, no rounding) ──────────────── */
+svg * {
+	stroke-linecap: square;
+	stroke-linejoin: miter;
+	rx: 0;
+	ry: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §5  EDITOR — MARKDOWN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Headings (Fatal Error, bold — One Heading Colour Rule) ──
+   Heading markers (#) stay Copper Trace in Live Preview.
+   Case + tracking come from the --hN-* vars in §2.            */
+.markdown-preview-view h1,
+.markdown-source-view.mod-cm6 .cm-header-1 {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.markdown-preview-view h2,
+.markdown-source-view.mod-cm6 .cm-header-2 {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.markdown-preview-view h3,
+.markdown-source-view.mod-cm6 .cm-header-3 {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.markdown-preview-view h4,
+.markdown-source-view.mod-cm6 .cm-header-4 {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.markdown-preview-view h5,
+.markdown-source-view.mod-cm6 .cm-header-5 {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.markdown-preview-view h6,
+.markdown-source-view.mod-cm6 .cm-header-6 {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+/* ── Heading markers (#) → Copper Trace ────────────────────── */
+.cm-formatting-header {
+	color: var(--dr-copper-trace);
+}
+
+/* ── Tag hash sigils (#) → inherit tag/hashtag colour ─────── */
+.cm-formatting-hashtag {
+	color: inherit;
+}
+
+/* ── Bold → Ghost Pixel bold ───────────────────────────────── */
+strong,
+.cm-strong {
+	color: var(--dr-ghost-pixel);
+	font-weight: 700;
+}
+
+/* ── Italic → Ghost Pixel italic ───────────────────────────── */
+em,
+.cm-em {
+	color: var(--dr-ghost-pixel);
+	font-style: italic;
+}
+
+/* ── Links ─────────────────────────────────────────────────── */
+
+/* Internal links: Phantom Current, underline, 3px offset */
+.markdown-preview-view .internal-link,
+.cm-url .cm-link,
+.cm-hmd-internal-link {
+	color: var(--dr-phantom-current);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* Hover: Fatal Error, 2px underline */
+.markdown-preview-view .internal-link:hover,
+.cm-url .cm-link:hover,
+.cm-hmd-internal-link:hover {
+	color: var(--dr-fatal-error);
+}
+
+/* Unresolved links */
+.internal-link.is-unresolved {
+	color: var(--dr-amber-alert-text);
+}
+
+/* External links — same link roles as internal */
+.external-link {
+	color: var(--dr-phantom-current);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.external-link:hover {
+	color: var(--dr-fatal-error);
+}
+
+/* ── URL text → Dim Stack Overglow ────────────────────────── */
+.cm-url {
+	color: var(--dr-stack-overglow-dim);
+}
+
+/* ── Inline code → Memory Leek on Bad Sector ───────────────── */
+code,
+.cm-inline-code {
+	color: var(--dr-memory-leek);
+	background: var(--dr-bad-sector);
+	border-radius: 2px;
+}
+
+.cm-inline-code {
+	padding: 1px 4px;
+}
+
+.markdown-preview-view code {
+	padding: 2px 6px;
+}
+
+/* ── Code fence markers (```) → Copper Trace ──────────────── */
+.cm-formatting-code-block {
+	color: var(--dr-copper-trace);
+}
+
+/* ── Code lines: enable developer ligatures ───────────────── */
+.HyperMD-codeblock,
+.cm-line.HyperMD-codeblock,
+.markdown-source-view.mod-cm6:not(.is-live-preview) .cm-line {
+	font-variant-ligatures: common-ligatures discretionary-ligatures no-historical-ligatures contextual;
+}
+
+/* ── Blockquotes → Phosphor Smoke italic ───────────────────── */
+.markdown-preview-view blockquote,
+.cm-quote {
+	color: var(--dr-phosphor-smoke);
+	font-style: italic;
+}
+
+/* ── Blockquote border set via --blockquote-border-* vars (§2) ── */
+.markdown-preview-view blockquote {
+	padding: var(--size-4-1) 0 var(--size-4-1) var(--size-4-4);
+}
+
+/* ── Quote markers (>) → Copper Trace ─────────────────────── */
+.cm-formatting-quote,
+span.cm-quote.cm-formatting-quote {
+	color: var(--dr-copper-trace);
+}
+
+/* ── Horizontal rules → Dark Packet ────────────────────────── */
+hr,
+.cm-hr {
+	border-color: var(--dr-dark-packet);
+}
+
+.cm-hr {
+	color: var(--dr-dark-packet);
+}
+
+/* ── List markers (-, *, 1.) → Copper Trace ──────────────── */
+.cm-formatting-list {
+	color: var(--dr-copper-trace);
+}
+
+/* ── Bold/italic markdown sigils (**, *) → Copper Trace ──── */
+.cm-formatting-strong,
+.cm-formatting-em {
+	color: var(--dr-copper-trace);
+}
+
+/* ── Checkbox markers → Copper Trace ──────────────────────── */
+.cm-formatting-task {
+	color: var(--dr-copper-trace);
+}
+
+/* ── Strikethrough ────────────────────────────────────────── */
+.cm-strikethrough {
+	color: var(--dr-text-muted);
+	text-decoration: line-through;
+}
+
+/* ── Highlight (mark) ─────────────────────────────────────── */
+mark {
+	background: var(--text-highlight-bg);
+	color: var(--text-highlight-fg);
+	border-radius: 2px;
+	padding: 1px 3px;
+}
+
+.markdown-rendered mark,
+.markdown-preview-view mark,
+.cm-highlight,
+.cm-s-obsidian span.cm-highlight {
+	background: var(--text-highlight-bg);
+	color: var(--text-highlight-fg);
+	border-radius: 2px;
+}
+
+/* ── Hashtags & footnote refs → Dim Stack Overglow ─────────── */
+.cm-hashtag,
+.cm-footref,
+.cm-footref-href {
+	color: var(--dr-stack-overglow-dim);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §6  SYNTAX HIGHLIGHTING — CODE BLOCKS (CM6)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Keywords & Storage → Fatal Error */
+.cm-keyword,
+.cm-storage {
+	color: var(--dr-fatal-error);
+}
+
+/* Functions & Methods → Stack Overglow
+   (includes .cm-builtin: where built-ins cannot be distinguished
+   from user functions, all functions use Stack Overglow — spec:
+   Handling Coarse Tokenization) */
+.cm-def,
+.cm-variable-function,
+.cm-builtin {
+	color: var(--dr-stack-overglow);
+}
+
+/* Classes & Types → Dead Thread
+   (also class/instance variables — closest CM6 analogue to
+   config-key / type roles) */
+.cm-type,
+.cm-variable-3 {
+	color: var(--dr-dead-thread);
+}
+
+/* Strings → Memory Leek */
+.cm-string,
+.cm-string-2 {
+	color: var(--dr-memory-leek);
+}
+
+/* Numbers → Thermal Throttle */
+.cm-number {
+	color: var(--dr-thermal-throttle);
+}
+
+/* Constants & Special Values → Bright Stack Overglow */
+.cm-atom,
+.cm-qualifier {
+	color: var(--dr-stack-overglow-bright);
+}
+
+/* Comments → Dim Thermal Throttle, italic */
+.cm-comment {
+	color: var(--dr-thermal-throttle-dim);
+	font-style: italic;
+}
+
+/* Attributes & Decorators → Dead Thread, italic
+   (.cm-meta also carries preprocessor/predefined tokens — both
+   land on Dead Thread under CM6's coarse tokenization) */
+.cm-meta,
+.cm-annotation {
+	color: var(--dr-dead-thread);
+	font-style: italic;
+}
+
+/* Variables → Ghost Pixel */
+.cm-variable,
+.cm-variable-2 {
+	color: var(--dr-ghost-pixel);
+}
+
+/* Operators → Copper Trace */
+.cm-operator {
+	color: var(--dr-copper-trace);
+}
+
+/* Punctuation → Copper Trace */
+.cm-punctuation,
+.cm-bracket {
+	color: var(--dr-copper-trace);
+}
+
+/* Properties → Dim Stack Overglow */
+.cm-property {
+	color: var(--dr-stack-overglow-dim);
+}
+
+/* Tags (HTML/XML) → Dead Thread */
+.cm-tag {
+	color: var(--dr-dead-thread);
+}
+
+/* Attribute names → Dim Stack Overglow */
+.cm-attribute {
+	color: var(--dr-stack-overglow-dim);
+}
+
+/* Errors → Amber Alert (WCAG-AA text variant) */
+.cm-error {
+	color: var(--dr-amber-alert-text);
+}
+
+/* ── Language-specific projections (spec parity where CM6 grammars
+   allow) ──────────────────────────────────────────────────────── */
+
+/* Config languages (JSON/YAML/TOML): keys → Dead Thread
+   (.cm-property sits above; this is a more specific override) */
+.cm-property-name {
+	color: var(--dr-dead-thread);
+}
+
+/* CSS: property names → Dim Stack Overglow; element selectors stay
+   Ghost Pixel (unclassed); at-rule keywords inherit Fatal Error
+   from .cm-keyword */
+.cm-property.cm-css-property {
+	color: var(--dr-stack-overglow-dim);
+}
+
+/* Shell: here-document delimiters → Copper Trace */
+.cm-here-doc-delimiter {
+	color: var(--dr-copper-trace);
+}
+
+/* Git/diff views */
+.cm-diff-added,
+.cm-line.cm-diff-added {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-memory-leek-15);
+}
+
+.cm-diff-deleted,
+.cm-line.cm-diff-deleted {
+	color: var(--dr-phantom-current);
+	background: var(--dr-amber-alert-10);
+}
+
+/* Escaped characters inside strings → Memory Leek */
+.cm-escape-sequence {
+	color: var(--dr-memory-leek);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §7  SYNTAX HIGHLIGHTING — PREVIEW CODE BLOCKS (Prism)
+   ═══════════════════════════════════════════════════════════════ */
+
+.markdown-preview-view pre {
+	background: var(--dr-null-pointer);
+	border: 2px solid var(--dr-dark-packet);
+	border-radius: 4px;
+	padding: var(--size-4-4);
+	font-variant-ligatures: common-ligatures discretionary-ligatures no-historical-ligatures contextual;
+}
+
+.markdown-preview-view pre code {
+	background: transparent;
+	padding: 0;
+	border-radius: 0;
+}
+
+.token.keyword,
+.token.important,
+.token.bold {
+	color: var(--dr-fatal-error);
+}
+
+.token.function {
+	color: var(--dr-stack-overglow);
+}
+
+/* Built-ins: where indistinguishable from user functions, Prism's
+   .builtin takes the function colour (spec: coarse tokenization) */
+.token.builtin {
+	color: var(--dr-stack-overglow);
+}
+
+.token.class-name {
+	color: var(--dr-dead-thread);
+}
+
+.token.string,
+.token.attr-value,
+.token.char {
+	color: var(--dr-memory-leek);
+}
+
+.token.number {
+	color: var(--dr-thermal-throttle);
+}
+
+.token.boolean,
+.token.constant {
+	color: var(--dr-stack-overglow-bright);
+}
+
+.token.comment {
+	color: var(--dr-thermal-throttle-dim);
+	font-style: italic;
+}
+
+.token.decorator,
+.token.annotation {
+	color: var(--dr-dead-thread);
+	font-style: italic;
+}
+
+.token.operator,
+.token.punctuation {
+	color: var(--dr-copper-trace);
+}
+
+.token.property {
+	color: var(--dr-stack-overglow-dim);
+}
+
+.token.tag {
+	color: var(--dr-dead-thread);
+}
+
+.token.attr-name {
+	color: var(--dr-stack-overglow-dim);
+}
+
+.token.variable {
+	color: var(--dr-ghost-pixel);
+}
+
+.token.regex,
+.token.regex-delimiter {
+	color: var(--dr-memory-leek);
+}
+
+.token.regex-operator,
+.token.regex-quantifier,
+.token.regex-anchor {
+	color: var(--dr-copper-trace);
+}
+
+.token.inserted {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-memory-leek-15);
+}
+
+.token.deleted {
+	color: var(--dr-phantom-current);
+	background: var(--dr-amber-alert-10);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §8  BUTTONS — HARDWARE PANEL SWITCHES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Base: all buttons ─────────────────────────────────────── */
+button {
+	padding: var(--dr-space-sm) var(--dr-space-lg);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	background: transparent;
+	color: var(--dr-text-secondary);
+	font-family: var(--font-interface-theme);
+	font-weight: 600;
+	font-size: var(--dr-text-sm);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	box-shadow:
+		var(--dr-shadow-offset-sm),
+		var(--dr-shadow-inner-highlight);
+	cursor: pointer;
+	transition:
+		transform var(--dr-transition-fast),
+		box-shadow var(--dr-transition-fast),
+		background-color var(--dr-transition-fast),
+		border-color var(--dr-transition-fast),
+		color var(--dr-transition-fast);
+}
+
+/* ── Ghost/Default hover ──────────────────────────────────── */
+button:hover {
+	background: var(--dr-surface-elevated);
+	border-color: var(--dr-border-color-hover);
+	color: var(--dr-text-primary);
+	transform: var(--dr-press-hover);
+	box-shadow:
+		var(--dr-shadow-hover-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ── Ghost/Default active ─────────────────────────────────── */
+button:active {
+	transform: var(--dr-press-active);
+	box-shadow: var(--dr-shadow-active);
+}
+
+/* ── Focus visible ────────────────────────────────────────── */
+button:focus-visible {
+	outline: var(--dr-focus-ring);
+	outline-offset: var(--dr-focus-ring-offset);
+}
+
+/* ── Primary (CTA) ─────────────────────────────────────────── */
+.mod-cta,
+button.mod-cta {
+	background: var(--dr-accent);
+	border-color: var(--dr-accent);
+	color: var(--dr-text-on-accent);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+.mod-cta:hover,
+button.mod-cta:hover {
+	background: var(--dr-accent-hover);
+	border-color: var(--dr-accent-hover);
+	transform: var(--dr-press-hover);
+	box-shadow:
+		var(--dr-shadow-hover-md),
+		var(--dr-shadow-glow-sm),
+		var(--dr-shadow-inner-highlight);
+}
+
+.mod-cta:active,
+button.mod-cta:active {
+	transform: var(--dr-press-active);
+	box-shadow: var(--dr-shadow-active);
+}
+
+/* ── Disabled — Bad Sector bg, muted text, no border shift,
+   no shadow, no transform; a dead switch does not click ────── */
+button:disabled,
+button:disabled:hover,
+button:disabled:active {
+	background: var(--dr-surface-highlight);
+	color: var(--dr-text-muted);
+	border-color: var(--dr-border-color);
+	box-shadow: none;
+	transform: none;
+	cursor: not-allowed;
+}
+
+/* ── Focus: keyboard focus and hover are independent — focus
+   never removes the resting shadow ────────────────────────── */
+button:focus-visible:not(:hover) {
+	box-shadow:
+		var(--dr-shadow-offset-sm),
+		var(--dr-shadow-inner-highlight);
+}
+
+.mod-cta:focus-visible:not(:hover),
+button.mod-cta:focus-visible:not(:hover) {
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ── Warning button ────────────────────────────────────────── */
+button.mod-warning {
+	border-color: var(--dr-warning);
+	color: var(--dr-warning);
+}
+
+button.mod-warning:hover {
+	background: var(--dr-warning);
+	border-color: var(--dr-warning);
+	color: var(--dr-horizon);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §9  CARDS, PANELS, TOOLTIPS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Search result cards ───────────────────────────────────── */
+.search-result-file-match,
+.search-result-file-title {
+	border-radius: var(--dr-radius);
+}
+
+.search-result-file-match {
+	padding: var(--size-4-1) var(--size-4-2);
+}
+
+.search-result-file-match:hover {
+	background: var(--dr-surface-highlight);
+}
+
+/* ── Popovers / hover previews ─────────────────────────────── */
+.popover,
+.popover-hover {
+	background: var(--dr-surface-elevated);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	color: var(--dr-text-primary);
+	font-size: var(--dr-text-sm);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ── Suggestions / autocomplete ────────────────────────────── */
+.suggestion-container,
+.prompt-results {
+	background: var(--dr-surface-elevated);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+.suggestion-item:hover,
+.suggestion-item.is-selected {
+	background: var(--dr-surface-highlight);
+}
+
+/* ── Menus ─────────────────────────────────────────────────── */
+.menu {
+	background: var(--dr-surface-elevated);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+	padding: var(--size-2-1);
+}
+
+.menu-item {
+	padding: var(--size-4-1) var(--size-4-2);
+	border-radius: 2px;
+}
+
+.menu-item:hover,
+.menu-item.is-selected {
+	background: var(--dr-surface-highlight);
+	color: var(--dr-text-primary);
+}
+
+.menu-separator {
+	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
+	border-bottom: 1px solid var(--dr-surface-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §10  INPUT FIELDS — RECESSED WELLS
+   Wells sit below the panel; depth through darkness, not elevation.
+   ═══════════════════════════════════════════════════════════════ */
+
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+	padding: var(--dr-space-sm) 0.75rem;
+	border: 2px solid var(--dr-border-color-well);
+	border-radius: var(--dr-radius);
+	background: var(--dr-surface-base);
+	color: var(--dr-text-primary);
+	font-family: var(--font-text-theme);
+	font-size: var(--dr-text-base);
+	transition:
+		border-color var(--dr-transition-fast),
+		box-shadow var(--dr-transition-fast);
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+	outline: var(--dr-focus-ring);
+	outline-offset: var(--dr-focus-ring-offset);
+	border-color: var(--dr-border-color-hover);
+	box-shadow: none;
+}
+
+/* Disabled wells: transparent border, muted text, no shadow */
+input:disabled,
+textarea:disabled {
+	border-color: transparent;
+	color: var(--dr-text-muted);
+	box-shadow: none;
+	cursor: not-allowed;
+}
+
+input[type="text"]:hover:not(:focus),
+input[type="search"]:hover:not(:focus),
+input[type="email"]:hover:not(:focus),
+input[type="password"]:hover:not(:focus),
+input[type="number"]:hover:not(:focus),
+textarea:hover:not(:focus) {
+	border-color: var(--dr-border-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--dr-text-muted);
+	font-style: italic;
+}
+
+/* ── :root input vars for plugin compat ───────────────────── */
+:root {
+	--input-focus-border-color: var(--dr-border-color-hover);
+	--input-focus-outline: var(--dr-focus-ring);
+	--input-unfocused-border-color: var(--dr-border-color-well);
+	--input-disabled-border-color: transparent;
+	--input-hover-border-color: var(--dr-border-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §11  STATUS BAR
+   ═══════════════════════════════════════════════════════════════ */
+
+.status-bar {
+	background: var(--dr-bricked-board);
+	color: var(--dr-ghost-pixel);
+	border-top: 2px solid var(--dr-dark-packet);
+	font-family: var(--font-monospace-theme);
+	font-size: var(--dr-text-xs);
+}
+
+.status-bar-item {
+	color: var(--dr-ghost-pixel);
+	padding: 0.25rem 0.5rem;
+}
+
+/* Status bar items respond with text colour only — no lift.
+   Obsidian's default adds a hover background; flatten it. */
+.status-bar-item:hover {
+	background: transparent;
+	color: var(--dr-phantom-current);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §12  TABS
+   ═══════════════════════════════════════════════════════════════ */
+
+.workspace-tab-header-container {
+	border-bottom: 2px solid var(--dr-dark-packet);
+}
+
+.workspace-tab-header {
+	border: 1px solid transparent;
+	border-radius: 4px 4px 0 0;
+}
+
+.workspace-tab-header.is-active {
+	background: var(--dr-surface-secondary);
+	border-color: var(--dr-dark-packet);
+	border-bottom-color: var(--dr-surface-secondary);
+}
+
+.workspace-tab-header:not(.is-active):hover {
+	background: var(--dr-surface-highlight);
+}
+
+/* ── Tab labels: label sans, uppercase, tracked; 700 when active ── */
+.workspace-tab-header-inner-title {
+	font-family: var(--font-interface-theme);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 600;
+}
+
+.workspace-tab-header.is-active .workspace-tab-header-inner-title {
+	font-weight: 700;
+}
+
+/* Modified indicator → Stack Overglow */
+.workspace-tab-header.is-modified .workspace-tab-header-inner-icon {
+	color: var(--dr-stack-overglow);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §13  SCROLLBARS — MACHINE RAILS
+   ═══════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--dr-dark-packet);
+	border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--dr-daemon-blood);
+}
+
+::-webkit-scrollbar-thumb:active {
+	background: var(--dr-surface-active);
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §14  TAGS — STATIC RIVETS
+   No press cycle, no shadow. Full-pill radius permitted.
+   ═══════════════════════════════════════════════════════════════ */
+
+.tag {
+	background: var(--dr-dark-packet);
+	color: var(--dr-ghost-pixel);
+	border: 1px solid var(--dr-daemon-blood);
+	border-radius: 999px;
+	padding: 0.2rem 0.6rem;
+	font-family: var(--font-interface-theme);
+	font-size: var(--dr-text-xs);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.tag:hover {
+	background: var(--dr-bad-sector);
+	border-color: var(--dr-rust);
+	color: var(--dr-ghost-pixel);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §15  CHECKBOXES — SQUARE SWITCHES
+   16px box, 2px radius, full press cycle. Obsidian draws its own
+   SVG check via --checkbox-marker-color (Ghost Pixel).
+   ═══════════════════════════════════════════════════════════════ */
+
+.task-list-item-checkbox {
+	width: 16px;
+	height: 16px;
+	border: 2px solid var(--dr-border-color);
+	border-radius: 2px;
+	background: var(--dr-surface-base);
+	box-shadow:
+		var(--dr-shadow-offset-sm),
+		var(--dr-shadow-inner-highlight);
+	cursor: pointer;
+	transition:
+		transform var(--dr-transition-fast),
+		box-shadow var(--dr-transition-fast),
+		background-color var(--dr-transition-fast),
+		border-color var(--dr-transition-fast);
+}
+
+.task-list-item-checkbox:hover {
+	border-color: var(--dr-border-color-hover);
+	transform: var(--dr-press-hover);
+	box-shadow:
+		var(--dr-shadow-hover-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+.task-list-item-checkbox:active {
+	transform: var(--dr-press-active);
+	box-shadow: var(--dr-shadow-active);
+}
+
+/* Checked: Digital Rust bg + border; the press cycle still runs
+   on top of the checked state. */
+.task-list-item-checkbox:checked {
+	background: var(--dr-accent);
+	border-color: var(--dr-accent);
+}
+
+/* Focus: outline in addition to the resting shadow */
+.task-list-item-checkbox:focus-visible {
+	outline: var(--dr-focus-ring);
+	outline-offset: var(--dr-focus-ring-offset);
+	box-shadow:
+		var(--dr-shadow-offset-sm),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §16  TOGGLES — SLIDING RACK SWITCHES
+   ═══════════════════════════════════════════════════════════════ */
+
+.checkbox-container {
+	background: var(--dr-surface-highlight);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-sm),
+		var(--dr-shadow-inner-highlight);
+	box-sizing: border-box;
+}
+
+.checkbox-container.is-enabled {
+	background: var(--dr-accent);
+	border-color: var(--dr-accent);
+}
+
+/* The track presses as a unit; the thumb slides inside (it does
+   not translate with the track's press). */
+.checkbox-container:not(.no-input) {
+	cursor: pointer;
+	transition:
+		transform var(--dr-transition-fast),
+		box-shadow var(--dr-transition-fast),
+		background-color var(--dr-transition-fast),
+		border-color var(--dr-transition-fast);
+}
+
+.checkbox-container:not(.no-input):active {
+	transform: var(--dr-press-active);
+	box-shadow: var(--dr-shadow-active);
+}
+
+.checkbox-container .toggle-thumb {
+	background: var(--dr-ghost-pixel);
+	border-radius: 2px;
+	box-shadow:
+		1px 1px 0 0 var(--dr-surface-highlight),
+		var(--dr-shadow-inner-lowlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §17  CALLOUTS & PANELS
+   ═══════════════════════════════════════════════════════════════ */
+
+.callout {
+	background: var(--dr-surface-elevated);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+.callout-title {
+	font-family: var(--font-interface-theme);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-size: var(--dr-text-sm);
+}
+
+/* Semantic callout variants — 3px left accent */
+.callout[data-callout="note"],
+.callout[data-callout="info"] {
+	border-left: 3px solid var(--dr-dead-thread);
+}
+
+.callout[data-callout="note"] .callout-title,
+.callout[data-callout="info"] .callout-title {
+	color: var(--dr-dead-thread);
+}
+
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+	border-left: 3px solid var(--dr-stack-overglow);
+}
+
+.callout[data-callout="warning"] .callout-title,
+.callout[data-callout="caution"] .callout-title,
+.callout[data-callout="attention"] .callout-title {
+	color: var(--dr-stack-overglow);
+}
+
+.callout[data-callout="error"],
+.callout[data-callout="danger"],
+.callout[data-callout="bug"] {
+	border-left: 3px solid var(--dr-amber-alert);
+}
+
+.callout[data-callout="error"] .callout-title,
+.callout[data-callout="danger"] .callout-title,
+.callout[data-callout="bug"] .callout-title {
+	color: var(--dr-amber-alert-text);
+}
+
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"],
+.callout[data-callout="tip"] {
+	border-left: 3px solid var(--dr-memory-leek);
+}
+
+.callout[data-callout="success"] .callout-title,
+.callout[data-callout="check"] .callout-title,
+.callout[data-callout="done"] .callout-title,
+.callout[data-callout="tip"] .callout-title {
+	color: var(--dr-memory-leek);
+}
+
+.callout[data-callout="example"],
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+	border-left: 3px solid var(--dr-copper-trace);
+}
+
+.callout[data-callout="example"] .callout-title,
+.callout[data-callout="quote"] .callout-title,
+.callout[data-callout="cite"] .callout-title {
+	color: var(--dr-copper-trace);
+}
+
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"] {
+	border-left: 3px solid var(--dr-stack-overglow-dim);
+}
+
+.callout[data-callout="abstract"] .callout-title,
+.callout[data-callout="summary"] .callout-title,
+.callout[data-callout="tldr"] .callout-title {
+	color: var(--dr-stack-overglow-dim);
+}
+
+.callout[data-callout="question"],
+.callout[data-callout="faq"] {
+	border-left: 3px solid var(--dr-stack-overglow-bright);
+}
+
+.callout[data-callout="question"] .callout-title,
+.callout[data-callout="faq"] .callout-title {
+	color: var(--dr-stack-overglow-bright);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §18  GRAPH VIEW
+   ═══════════════════════════════════════════════════════════════ */
+
+.graph-controls {
+	background: var(--dr-surface-elevated);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §19  GUTTER & LINE NUMBERS
+   ═══════════════════════════════════════════════════════════════ */
+
+.cm-gutters {
+	background: var(--dr-null-pointer);
+	border-right: 1px solid var(--dr-dark-packet);
+	color: var(--dr-bad-sector);
+}
+
+.cm-activeGutter .cm-gutterElement {
+	color: var(--dr-phantom-current);
+}
+
+/* Active line highlight → Core Meltdown at 50% */
+.cm-activeLine {
+	background: rgb(52 13 7 / 50%);
+}
+
+.cm-activeLineGutter {
+	background: rgb(52 13 7 / 50%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §20  SELECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+.cm-selectionBackground,
+::selection {
+	background: var(--text-selection);
+	color: var(--dr-ghost-pixel);
+}
+
+.cm-focused .cm-selectionBackground {
+	background: var(--text-selection);
+	color: var(--dr-ghost-pixel);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §21  CURSOR
+   ═══════════════════════════════════════════════════════════════ */
+
+.cm-cursor {
+	border-left-color: var(--dr-stack-overglow);
+	border-left-width: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §22  INDENTATION GUIDES
+   ═══════════════════════════════════════════════════════════════ */
+
+.cm-indentGuides {
+	background-image:
+		linear-gradient(to right, var(--dr-bad-sector) 1px, transparent 1px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §23  SEARCH & REPLACE
+   ═══════════════════════════════════════════════════════════════ */
+
+.cm-searchMatch {
+	background: var(--text-highlight-bg);
+	color: var(--text-highlight-fg);
+}
+
+/* Active match: Digital Rust border + Stack Overglow 50% fill */
+.cm-searchMatch.cm-searchMatch-selected {
+	background: var(--text-highlight-bg-active);
+	color: var(--text-highlight-fg);
+	outline: 1px solid var(--dr-accent);
+}
+
+/* Hide magnifying glass icon */
+.search-input-container::before,
+.document-search-container .search-input-container::before {
+	display: none;
+}
+
+.search-input-container input,
+.document-search-container .search-input-container input {
+	padding-inline-start: var(--size-4-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §24  EMBEDDED NOTES
+   ═══════════════════════════════════════════════════════════════ */
+
+.markdown-embed {
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	background: var(--dr-surface-elevated);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+.markdown-embed-title {
+	color: var(--dr-fatal-error);
+	font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §25  FILE EXPLORER
+   ═══════════════════════════════════════════════════════════════ */
+
+.nav-file-title,
+.nav-folder-title {
+	color: var(--dr-phosphor-smoke);
+	border-radius: 2px;
+}
+
+.nav-file-title:hover,
+.nav-folder-title:hover {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-surface-highlight);
+}
+
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-surface-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §26  PROPERTIES / METADATA
+   ═══════════════════════════════════════════════════════════════ */
+
+.metadata-container {
+	background: var(--dr-surface-secondary);
+	border: 1px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §27  OUTLINE
+   ═══════════════════════════════════════════════════════════════ */
+
+.outline .tree-item-self {
+	color: var(--dr-phosphor-smoke);
+	border-radius: 2px;
+}
+
+.outline .tree-item-self:hover {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-surface-highlight);
+}
+
+.outline .tree-item-self.is-active {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-surface-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §28  TABLES
+   No zebra striping — scanline overlay already bands the page.
+   ═══════════════════════════════════════════════════════════════ */
+
+.markdown-preview-view table {
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	overflow: hidden;
+}
+
+.markdown-preview-view th {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+	font-size: var(--dr-text-xs);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	border-bottom: 2px solid var(--dr-border-color);
+}
+
+.markdown-preview-view td {
+	border-bottom: 1px solid var(--dr-surface-highlight);
+}
+
+.markdown-preview-view tr:hover td {
+	background: var(--dr-surface-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §29  NOTIFICATION TOASTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.notice {
+	background: var(--dr-bricked-board);
+	color: var(--dr-ghost-pixel);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-md),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ── Semantic accent: 3px left border in the info colour;
+   auto-dismiss progress line along the bottom edge ────
+   (:has() deliberately avoided per Obsidian theme guidelines) ── */
+.notice {
+	border-left: 3px solid var(--dr-info);
+}
+
+.notice::after {
+	content: "";
+	display: block;
+	height: 2px;
+	margin: 6px calc(-1 * var(--size-4-2)) calc(-1 * var(--size-4-2));
+	background: var(--dr-accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §29B  BADGES — SEMANTIC STATUS CHIPS
+   Static indicators: no press cycle, no shadow. Spec wash tokens.
+   ═══════════════════════════════════════════════════════════════ */
+
+.badge,
+.workspace-leaf-content .badge {
+	font-family: var(--font-interface-theme);
+	font-size: var(--dr-text-xs);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	padding: 0.2rem 0.6rem;
+	border-radius: var(--dr-radius);
+	background: var(--dr-dead-thread-15);
+	color: var(--dr-info);
+	border: 1px solid var(--dr-dead-thread-30);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §30  MODAL DIALOGS
+   ═══════════════════════════════════════════════════════════════ */
+
+.modal {
+	background: var(--dr-surface-elevated);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-lg),
+		var(--dr-shadow-inner-highlight);
+}
+
+.modal .modal-title {
+	color: var(--dr-fatal-error);
+	font-weight: 700;
+}
+
+/* Settings modal sidebar */
+.modal.mod-settings .vertical-tab-header {
+	background: var(--dr-surface-secondary);
+	border-right: 2px solid var(--dr-border-color);
+}
+
+.modal.mod-settings .vertical-tab-nav-item {
+	color: var(--dr-phosphor-smoke);
+	border-radius: 2px;
+}
+
+.modal.mod-settings .vertical-tab-nav-item:hover {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-surface-highlight);
+}
+
+.modal.mod-settings .vertical-tab-nav-item.is-active {
+	color: var(--dr-ghost-pixel);
+	background: var(--dr-surface-highlight);
+	border-left: 3px solid var(--dr-accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §31  DRAG & DROP GHOST
+   ═══════════════════════════════════════════════════════════════ */
+
+.drag-ghost {
+	background: var(--dr-surface-elevated);
+	color: var(--dr-ghost-pixel);
+	border: 2px solid var(--dr-border-color);
+	border-radius: var(--dr-radius);
+	box-shadow:
+		var(--dr-shadow-offset-lg),
+		var(--dr-shadow-inner-highlight);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §32  PRINT / EXPORT
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+	body {
+		/* stylelint-disable-next-line color-named -- print always forces paper-white */
+		background: white;
+		color: #282828;
+	}
+
+	.markdown-preview-view {
+		color: #282828;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		color: #9d0006;
+	}
+
+	a {
+		color: #076678;
+	}
+
+	code {
+		background: #ebdbb2;
+		color: #6b660d;
+	}
+
+	pre {
+		background: #f2e5bc;
+		border-color: #bdae93;
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §33  REDUCED MOTION
+   All state colours still apply; transform, transition, and
+   texture overlays are removed.
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+	}
+
+	body::before,
+	body::after {
+		content: none;
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §34  MOBILE / SMALL VIEWPORTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Menus: larger touch targets, breathing room from curved edges ── */
+.is-mobile .menu {
+	padding: var(--size-2-2);
+	padding-right: calc(var(--size-2-3) + env(safe-area-inset-right, 0px));
+	padding-bottom: calc(var(--size-2-2) + env(safe-area-inset-bottom, 0px));
+	box-shadow:
+		2px 2px 0 0 var(--dr-surface-highlight),
+		var(--dr-shadow-inner-highlight);
+}
+
+.is-mobile .menu-item {
+	padding: var(--size-4-2) var(--size-4-3);
+	min-height: 44px;
+}
+
+.is-mobile .menu-separator {
+	margin: var(--size-2-2) calc(var(--size-2-2) * -1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §35  FLASH HIGHLIGHT
+   Obsidian pulses .is-flashing on jump-to results. Dark Packet at
+   50% reads as a powered panel without clashing with search-match
+   Stack Overglow.
+   ═══════════════════════════════════════════════════════════════ */
+
+.is-flashing {
+	background-color: rgb(var(--dr-border-rgb) / 50%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §36  LOADING & PROGRESS
+   Busy indicators are readouts: Stack Overglow, never a press
+   cycle. Skeletons are recessed wells — Event Horizon fill, Bad
+   Sector border.
+   ═══════════════════════════════════════════════════════════════ */
+
+progress {
+	appearance: none;
+	height: 8px;
+	border: 1px solid var(--dr-border-color-well);
+	border-radius: 2px;
+	background: var(--dr-surface-base);
+}
+
+progress::-webkit-progress-bar {
+	background: var(--dr-surface-base);
+}
+
+progress::-webkit-progress-value {
+	background: var(--dr-warning);
+}
+
+progress::-moz-progress-bar {
+	background: var(--dr-warning);
+}
+
+.cm-skeleton,
+.skeleton,
+.workspace-leaf-content .skeleton {
+	background: var(--dr-surface-base);
+	border: 1px solid var(--dr-border-color-well);
+	border-radius: var(--dr-radius);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   §37  REDUCED-MOTION PRESS SUPPRESSION
+   §33 shrinks durations; interaction physics also requires that
+   transforms are removed outright — full state colours remain.
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+	button,
+	.task-list-item-checkbox,
+	.checkbox-container,
+	input[type="range"]::-webkit-slider-thumb {
+		transform: none;
+		transition: none;
+	}
+}
