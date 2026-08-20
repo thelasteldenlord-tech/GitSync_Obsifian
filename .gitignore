@@ -1,0 +1,19 @@
+# Obsidian workspace state (changes constantly — never sync)
+Obsidian/.obsidian/workspace.json
+Obsidian/.obsidian/workspace-mobile.json
+
+# Obsidian trash
+Obsidian/.trash/
+
+# Plugin local state / caches
+Obsidian/.smart-env/
+
+# Claude Code local config
+Obsidian/.claude/
+
+# Alternate Obsidian config copy (local backup only)
+Obsidian/.alternateobsidian/
+
+# OS junk
+.DS_Store
+Thumbs.db
