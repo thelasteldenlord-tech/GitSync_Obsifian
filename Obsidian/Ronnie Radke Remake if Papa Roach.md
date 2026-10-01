@@ -4,11 +4,14 @@ Em
 D
  Innocence is dead now 
 C
- Suffocation, no breathing
+ A healthy dose of fear right away
 D
-Don't give a fuck if I cut my arm bleeding
+Take away the pride walking in the light of day
+
 Em D C
-     This is my last resort
+Take it away, from my face
+Take it away cleanse this place 
+The final curtain call 
 Em D C
  
 [Verse]
