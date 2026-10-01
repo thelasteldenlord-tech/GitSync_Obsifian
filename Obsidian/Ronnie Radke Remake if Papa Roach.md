@@ -1,8 +1,8 @@
 [Intro]
 Em
- Take these tears and rip the day away
+ Take these tears and rip away these days
 D
- This is my last resort
+ Innocence is dead now 
 C
  Suffocation, no breathing
 D
