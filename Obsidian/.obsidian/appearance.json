@@ -2,7 +2,7 @@
   "cssTheme": "Default+",
   "accentColor": "#d8a22c",
   "textFontFamily": "One UI Sans APP VF 400 Regular",
-  "interfaceFontFamily": "Courier",
+  "interfaceFontFamily": "Arial",
   "monospaceFontFamily": "Source Code Pro",
   "baseFontSize": 13,
   "nativeMenus": false
