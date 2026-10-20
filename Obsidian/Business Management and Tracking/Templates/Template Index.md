@@ -8,7 +8,7 @@
 
 ### Customer & Lead Templates
 - [[Customer Profile|Customer Profile]] - Complete client information template
-- [[Meeting Notes|Meeting Notes]] - Document client meetings and calls
+- [[Business Management and Tracking/Templates/Meeting Notes|Meeting Notes]] - Document client meetings and calls
 - [[Templates/Client Proposal|Client Proposal]] - Service proposal template
 
 ### Communication Templates

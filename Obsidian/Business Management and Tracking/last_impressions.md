@@ -277,7 +277,7 @@ Either way, thanks for your time, and I wish you the best.
 - [[Sales Workflow]] - Complete sales process
 - [[Sales Process/Rejection Follow-up]] - Detailed rejection procedures
 - [[Lead Management]] - Lead tracking system
-- [[Meeting Notes]] - Document interactions
+- [[Business Management and Tracking/Templates/Meeting Notes]] - Document interactions
 
 ---
 

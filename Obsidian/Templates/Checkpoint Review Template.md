@@ -198,7 +198,7 @@
 
 ## Related
 
-- [[00 - Stable Diffusion Hub|Stable Diffusion Hub]]
+- [[Stable Diffusion Hub Documentation|Stable Diffusion Hub]]
 - [[Checkpoints|All Checkpoints]]
 - [[Lora Triggers|LoRA Reference]]
 - [[Prompts|Prompt Library]]

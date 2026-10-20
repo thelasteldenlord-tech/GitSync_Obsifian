@@ -52,7 +52,7 @@
 
 **Templates**
 - [[Customer Profile|Customer Profile]]
-- [[Meeting Notes|Meeting Notes]]
+- [[Business Management and Tracking/Templates/Meeting Notes|Meeting Notes]]
 - [[Daily Note|Daily Note]]
 
 **Workflows**

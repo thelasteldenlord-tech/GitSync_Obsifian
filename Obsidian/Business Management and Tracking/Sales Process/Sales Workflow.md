@@ -436,7 +436,7 @@ See [[Sales Process/Rejection Follow-up]] for detailed procedures.
 
 ### Templates
 - [[Customer Profile]] - Prospect documentation
-- [[Meeting Notes]] - Client meeting notes
+- [[Obsidian/Cannoli College/Example notes/Meeting Notes]] - Client meeting notes
 - [[Templates/Client Proposal]] - Proposal template
 - [[Service Contract]] - Contract template
 

@@ -162,7 +162,7 @@
 
 - [[Lead Management]]
 - [[Sales Workflow]]
-- [[Meeting Notes]]
+- [[Business Management and Tracking/Templates/Meeting Notes]]
 
 ---
 

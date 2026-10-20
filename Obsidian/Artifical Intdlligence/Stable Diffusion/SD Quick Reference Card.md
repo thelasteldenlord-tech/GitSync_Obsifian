@@ -162,7 +162,7 @@ your prompt here
 | [[Checkpoints\|Artistic SDXL]] | Art, paintings | Varied | Medium-High |
 | [[Checkpoints\|SD 1.5]] | General, fast | Varied | Low-Medium |
 
-See: [[00 - Stable Diffusion Hub#Model Resources|Model Resources]]
+See: [[Stable Diffusion Hub Documentation#Model Resources|Model Resources]]
 
 ---
 
@@ -251,7 +251,7 @@ See: [[00 - Stable Diffusion Hub#Model Resources|Model Resources]]
 
 ## Quick Links
 
-- [[00 - Stable Diffusion Hub|Stable Diffusion Hub]]
+- [[Stable Diffusion Hub Documentation|Stable Diffusion Hub]]
 - [[1.0 TLD - Stable Diffusion Flow Tree|Workflow Tree]]
 - [[ComfyUI Workflows|ComfyUI Workflows]]
 - [[Checkpoints|Checkpoint Library]]

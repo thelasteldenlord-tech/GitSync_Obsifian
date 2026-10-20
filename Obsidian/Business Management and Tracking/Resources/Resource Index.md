@@ -173,7 +173,7 @@ Quick access to all templates:
 
 Frequently used:
 - [[Customer Profile]]
-- [[Meeting Notes]]
+- [[Obsidian/Cannoli College/Example notes/Meeting Notes]]
 - [[Daily Note]]
 
 ---
