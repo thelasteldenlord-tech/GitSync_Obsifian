@@ -1,5 +1,5 @@
 # Experiments
-#promots
+#promots #result
 
 ![[Prompt Database.base]]
 
@@ -21,3 +21,5 @@ My Optimizations for use with ComfyUI and IllustriousXL,  (self optimized for il
 ```
 Masterpiece, best quality, very aesthetic, very awa, absurdres, {close up portrait|full body action pose} of Jessica Rabbit, long flowing red dress,large breasts, cleavage, golden blonde hair, long looe curlled hair, dark eye makeup, red lipstick, perfect complexion, pale skin, by artist Jessica Drossin, 
 ```
+
+![[Pasted image 20261020110848.png]]
