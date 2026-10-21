@@ -1,0 +1,42 @@
+```json
+
+{
+  "collapse-filter": true,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "tag:#People  ",
+      "color": {
+        "a": 1,
+        "rgb": 7877789
+      }
+    },
+    {
+      "query": "line:(Maxxim)",
+      "color": {
+        "a": 1,
+        "rgb": 5431432
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": 0.5,
+  "nodeSizeMultiplier": 0.67421875,
+  "lineSizeMultiplier": 0.3296875,
+  "collapse-forces": false,
+  "centerStrength": 0.380208333333333,
+  "repelStrength": 5.88541666666667,
+  "linkStrength": 1,
+  "linkDistance": 500,
+  "scale": 0.5861399537371078,
+  "close": true
+}
+
+
+```
