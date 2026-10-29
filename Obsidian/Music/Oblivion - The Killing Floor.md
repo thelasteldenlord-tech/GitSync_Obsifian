@@ -16,7 +16,7 @@ The draft has been mentioned and the age raised to 42. Bet I'll die before I fig
 
 ## 2. The Illusion of Leadership
 ---
-"I walked your savior like a dog through his gilded door": This verse strips away the power of populist political figures, framing them as mere puppets controlled by hidden, deeper forces. The "gilded door" likely refers to places of immense wealth and political power (like the White House or luxury estates). 
+"I walked your savior like a dog through his gilded door": This verse strips away the power of populist political figures, framing them as mere puppets cofntrolled by hidden, deeper forces. The "gilded door" likely refers to places of immense wealth and political power (like the White House or luxury estates). 
 "A puppet god dancing at the end of icy strings / Of cognitive dissonance, purchased tyranny": Blythe targets the blind allegiance of the public. People actively ignore reality (cognitive dissonance) to worship leaders who are bought and paid for by billionaires and defense contractors. 
 ## 3. The "Red Caesar" and authoritarianism
 ---
