@@ -1,5 +1,5 @@
 
-
+#tutorial #educationaln #gpg #bash #shell
 # Commands
 ---
 To create a new key from scratch use the  command to fill in the info. 
