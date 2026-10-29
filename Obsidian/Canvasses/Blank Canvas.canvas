@@ -1,1 +1,6 @@
-{}
+{
+	"nodes":[
+		{"id":"be0c581b5d255be2","x":-160,"y":-80,"width":760,"height":720,"type":"link","url":"https://swvac.com"}
+	],
+	"edges":[]
+}
