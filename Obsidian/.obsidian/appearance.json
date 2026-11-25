@@ -5,5 +5,8 @@
   "interfaceFontFamily": "Arial",
   "monospaceFontFamily": "Source Code Pro",
   "baseFontSize": 13,
-  "nativeMenus": false
+  "nativeMenus": false,
+  "enabledCssSnippets": [
+    "gallery"
+  ]
 }
